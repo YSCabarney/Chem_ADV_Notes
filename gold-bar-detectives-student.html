@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Bar Detectives — Case File</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16233B;
+    --paper:#F3F4EF;
+    --paper-line:#DADCD1;
+    --brass:#A8791E;
+    --brass-dark:#7C5A16;
+    --teal:#33606B;
+    --red:#A23B33;
+    --cream:#FBFAF6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:var(--paper);
+    background-image:linear-gradient(var(--paper-line) 1px, transparent 1px),linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+    background-size:28px 28px;
+    color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px 80px;}
+  header.hero{
+    background:var(--ink);
+    background-image:linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size:24px 24px;color:var(--cream);padding:52px 24px 44px;
+  }
+  .hero-inner{max-width:760px;margin:0 auto;}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#D9C489;margin:0 0 18px;}
+  h1.title{font-family:'Spectral',serif;font-weight:600;font-size:40px;line-height:1.15;margin:0 0 16px;max-width:15ch;}
+  .hero p.lede{font-size:17px;max-width:56ch;color:#C9CFDC;margin:0 0 8px;}
+  .meta-row{display:flex;gap:28px;flex-wrap:wrap;margin-top:24px;}
+  .meta-item{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#D9C489;}
+  .meta-item b{display:block;font-size:19px;color:var(--cream);font-family:'Spectral',serif;font-weight:600;}
+
+  section{padding:44px 0;border-bottom:1px solid var(--paper-line);}
+  section:last-of-type{border-bottom:none;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--teal);margin:0 0 10px;}
+  h2{font-family:'Spectral',serif;font-weight:600;font-size:27px;margin:0 0 16px;max-width:26ch;}
+  h3{font-family:'Spectral',serif;font-weight:600;font-size:19px;margin:26px 0 10px;}
+  p{max-width:66ch;margin:0 0 16px;font-size:16px;}
+  strong{color:var(--ink);}
+  ul,ol{padding-left:20px;}
+  li{margin-bottom:8px;max-width:62ch;}
+
+  table{border-collapse:collapse;width:100%;margin:18px 0;font-size:15px;}
+  caption{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#5b6472;margin-bottom:8px;}
+  th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--paper-line);vertical-align:top;}
+  th{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:13px;color:var(--teal);border-bottom:2px solid var(--teal);}
+  td.n{font-family:'IBM Plex Mono',monospace;}
+
+  .callout{background:var(--cream);border-left:4px solid var(--brass);padding:20px 24px;margin:22px 0;}
+  .callout .k{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--brass-dark);margin:0 0 8px;}
+  .callout p:last-child{margin-bottom:0;}
+
+  .band{background:var(--ink);color:var(--cream);margin:0 -24px;padding:40px 24px;}
+  .band .wrap-in{max-width:712px;margin:0 auto;}
+  .band h2{color:var(--cream);}
+  .band .eyebrow{color:#D9C489;}
+  .band p{color:#C9CFDC;}
+
+  .formula{font-family:'IBM Plex Mono',monospace;font-size:20px;background:var(--cream);border:1px solid var(--paper-line);padding:14px 20px;display:inline-block;margin:12px 0;}
+
+  .case-card{border:1px solid var(--paper-line);background:var(--cream);padding:20px 22px;margin:16px 0;}
+  .case-card .label{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--brass-dark);margin-bottom:4px;}
+  .case-card .method{font-size:13px;color:#5b6472;margin-bottom:10px;}
+  .case-card .data{display:flex;gap:32px;flex-wrap:wrap;margin:10px 0;}
+  .case-card .data div b{font-family:'IBM Plex Mono',monospace;font-size:18px;display:block;}
+  .case-card .data div span{font-size:13px;color:#5b6472;}
+
+  .control-card{border:2px solid var(--brass);background:var(--cream);padding:20px 22px;margin:16px 0;}
+  .control-card .label{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--brass-dark);margin-bottom:4px;}
+
+  .worksheet{border:1px dashed var(--paper-line);background:var(--cream);padding:16px 20px;margin:14px 0;}
+  .worksheet .k{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--teal);margin:0 0 10px;}
+  .worksheet .line{border-bottom:1px solid var(--paper-line);height:28px;margin:10px 0;}
+
+  footer{padding:32px 24px 56px;}
+  footer p{color:#5b6472;font-size:14px;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="tag">Chemistry · Investigation</p>
+    <h1 class="title">Gold Bar Detectives</h1>
+    <p class="lede">Five vault samples just came in — no volumes, no clean numbers, just raw measurements the way a real inspector would take them. You have the data. Figuring out how to use it is your job.</p>
+    <div class="meta-row">
+      <div class="meta-item"><b>Density</b>= mass ÷ volume</div>
+      <div class="meta-item"><b>Work with</b>your breakout partner</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section id="brief">
+  <p class="eyebrow">The situation</p>
+  <h2>Gold is at record prices — and so is gold fraud</h2>
+  <p>Counterfeiters have been drilling out real gold bars, packing the core with tungsten, and resealing them with a thin layer of real gold. A scale alone can't catch it, because tungsten's density (19.25 g/cm³) sits almost exactly on top of gold's (19.30 g/cm³).</p>
+  <p>You're the inspection team. Nobody is going to hand you a clean "volume" number — you'll have to build it yourself from whatever measurements each bar came with, and decide whether every number on the page actually belongs in your calculation.</p>
+</section>
+
+<div class="band">
+  <div class="wrap-in">
+    <p class="eyebrow">Your tool</p>
+    <h2>The formula</h2>
+    <div class="formula">density = mass ÷ volume</div>
+    <p>Density is measured in grams per cubic centimeter (g/cm³). 1 cm³ = 1,000 mm³. 1 mL = 1 cm³.</p>
+  </div>
+</div>
+
+<section id="case-file">
+  <h3>Step 1 — Calibrate your instrument</h3>
+  <p>Before you can accuse anything of being fake, you need to know what genuine actually looks like. This bar is certified 100% real gold. Use it to establish your own working density for gold — don't just trust a textbook number.</p>
+
+  <div class="control-card">
+    <p class="label">Control Bar — certified genuine</p>
+    <div class="data">
+      <div><b>100 mm × 50 mm × 10 mm</b><span>length × width × height</span></div>
+      <div><b>965 g</b><span>mass</span></div>
+    </div>
+  </div>
+
+  <div class="worksheet">
+    <p class="k">Your calibration</p>
+    <div class="line"></div>
+    <div class="line"></div>
+  </div>
+
+  <h3>Step 2 — Know your suspects</h3>
+  <p>This is a general field reference for metal density. Notice gold isn't listed — that's the number you just calculated yourself in Step 1.</p>
+  <table>
+    <caption>Field reference: density of common metals (g/cm³)</caption>
+    <thead><tr><th>Material</th><th>Density</th></tr></thead>
+    <tbody>
+      <tr><td>Platinum</td><td class="n">21.45</td></tr>
+      <tr><td>Tungsten</td><td class="n">19.25</td></tr>
+      <tr><td>Lead</td><td class="n">11.34</td></tr>
+      <tr><td>Silver</td><td class="n">10.49</td></tr>
+      <tr><td>Copper</td><td class="n">8.96</td></tr>
+      <tr><td>Iron</td><td class="n">7.87</td></tr>
+      <tr><td>Aluminum</td><td class="n">2.70</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Step 3 — Work the vault samples</h3>
+  <p>Four bars, four different ways the data was collected. Read carefully — not every number here is one you should use.</p>
+
+  <div class="case-card">
+    <p class="label">Bar A</p>
+    <p class="method">Measured with calipers</p>
+    <div class="data">
+      <div><b>80 mm × 40 mm × 15 mm</b><span>dimensions</span></div>
+      <div><b>926.4 g</b><span>mass</span></div>
+    </div>
+  </div>
+
+  <div class="case-card">
+    <p class="label">Bar B</p>
+    <p class="method">Measured on a scale, then by water displacement in a graduated cylinder</p>
+    <div class="data">
+      <div><b>584.0 g</b><span>gross mass (bar + evidence pouch)</span></div>
+      <div><b>6.0 g</b><span>pouch mass, weighed separately</span></div>
+    </div>
+    <div class="data">
+      <div><b>250.0 mL</b><span>water level before</span></div>
+      <div><b>300.0 mL</b><span>water level after bar submerged</span></div>
+    </div>
+  </div>
+
+  <div class="case-card">
+    <p class="label">Bar C</p>
+    <p class="method">Measured with calipers</p>
+    <div class="data">
+      <div><b>60 mm × 30 mm × 25 mm</b><span>dimensions</span></div>
+      <div><b>121.5 g</b><span>mass</span></div>
+    </div>
+  </div>
+
+  <div class="case-card">
+    <p class="label">Bar D</p>
+    <p class="method">Measured with calipers</p>
+    <div class="data">
+      <div><b>70 mm × 50 mm × 14 mm</b><span>dimensions</span></div>
+      <div><b>943.25 g</b><span>mass</span></div>
+    </div>
+  </div>
+
+  <p>For each bar: find the volume (convert units where needed, or use the displacement reading directly), calculate density, and compare it to <strong>both</strong> your own Step 1 calibration and the Step 2 reference table. Label it <strong>Genuine</strong>, <strong>Fake</strong> (name your best guess at the metal), or <strong>Can't tell from density alone</strong> — and be ready to explain why in one sentence.</p>
+
+  <div class="worksheet">
+    <p class="k">Bar A — volume, density, verdict</p>
+    <div class="line"></div><div class="line"></div>
+  </div>
+  <div class="worksheet">
+    <p class="k">Bar B — volume, density, verdict</p>
+    <div class="line"></div><div class="line"></div>
+  </div>
+  <div class="worksheet">
+    <p class="k">Bar C — volume, density, verdict</p>
+    <div class="line"></div><div class="line"></div>
+  </div>
+  <div class="worksheet">
+    <p class="k">Bar D — volume, density, verdict</p>
+    <div class="line"></div><div class="line"></div>
+  </div>
+
+  <div class="callout">
+    <p class="k">Finished early? Extension challenge</p>
+    <p>Gold is trading at roughly $5,000 per troy ounce this year (1 troy oz = 31.10 g). If Bar D turns out to be tungsten instead of gold, what dollar amount would a buyer have nearly lost, based on its mass? Show your unit conversion.</p>
+  </div>
+</section>
+
+<section id="wrap">
+  <p class="eyebrow">Before you report back</p>
+  <h2>Be ready to discuss</h2>
+  <ul>
+    <li>Which bar's data was easiest to misread, and why?</li>
+    <li>Why calibrate density from a control bar instead of just trusting a printed reference number?</li>
+    <li>What made Bar D different from the other three?</li>
+    <li>If you ran a bank vault, would you trust density as your only check? What else might you want to test?</li>
+  </ul>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Chemistry, Week 2 — companion to the Matter, Mass &amp; Volume study guide</p>
+  </div>
+</footer>
+
+</body>
+</html>
