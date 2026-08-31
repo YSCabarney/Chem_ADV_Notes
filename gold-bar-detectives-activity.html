@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Bar Detectives — 30-Minute Hook Activity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16233B;
+    --paper:#F3F4EF;
+    --paper-line:#DADCD1;
+    --brass:#A8791E;
+    --brass-dark:#7C5A16;
+    --teal:#33606B;
+    --red:#A23B33;
+    --cream:#FBFAF6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:var(--paper);
+    background-image:linear-gradient(var(--paper-line) 1px, transparent 1px),linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+    background-size:28px 28px;
+    color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px 80px;}
+  .num{font-family:'IBM Plex Mono',monospace;}
+  header.hero{
+    background:var(--ink);
+    background-image:linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size:24px 24px;color:var(--cream);padding:52px 24px 44px;
+  }
+  .hero-inner{max-width:760px;margin:0 auto;}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#D9C489;margin:0 0 18px;}
+  h1.title{font-family:'Spectral',serif;font-weight:600;font-size:40px;line-height:1.15;margin:0 0 16px;max-width:15ch;}
+  .hero p.lede{font-size:17px;max-width:56ch;color:#C9CFDC;margin:0 0 8px;}
+  .meta-row{display:flex;gap:28px;flex-wrap:wrap;margin-top:24px;}
+  .meta-item{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#D9C489;}
+  .meta-item b{display:block;font-size:19px;color:var(--cream);font-family:'Spectral',serif;font-weight:600;}
+
+  section{padding:44px 0;border-bottom:1px solid var(--paper-line);}
+  section:last-of-type{border-bottom:none;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--teal);margin:0 0 10px;}
+  h2{font-family:'Spectral',serif;font-weight:600;font-size:27px;margin:0 0 16px;max-width:24ch;}
+  h3{font-family:'Spectral',serif;font-weight:600;font-size:19px;margin:26px 0 10px;}
+  p{max-width:66ch;margin:0 0 16px;font-size:16px;}
+  strong{color:var(--ink);}
+  ul,ol{padding-left:20px;}
+  li{margin-bottom:8px;max-width:62ch;}
+
+  table{border-collapse:collapse;width:100%;margin:18px 0;font-size:15px;}
+  caption{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#5b6472;margin-bottom:8px;}
+  th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--paper-line);vertical-align:top;}
+  th{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:13px;color:var(--teal);border-bottom:2px solid var(--teal);}
+  td.n{font-family:'IBM Plex Mono',monospace;}
+
+  .timeline{list-style:none;padding:0;margin:20px 0;}
+  .timeline li{
+    display:grid;grid-template-columns:88px 1fr;gap:16px;
+    padding:14px 0;border-bottom:1px solid var(--paper-line);
+    max-width:none;
+  }
+  .timeline li:last-child{border-bottom:none;}
+  .timeline .t{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--brass-dark);white-space:nowrap;}
+  .timeline .d b{display:block;font-family:'Spectral',serif;font-size:16px;font-weight:600;margin-bottom:2px;}
+  .timeline .d p{margin:0;font-size:14.5px;color:#3a4354;}
+
+  .callout{background:var(--cream);border-left:4px solid var(--brass);padding:20px 24px;margin:22px 0;}
+  .callout .k{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--brass-dark);margin:0 0 8px;}
+  .callout p:last-child{margin-bottom:0;}
+
+  .band{background:var(--ink);color:var(--cream);margin:0 -24px;padding:40px 24px;}
+  .band .wrap-in{max-width:712px;margin:0 auto;}
+  .band h2{color:var(--cream);}
+  .band .eyebrow{color:#D9C489;}
+  .band p{color:#C9CFDC;}
+
+  .formula{font-family:'IBM Plex Mono',monospace;font-size:20px;background:var(--cream);border:1px solid var(--paper-line);padding:14px 20px;display:inline-block;margin:12px 0;}
+
+  details{background:var(--cream);border:1px solid var(--paper-line);padding:14px 18px;margin:12px 0;}
+  summary{cursor:pointer;font-weight:600;}
+  details p, details table{margin-top:12px;}
+
+  .case-card{border:1px solid var(--paper-line);background:var(--cream);padding:20px 22px;margin:16px 0;}
+  .case-card .label{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--brass-dark);margin-bottom:6px;}
+  .case-card .data{display:flex;gap:32px;margin:10px 0;}
+  .case-card .data div b{font-family:'IBM Plex Mono',monospace;font-size:20px;display:block;}
+  .case-card .data div span{font-size:13px;color:#5b6472;}
+
+  footer{padding:32px 24px 56px;}
+  footer p{color:#5b6472;font-size:14px;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="tag">Chemistry · Hook Activity</p>
+    <h1 class="title">Gold Bar Detectives</h1>
+    <p class="lede">Eight vault samples just came in. Gold is trading at record highs, and someone may be passing off fake bars. Your group has 14 minutes to run the numbers and decide what's real.</p>
+    <div class="meta-row">
+      <div class="meta-item"><b>30 min</b>total class time</div>
+      <div class="meta-item"><b>8</b>students, 4 Zoom breakout pairs</div>
+      <div class="meta-item"><b>Mass ÷ Volume</b>only tool required</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section id="why">
+  <p class="eyebrow">Why this activity</p>
+  <h2>It's a real 2026 story, and your notes already gave students the tool to investigate it</h2>
+  <p>With gold prices at record highs this year, counterfeiters have been drilling out real gold bars, packing the core with tungsten, and resealing them with a thin layer of real gold. A bathroom-scale-style weight check can't catch it, because tungsten's density (19.25 g/cm³) sits almost exactly on top of gold's (19.30 g/cm³). Refiners and dealers have had to build multi-step verification protocols just to catch it.</p>
+  <p>Students already have the exact tool that starts this investigation: <strong>density = mass ÷ volume</strong>. This activity hands them a stack of "vault samples" and asks them to be the first line of defense — then reveals that one sample is the same trap that's fooling professionals right now.</p>
+</section>
+
+<section id="timing">
+  <p class="eyebrow">Run of show</p>
+  <h2>Timing for a 30-minute period</h2>
+  <ul class="timeline">
+    <li>
+      <span class="t">0–4 min</span>
+      <span class="d"><b>Frame the case</b><p>Share the headline live: record gold prices, real tungsten-core counterfeits, refiners losing money. Ask: "If a fake bar can weigh the same as a real one, how would you even start checking it?" Take 2–3 guesses before revealing the tool: density.</p></span>
+    </li>
+    <li>
+      <span class="t">4–6 min</span>
+      <span class="d"><b>Set up the tool + assign rooms</b><p>Put the formula on screen: density = mass ÷ volume. Send pairs into 4 breakout rooms with the case file (below). Each pair gets all 4 bars.</p></span>
+    </li>
+    <li>
+      <span class="t">6–20 min</span>
+      <span class="d"><b>Breakout investigation</b><p>Pairs calculate density for all 4 bars, compare to the reference table, and label each bar Genuine, Fake, or Can't tell from density alone. They prep one sentence of justification per bar.</p></span>
+    </li>
+    <li>
+      <span class="t">20–27 min</span>
+      <span class="d"><b>Report back</b><p>Each pair reports their verdict on Bar D specifically. Expect a split room — that's the point. Let two pairs argue it out before you reveal why.</p></span>
+    </li>
+    <li>
+      <span class="t">27–30 min</span>
+      <span class="d"><b>Reveal + bridge to next class</b><p>Confirm Bar D is intentionally built to mirror the real tungsten trick — density alone can't resolve it. Preview that next class covers what actually catches it (and formally introduces density as a named property).</p></span>
+    </li>
+  </ul>
+</section>
+
+<div class="band">
+  <div class="wrap-in">
+    <p class="eyebrow">Student-facing — share this screen during breakouts</p>
+    <h2>Case file: 4 vault samples</h2>
+    <div class="formula">density = mass ÷ volume</div>
+    <p>Each bar has the same volume, so you're really just comparing mass. Calculate the density of each and match it against the reference table.</p>
+  </div>
+</div>
+
+<section id="case-file">
+  <table>
+    <caption>Reference densities (g/cm³)</caption>
+    <thead><tr><th>Material</th><th>Density</th></tr></thead>
+    <tbody>
+      <tr><td>Gold</td><td class="n">19.30</td></tr>
+      <tr><td>Tungsten</td><td class="n">19.25</td></tr>
+      <tr><td>Lead</td><td class="n">11.34</td></tr>
+      <tr><td>Aluminum</td><td class="n">2.70</td></tr>
+    </tbody>
+  </table>
+
+  <div class="case-card">
+    <p class="label">Bar A</p>
+    <div class="data">
+      <div><b>965 g</b><span>mass</span></div>
+      <div><b>50 cm³</b><span>volume</span></div>
+    </div>
+  </div>
+  <div class="case-card">
+    <p class="label">Bar B</p>
+    <div class="data">
+      <div><b>578 g</b><span>mass</span></div>
+      <div><b>50 cm³</b><span>volume</span></div>
+    </div>
+  </div>
+  <div class="case-card">
+    <p class="label">Bar C</p>
+    <div class="data">
+      <div><b>135 g</b><span>mass</span></div>
+      <div><b>50 cm³</b><span>volume</span></div>
+    </div>
+  </div>
+  <div class="case-card">
+    <p class="label">Bar D</p>
+    <div class="data">
+      <div><b>962.5 g</b><span>mass</span></div>
+      <div><b>50 cm³</b><span>volume</span></div>
+    </div>
+  </div>
+
+  <p>For each bar: calculate density, compare to the reference table, and label it <strong>Genuine</strong>, <strong>Fake</strong>, or <strong>Can't tell from density alone</strong>.</p>
+</section>
+
+<section id="answer-key">
+  <p class="eyebrow">Teacher only</p>
+  <h2>Answer key</h2>
+  <details>
+    <summary>Reveal calculated densities and verdicts</summary>
+    <table>
+      <thead><tr><th>Bar</th><th>Density</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="n">19.30 g/cm³</td><td>Matches gold exactly — genuine</td></tr>
+        <tr><td>B</td><td class="n">11.56 g/cm³</td><td>Matches lead — fake, and easy to catch</td></tr>
+        <tr><td>C</td><td class="n">2.70 g/cm³</td><td>Matches aluminum — fake, and easy to catch</td></tr>
+        <tr><td>D</td><td class="n">19.25 g/cm³</td><td>Matches tungsten almost perfectly — this is the real-world trap. Density alone genuinely cannot resolve this one, which is exactly why it's the headline.</td></tr>
+      </tbody>
+    </table>
+  </details>
+  <div class="callout">
+    <p class="k">If a group insists Bar D is "probably fine"</p>
+    <p>Push on it: what test, if any, could break the tie? This is a good moment to let them sit in the discomfort of "the math checks out and it still might be fake" — that tension is the whole reason this is a live investigative problem for the precious metals industry right now, not a solved one.</p>
+  </div>
+</section>
+
+<section id="wrap">
+  <p class="eyebrow">Debrief prompts</p>
+  <h2>Closing the loop</h2>
+  <ul>
+    <li>Which bars were easy calls, and why did density alone settle them?</li>
+    <li>What made Bar D different from the other three?</li>
+    <li>If you ran a bank vault, would you trust density as your only check? What else might you want to test?</li>
+  </ul>
+  <p>This sets up density as a named, defined property next class — and gives you a real, current hook to return to when you formally introduce the density formula and units (g/cm³, g/mL).</p>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Companion activity to the Matter, Mass &amp; Volume study guide · Chemistry, Week 2</p>
+  </div>
+</footer>
+
+</body>
+</html>
