@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matter, Mass & Volume — Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16233B;
+    --paper:#F3F4EF;
+    --paper-line:#DADCD1;
+    --brass:#A8791E;
+    --brass-dark:#7C5A16;
+    --teal:#33606B;
+    --red:#A23B33;
+    --cream:#FBFAF6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      linear-gradient(var(--paper-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+    background-size:28px 28px;
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px 80px;}
+  .num{font-family:'IBM Plex Mono',monospace;}
+
+  /* HERO */
+  header.hero{
+    background:var(--ink);
+    background-image:
+      linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size:24px 24px;
+    color:var(--cream);
+    padding:56px 24px 48px;
+  }
+  .hero-inner{max-width:760px;margin:0 auto;}
+  .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:#D9C489;
+    letter-spacing:.02em;
+    margin:0 0 18px;
+  }
+  h1.title{
+    font-family:'Spectral',serif;
+    font-weight:600;
+    font-size:44px;
+    line-height:1.12;
+    margin:0 0 16px;
+    max-width:11ch;
+  }
+  .hero p.lede{
+    font-size:17px;
+    max-width:52ch;
+    color:#C9CFDC;
+    margin:0 0 28px;
+  }
+  .beam{display:block;margin-top:8px;}
+
+  /* SECTIONS */
+  section{padding:52px 0;border-bottom:1px solid var(--paper-line);}
+  section:last-of-type{border-bottom:none;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--teal);
+    margin:0 0 10px;
+  }
+  h2{
+    font-family:'Spectral',serif;
+    font-weight:600;
+    font-size:29px;
+    margin:0 0 18px;
+    max-width:20ch;
+  }
+  h3{
+    font-family:'Spectral',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:28px 0 10px;
+  }
+  p{max-width:66ch;margin:0 0 16px;font-size:16px;}
+  strong{color:var(--ink);}
+  .lead-word{color:var(--brass-dark);font-weight:600;}
+
+  figure{margin:24px 0;}
+  figure img{
+    width:100%;
+    max-width:420px;
+    display:block;
+    border:1px solid var(--paper-line);
+  }
+  figcaption{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:#5b6472;
+    margin-top:8px;
+    max-width:420px;
+  }
+  .figure-row{display:flex;gap:20px;flex-wrap:wrap;}
+  .figure-row figure{flex:1 1 180px;margin:24px 0;}
+  .figure-row img{max-width:100%;}
+
+  table{border-collapse:collapse;width:100%;margin:20px 0;font-size:15px;}
+  caption{
+    text-align:left;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:#5b6472;
+    margin-bottom:8px;
+  }
+  th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--paper-line);}
+  th{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:500;
+    font-size:13px;
+    color:var(--teal);
+    border-bottom:2px solid var(--teal);
+  }
+  td.n{font-family:'IBM Plex Mono',monospace;}
+
+  .callout{
+    background:var(--cream);
+    border-left:4px solid var(--brass);
+    padding:20px 24px;
+    margin:24px 0;
+  }
+  .callout p:last-child{margin-bottom:0;}
+  .callout .k{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--brass-dark);
+    margin:0 0 8px;
+  }
+
+  /* full bleed band */
+  .band{
+    background:var(--ink);
+    color:var(--cream);
+    margin:0 -24px;
+    padding:44px 24px;
+  }
+  .band .wrap-in{max-width:712px;margin:0 auto;}
+  .band h2{color:var(--cream);}
+  .band .eyebrow{color:#D9C489;}
+  .band p{color:#C9CFDC;}
+  .band-red{background:var(--red);}
+  .band-red .eyebrow{color:#F3D2CD;}
+  .band-red p{color:#F6E3E0;}
+
+  .formula{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:22px;
+    background:var(--cream);
+    border:1px solid var(--paper-line);
+    padding:18px 22px;
+    display:inline-block;
+    margin:16px 0;
+  }
+
+  details{
+    background:var(--cream);
+    border:1px solid var(--paper-line);
+    padding:14px 18px;
+    margin:12px 0;
+  }
+  summary{
+    cursor:pointer;
+    font-weight:600;
+    font-family:'Inter',sans-serif;
+  }
+  details p{margin-top:12px;margin-bottom:0;}
+
+  ul{padding-left:20px;}
+  li{margin-bottom:8px;max-width:60ch;}
+
+  footer{
+    padding:36px 24px 60px;
+    text-align:left;
+  }
+  footer p{color:#5b6472;font-size:14px;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="tag">Chemistry · Notes from Week 2</p>
+    <h1 class="title">Matter, Mass &amp; Volume</h1>
+    <p class="lede">Everything around you takes up space and has substance. This guide unpacks what that actually means — and sets up the idea that will crack open a real 2026 gold fraud case.</p>
+    <svg class="beam" width="180" height="34" viewBox="0 0 180 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="20" y1="8" x2="160" y2="8" stroke="#D9C489" stroke-width="2"/>
+      <line x1="90" y1="8" x2="90" y2="2" stroke="#D9C489" stroke-width="2"/>
+      <line x1="20" y1="8" x2="20" y2="22" stroke="#D9C489" stroke-width="2"/>
+      <line x1="160" y1="8" x2="160" y2="22" stroke="#D9C489" stroke-width="2"/>
+      <path d="M8 22 A12 10 0 0 0 32 22" stroke="#D9C489" stroke-width="2" fill="none"/>
+      <path d="M148 22 A12 10 0 0 0 172 22" stroke="#D9C489" stroke-width="2" fill="none"/>
+    </svg>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section id="matter">
+  <p class="eyebrow">01</p>
+  <h2>What is matter, exactly?</h2>
+  <p><strong class="lead-word">Matter</strong> is anything that takes up space — from the air in this room to the phone in your pocket. If it has substance, it's matter. Scientists describe how much matter there is, and how much room it takes up, using two separate measurements: <strong>volume</strong> and <strong>mass</strong>. They sound similar. They are not the same thing, and mixing them up is exactly how counterfeiters have been fooling gold buyers in 2026 — more on that at the end of this guide.</p>
+</section>
+
+<section id="volume">
+  <p class="eyebrow">02</p>
+  <h2>Volume: how much space something takes up</h2>
+  <p><strong class="lead-word">Volume</strong> is the amount of space an object occupies. You already measure volume constantly, just in different units depending on what you're buying: gasoline by the gallon, soda by the liter, cake ingredients by the cup or tablespoon. Volume applies to solids, liquids, <em>and</em> gases — not just things you can pour.</p>
+
+  <div class="figure-row">
+    <figure>
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Square_milk_jug_side.JPG" alt="A one-gallon plastic milk jug">
+      <figcaption>1 gallon ≈ 3.785 liters — a familiar volume reference.</figcaption>
+    </figure>
+  </div>
+
+  <table>
+    <caption>Common volumes you already know</caption>
+    <thead><tr><th>Everyday item</th><th>Volume</th><th>Metric equivalent</th></tr></thead>
+    <tbody>
+      <tr><td>Gallon of milk</td><td class="n">1 gal</td><td class="n">≈ 3.79 L</td></tr>
+      <tr><td>Large soda bottle</td><td class="n">2 L</td><td class="n">2,000 mL</td></tr>
+      <tr><td>Soda can</td><td class="n">12 fl oz</td><td class="n">≈ 355 mL</td></tr>
+      <tr><td>Teaspoon</td><td class="n">1 tsp</td><td class="n">≈ 4.93 mL</td></tr>
+      <tr><td>Classroom water bottle</td><td class="n">16.9 fl oz</td><td class="n">500 mL</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="mass">
+  <p class="eyebrow">03</p>
+  <h2>Mass: how much matter is packed in</h2>
+  <p><strong class="lead-word">Mass</strong> is a measure of the amount of matter in an object. More matter packed into the same space means greater mass. That's why a basketball and a bowling ball — nearly the same size — feel completely different to lift: the bowling ball packs far more matter into the same volume.</p>
+
+  <div class="figure-row">
+    <figure>
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bowlingball.JPG" alt="A bowling ball">
+      <figcaption>Similar size to a basketball, roughly 6× the mass.</figcaption>
+    </figure>
+    <figure>
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Escali_digital_kitchen_scale.jpg" alt="A digital gram scale">
+      <figcaption>Scientists measure mass in grams (g) and kilograms (kg).</figcaption>
+    </figure>
+  </div>
+
+  <div class="callout">
+    <p class="k">Reference point</p>
+    <p>A standard paperclip has a mass of about <strong>1 gram</strong>. Anything much bigger than a paperclip — a textbook, a person — gets measured in <strong>kilograms</strong> instead, since a gram is such a tiny amount of mass.</p>
+  </div>
+</section>
+
+<section id="mass-vs-weight">
+  <p class="eyebrow">04</p>
+  <h2>Mass vs. weight — not the same word</h2>
+  <p>In everyday conversation, "mass" and "weight" get used interchangeably. In science, they describe two different things. <strong>Mass</strong> is fixed — it only changes if you physically add or remove matter. <strong>Weight</strong> is the pull of gravity on that mass, and gravity changes depending on where you are.</p>
+
+  <table>
+    <caption>Same object, three locations</caption>
+    <thead><tr><th>Location</th><th>Mass</th><th>Weight (relative to Earth)</th></tr></thead>
+    <tbody>
+      <tr><td>Earth's surface</td><td class="n">40 kg</td><td class="n">100%</td></tr>
+      <tr><td>The Moon</td><td class="n">40 kg</td><td class="n">≈ 17%</td></tr>
+      <tr><td>Deep space (in orbit)</td><td class="n">40 kg</td><td class="n">≈ 0%</td></tr>
+    </tbody>
+  </table>
+  <p>Notice what never changes down that middle column. That's the whole point: <strong>mass travels with the object, weight doesn't.</strong></p>
+</section>
+
+<section id="density-bridge">
+  <p class="eyebrow">05 — where this is headed</p>
+  <h2>Put mass and volume together, and you get density</h2>
+  <p>Here's the idea mass and volume are both building toward. If you divide an object's mass by its volume, you get a property called <strong class="lead-word">density</strong> — how tightly packed the matter is.</p>
+  <div class="formula">density = mass ÷ volume</div>
+  <p>Density is why a bowling ball is heavier than a basketball at nearly the same size: it's denser. And it's the exact property currently being used to catch a wave of real gold counterfeits.</p>
+</section>
+
+<div class="band band-red">
+  <div class="wrap-in">
+    <p class="eyebrow">In the news — 2026</p>
+    <h2>The tungsten-core gold bar problem</h2>
+    <p>With gold prices at record highs in 2026, counterfeiters have been drilling out real gold bars, hollowing out the core, packing it with <strong>tungsten</strong>, and resealing it with a thin layer of real gold. A scale alone can't catch it — a tungsten-filled bar weighs almost exactly what a real one does.</p>
+  </div>
+</div>
+
+<section id="density-table">
+  <p style="height:8px"></p>
+  <h3>Why the trick works: two metals, nearly identical density</h3>
+  <table>
+    <caption>Density in grams per cubic centimeter (g/cm³)</caption>
+    <thead><tr><th>Material</th><th>Density</th></tr></thead>
+    <tbody>
+      <tr><td>Gold</td><td class="n">19.30 g/cm³</td></tr>
+      <tr><td>Tungsten</td><td class="n">19.25 g/cm³</td></tr>
+      <tr><td>Lead</td><td class="n">11.34 g/cm³</td></tr>
+      <tr><td>Aluminum</td><td class="n">2.70 g/cm³</td></tr>
+      <tr><td>Water</td><td class="n">1.00 g/cm³</td></tr>
+    </tbody>
+  </table>
+
+  <svg viewBox="0 0 640 220" width="100%" height="auto" role="img" aria-label="Bar chart comparing density of gold, tungsten, lead, aluminum, and water">
+    <text x="0" y="16" font-family="IBM Plex Mono" font-size="12" fill="#5b6472">Density comparison (g/cm³)</text>
+    <!-- baseline -->
+    <line x1="120" y1="190" x2="620" y2="190" stroke="#DADCD1" stroke-width="1"/>
+    <!-- Gold -->
+    <rect x="120" y="34" width="360" height="18" fill="#A8791E"/>
+    <text x="20" y="47" font-family="Inter" font-size="13" fill="#16233B">Gold</text>
+    <text x="486" y="47" font-family="IBM Plex Mono" font-size="12" fill="#16233B">19.30</text>
+    <!-- Tungsten -->
+    <rect x="120" y="64" width="359" height="18" fill="#7C5A16"/>
+    <text x="20" y="77" font-family="Inter" font-size="13" fill="#16233B">Tungsten</text>
+    <text x="485" y="77" font-family="IBM Plex Mono" font-size="12" fill="#16233B">19.25</text>
+    <!-- Lead -->
+    <rect x="120" y="94" width="211" height="18" fill="#33606B"/>
+    <text x="20" y="107" font-family="Inter" font-size="13" fill="#16233B">Lead</text>
+    <text x="337" y="107" font-family="IBM Plex Mono" font-size="12" fill="#16233B">11.34</text>
+    <!-- Aluminum -->
+    <rect x="120" y="124" width="50" height="18" fill="#33606B" opacity="0.6"/>
+    <text x="20" y="137" font-family="Inter" font-size="13" fill="#16233B">Aluminum</text>
+    <text x="176" y="137" font-family="IBM Plex Mono" font-size="12" fill="#16233B">2.70</text>
+    <!-- Water -->
+    <rect x="120" y="154" width="19" height="18" fill="#33606B" opacity="0.35"/>
+    <text x="20" y="167" font-family="Inter" font-size="13" fill="#16233B">Water</text>
+    <text x="145" y="167" font-family="IBM Plex Mono" font-size="12" fill="#16233B">1.00</text>
+  </svg>
+  <p>Look how close the gold and tungsten bars sit — that's not an accident, it's the whole scam. Every other metal on this chart is easy to tell apart from gold by density alone. Tungsten is the one exception, which is exactly why counterfeiters chose it.</p>
+
+  <figure>
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Gold_bullion_bars.jpg" alt="Stacked gold bullion bars" style="max-width:100%;">
+    <figcaption>A real bar and a tungsten-core fake can look, and even weigh, identical.</figcaption>
+  </figure>
+</section>
+
+<section id="review">
+  <p class="eyebrow">Quick self-check</p>
+  <h2>Before you move on</h2>
+
+  <details>
+    <summary>What's the difference between mass and volume?</summary>
+    <p>Volume is how much space something takes up. Mass is how much matter is packed into that space. Two objects can have the same volume and very different masses (basketball vs. bowling ball).</p>
+  </details>
+
+  <details>
+    <summary>Would your mass change if you moved to the Moon? Would your weight?</summary>
+    <p>Your mass stays exactly the same — you haven't lost or gained any matter. Your weight would drop to about 17% of what it is on Earth, because the Moon's gravity is weaker.</p>
+  </details>
+
+  <details>
+    <summary>Why can't a simple scale catch a tungsten-core fake gold bar?</summary>
+    <p>Because tungsten's density is almost identical to gold's, a tungsten-core bar can be shaped to have the same mass as a real gold bar of the same volume. Weight alone can't tell them apart — you need another test that looks at density more precisely, or looks inside the bar.</p>
+  </details>
+
+  <details>
+    <summary>Write the density formula from memory.</summary>
+    <p>density = mass ÷ volume</p>
+  </details>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Chemistry — Notes from Week 2 · Study guide compiled for class review</p>
+  </div>
+</footer>
+
+</body>
+</html>
