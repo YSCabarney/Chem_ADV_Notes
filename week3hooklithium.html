@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hook Activity: White Gold Detective</title>
+<!--
+  ==========================================================================
+  10-15 MIN HOOK / ENGAGEMENT ACTIVITY  -  "WHITE GOLD DETECTIVE"
+  Week 3: Classification of Matter  |  Virtual class, 5-8 students
+  --------------------------------------------------------------------------
+  Real-world current event: the global race to mine LITHIUM ("white gold")
+  for phone and electric-vehicle batteries - the giant turquoise evaporation
+  ponds in South America's "Lithium Triangle," new US projects at California's
+  Salton Sea, and "direct lithium extraction" tech.
+
+  Self-contained single file. No external fonts/scripts/images.
+  Works on screen-share, or send the link and let students click it too.
+  Runs with OR without Zoom breakout rooms (see Facilitator Guide below).
+  ==========================================================================
+-->
+<style>
+  :root{
+    --bg:#fbfaf6;--ink:#20272e;--muted:#5f6b74;--line:#e2ded2;
+    --pond:#12a8a0;--pond-dark:#0c7f79;--sand:#d9c9a3;--sand-soft:#f3ecda;
+    --gold:#b8860b;--good:#127a3e;--bad:#c0392b;--purple:#6d28d9;
+    --card:#ffffff;--radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:17px;line-height:1.6;}
+  .wrap{max-width:900px;margin:0 auto;padding:24px 18px 70px;}
+
+  header.hero{background:linear-gradient(135deg,var(--pond),var(--pond-dark));
+    color:#fff;border-radius:var(--radius);padding:26px 24px;position:relative;overflow:hidden;}
+  header.hero .kicker{text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;
+    font-weight:800;opacity:.9;margin:0 0 6px;}
+  header.hero h1{margin:0 0 8px;font-size:1.8rem;line-height:1.15;}
+  header.hero p{margin:0;opacity:.96;max-width:52ch;font-size:1rem;}
+  .timer{position:absolute;top:16px;right:18px;background:rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.35);border-radius:10px;padding:6px 10px;
+    font-variant-numeric:tabular-nums;font-weight:700;font-size:1rem;text-align:center;min-width:118px;}
+  .timer button{font:inherit;font-size:.72rem;font-weight:700;margin:4px 2px 0;padding:2px 7px;
+    border:0;border-radius:6px;background:#fff;color:var(--pond-dark);cursor:pointer;}
+  @media(max-width:560px){.timer{position:static;margin-top:14px;display:inline-block;}}
+
+  details{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    margin:18px 0;padding:4px 16px;}
+  details>summary{cursor:pointer;font-weight:700;padding:10px 0;color:var(--pond-dark);}
+  details[open]>summary{border-bottom:1px solid var(--line);margin-bottom:8px;}
+  .guide ol{padding-left:1.2em;}
+  .guide li{margin:7px 0;}
+  .pill{display:inline-block;background:var(--sand-soft);border:1px solid var(--line);
+    border-radius:999px;padding:1px 9px;font-size:.8rem;font-weight:700;color:var(--muted);}
+
+  section{margin:34px 0;}
+  h2.step{font-size:1.3rem;color:var(--pond-dark);margin:0 0 4px;
+    border-bottom:3px solid var(--pond);padding-bottom:7px;}
+  h2.step .n{display:inline-block;background:var(--pond);color:#fff;font-size:.85rem;
+    border-radius:7px;padding:1px 9px;margin-right:9px;}
+  .mins{float:right;font-size:.8rem;color:var(--muted);font-weight:700;padding-top:6px;}
+
+  figure{margin:16px 0;border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px;background:#fff;}
+  figure svg{display:block;width:100%;height:auto;}
+  figcaption{font-size:.85rem;color:var(--muted);margin-top:8px;text-align:center;}
+
+  .poll{background:var(--sand-soft);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px 18px;margin:14px 0;}
+  .poll b{color:var(--gold);}
+
+  .score{font-weight:800;font-size:1.05rem;background:#fff;border:2px solid var(--pond);
+    border-radius:10px;padding:4px 12px;display:inline-block;}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin:16px 0;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px;display:flex;flex-direction:column;}
+  .card .ico{font-size:1.7rem;}
+  .card h3{margin:4px 0 2px;font-size:1.02rem;}
+  .card p.desc{margin:2px 0 10px;font-size:.9rem;color:var(--muted);flex:1;}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+  .opts button{font:inherit;font-size:.8rem;font-weight:600;padding:7px 6px;border:1px solid var(--line);
+    background:#fbfaf6;border-radius:8px;cursor:pointer;line-height:1.2;transition:.12s;}
+  .opts button:hover:not(:disabled){border-color:var(--pond);background:#fff;}
+  .opts button:disabled{cursor:default;opacity:.9;}
+  .opts button.correct{background:#e4f4ea;border-color:var(--good);color:var(--good);}
+  .opts button.wrong{background:#fce9e6;border-color:var(--bad);color:var(--bad);}
+  .fb{font-size:.85rem;margin-top:9px;padding:8px 10px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.ok{background:#e4f4ea;color:#0c5b2e;}
+  .fb.no{background:#fce9e6;color:#8f261c;}
+
+  .q{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin:12px 0;}
+  .q p.ask{font-weight:700;margin:0 0 8px;}
+  .q .opts{grid-template-columns:1fr;}
+  .q .opts button{text-align:left;}
+
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0;}
+  .btn{font:inherit;font-weight:700;padding:8px 14px;border-radius:9px;border:0;cursor:pointer;}
+  .btn.primary{background:var(--pond);color:#fff;}
+  .btn.ghost{background:#fff;border:1px solid var(--line);color:var(--ink);}
+
+  .facts{background:var(--purple);color:#fff;border-radius:var(--radius);padding:16px 20px;}
+  .facts h3{margin:0 0 8px;}
+  .facts ul{margin:0;padding-left:1.2em;}
+  .facts li{margin:6px 0;}
+  .exit{background:#fff;border:2px dashed var(--pond);border-radius:var(--radius);
+    padding:14px 18px;margin:16px 0;}
+  .exit b{color:var(--pond-dark);}
+
+  .key li{margin:6px 0;font-size:.92rem;}
+  footer{margin-top:40px;border-top:1px solid var(--line);padding-top:14px;
+    font-size:.82rem;color:var(--muted);}
+  @media(max-width:560px){.opts{grid-template-columns:1fr;}.mins{float:none;display:block;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="timer" id="timer">
+    <div id="clock">12:00</div>
+    <button onclick="tStart()">Start</button><button onclick="tPause()">Pause</button><button onclick="tReset()">Reset</button>
+  </div>
+  <p class="kicker">Week 3 &bull; Hook Activity &bull; 10-15 min</p>
+  <h1>White Gold Detective</h1>
+  <p>There is a worldwide race to control a soft, silvery metal hiding in desert puddles. It powers your phone and every electric car. Your job: figure out <em>what it is</em> and <em>how they pull it out</em> &mdash; using this week's matter vocabulary.</p>
+</header>
+
+<details class="guide">
+  <summary>&#9654;&nbsp; Facilitator Guide (run it in ~12 minutes)</summary>
+  <p><span class="pill">Works solo OR in breakout rooms</span> &nbsp;<span class="pill">5&ndash;8 students</span></p>
+  <ol>
+    <li><b>Hook &amp; poll &mdash; 2 min (whole class).</b> Share your screen on Step&nbsp;1. Read the prompt, show the ponds picture, and run the quick poll in Zoom chat or with reaction emojis. Do <em>not</em> confirm answers yet.</li>
+    <li><b>Sorting Challenge &mdash; 6 min.</b>
+      <ul>
+        <li><b>With breakouts:</b> send the activity link in chat, split into 2&ndash;3 rooms, each room works the 8 cards together and picks a "reporter."</li>
+        <li><b>No breakouts / few students:</b> keep everyone together; you drive the screen and click the category the group votes for. Cards give instant feedback.</li>
+      </ul>
+    </li>
+    <li><b>Separation Showdown &mdash; 3 min (whole class).</b> Bring rooms back. Do the 3 quick questions together; call on each reporter.</li>
+    <li><b>Current-event kicker + exit ticket &mdash; 1&ndash;2 min.</b> Read the fast facts, then have every student drop the exit-ticket answer in the chat before they leave.</li>
+  </ol>
+  <p style="font-size:.9rem;color:var(--muted)"><b>Swap-in option:</b> if a bigger matter headline breaks that week (wildfire smoke = a colloid, an ocean oil spill = immiscible liquids, a desalination plant opening = distillation), keep the same 4 steps and just change the story.</p>
+</details>
+
+<!-- ================= STEP 1 ================= -->
+<section id="step1">
+  <span class="mins">~2 min &bull; whole class</span>
+  <h2 class="step"><span class="n">1</span>The Hook</h2>
+
+  <figure>
+    <svg viewBox="0 0 820 340" role="img" aria-label="Illustration of lithium brine evaporation ponds: bright turquoise rectangular pools laid out across a tan desert with mountains and a bright sun, plus a small phone and car showing where the lithium ends up.">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#bfe6ef"/><stop offset="1" stop-color="#e8ddc2"/>
+        </linearGradient>
+        <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#3fd0c6"/><stop offset="1" stop-color="#0c7f79"/>
+        </linearGradient>
+      </defs>
+      <rect width="820" height="200" fill="url(#sky)"/>
+      <circle cx="705" cy="55" r="34" fill="#ffd24a"/>
+      <g opacity="0.9"><line x1="705" y1="0" x2="705" y2="16" stroke="#ffd24a" stroke-width="4"/>
+        <line x1="758" y1="55" x2="774" y2="55" stroke="#ffd24a" stroke-width="4"/>
+        <line x1="742" y1="20" x2="753" y2="9" stroke="#ffd24a" stroke-width="4"/></g>
+      <path d="M0,150 L150,80 L260,140 L360,70 L470,150 L560,100 L680,150 L820,95 L820,200 L0,200 Z" fill="#c9b489"/>
+      <rect y="185" width="820" height="155" fill="var(--sand)"/>
+
+      <!-- ponds in rough perspective -->
+      <g stroke="#0a6b66" stroke-width="2">
+        <polygon points="70,210 330,210 300,250 40,250" fill="url(#water)"/>
+        <polygon points="360,210 620,210 650,250 390,250" fill="url(#water)"/>
+        <polygon points="30,262 300,262 260,320 -10,320" fill="url(#water)"/>
+        <polygon points="330,262 640,262 690,322 370,322" fill="url(#water)"/>
+      </g>
+      <text x="60" y="234" fill="#eafffb" font-size="13" font-weight="700">brine in &rarr;</text>
+      <text x="470" y="300" fill="#eafffb" font-size="13" font-weight="700">...water evaporates...</text>
+
+      <!-- payoff icons -->
+      <g transform="translate(690,250)">
+        <rect x="0" y="0" width="34" height="60" rx="6" fill="#20272e"/>
+        <rect x="4" y="6" width="26" height="42" rx="2" fill="#3fd0c6"/>
+        <circle cx="17" cy="54" r="3" fill="#3fd0c6"/>
+        <rect x="46" y="26" width="70" height="24" rx="7" fill="#20272e"/>
+        <rect x="56" y="12" width="42" height="20" rx="6" fill="#20272e"/>
+        <circle cx="60" cy="52" r="9" fill="#20272e" stroke="#c9b489" stroke-width="3"/>
+        <circle cx="104" cy="52" r="9" fill="#20272e" stroke="#c9b489" stroke-width="3"/>
+        <text x="58" y="76" font-size="12" font-weight="700" fill="#20272e">your phone &amp; EV</text>
+      </g>
+    </svg>
+    <figcaption>Real place: lithium-brine evaporation ponds in the Atacama Desert (Chile). They are so large they are easy to spot from space.</figcaption>
+  </figure>
+
+  <div class="poll">
+    <p><b>Quick poll</b> (chat or reaction emojis &mdash; don't peek at Step 2 yet):</p>
+    <ol>
+      <li>Those bright pools are mostly&hellip; <b>(a)</b> dyed water &nbsp;<b>(b)</b> salty water with lithium dissolved in it &nbsp;<b>(c)</b> liquid lithium metal</li>
+      <li>Is the pond water a <b>pure substance</b> or a <b>mixture</b>?</li>
+      <li>Name a separation technique from our notes that the <em>sun</em> is doing for free out there.</li>
+    </ol>
+  </div>
+  <p style="font-size:.9rem;color:var(--muted)">Keep answers hidden. Students confirm their guesses during the challenge below.</p>
+</section>
+
+<!-- ================= STEP 2 ================= -->
+<section id="step2">
+  <span class="mins">~6 min &bull; solo or breakout</span>
+  <h2 class="step"><span class="n">2</span>Sorting Challenge: The Lithium Supply Chain</h2>
+  <p>Here are 8 real things from the journey "desert &rarr; your pocket." Tap the correct category for each. You get one guess per card, then it locks and explains itself.</p>
+
+  <div class="toolbar">
+    <span class="score" id="score">Score: 0 / 8</span>
+    <button class="btn ghost" onclick="revealAll()">Reveal all answers</button>
+    <button class="btn ghost" onclick="resetCards()">Reset</button>
+  </div>
+
+  <div class="cards" id="cards"><!-- cards injected by script --></div>
+</section>
+
+<!-- ================= STEP 3 ================= -->
+<section id="step3">
+  <span class="mins">~3 min &bull; whole class</span>
+  <h2 class="step"><span class="n">3</span>Separation Showdown</h2>
+  <div class="q" data-a="2" data-fb="Evaporation. The sun removes the water (the volatile part) and leaves the dissolved salts behind &mdash; exactly the technique in our notes.">
+    <p class="ask">1. The pumped brine is a <b>homogeneous mixture</b> &mdash; lithium ions dissolved in water with sodium, potassium, and magnesium salts. Which technique gets the water out in the ponds?</p>
+    <div class="opts">
+      <button>Filtration</button><button>Evaporation</button><button>Using a magnet</button><button>Chromatography</button>
+    </div>
+    <div class="fb"></div>
+  </div>
+  <div class="q" data-a="2" data-fb="Dissolved ions pass straight through filter paper. Filtration only catches particles big enough to trap, like sand or coffee grounds.">
+    <p class="ask">2. Why would <b>filtration</b> fail to pull lithium out of the brine?</p>
+    <div class="opts">
+      <button>Lithium is magnetic, so it sticks to the funnel</button>
+      <button>The dissolved ions are far too small to be caught by filter paper</button>
+      <button>Filtration only works on gases</button>
+    </div>
+    <div class="fb"></div>
+  </div>
+  <div class="q" data-a="2" data-fb="Chemical change. Electrolysis uses electric energy to break the compound's bonds and produce a brand-new substance: pure lithium metal.">
+    <p class="ask">3. The final step turns lithium carbonate (Li&#8322;CO&#8323;, a <b>compound</b>) into pure lithium metal (an <b>element</b>) using electricity. That is a&hellip;</p>
+    <div class="opts">
+      <button>Physical change / physical separation</button>
+      <button>Chemical change / chemical separation</button>
+      <button>State change only</button>
+    </div>
+    <div class="fb"></div>
+  </div>
+</section>
+
+<!-- ================= STEP 4 ================= -->
+<section id="step4">
+  <span class="mins">~1-2 min &bull; whole class</span>
+  <h2 class="step"><span class="n">4</span>Why It's in the News</h2>
+  <div class="facts">
+    <h3>Fast facts &mdash; the "white gold" rush</h3>
+    <ul>
+      <li>South America's <b>"Lithium Triangle"</b> (Chile, Argentina, Bolivia) sits on more than half of the world's known lithium resources &mdash; mostly as brine under salt flats.</li>
+      <li>Pond evaporation is cheap but <b>slow</b>: it can take a year or more of desert sun to concentrate one batch, and it uses huge amounts of water in already-dry regions.</li>
+      <li>The U.S. is chasing its own supply: companies are building plants to pull lithium from <b>super-hot geothermal brine</b> at California's Salton Sea ("Lithium Valley").</li>
+      <li>New <b>"direct lithium extraction" (DLE)</b> tech tries to grab the lithium in hours instead of months &mdash; a physical separation race worth billions.</li>
+      <li>Prices have swung wildly as electric-vehicle demand rises and new mines come online &mdash; classification of matter, but make it geopolitics.</li>
+    </ul>
+  </div>
+
+  <div class="exit">
+    <p><b>Exit ticket</b> &mdash; drop this in the chat before you log off:</p>
+    <p>In the lithium story, name <b>(1)</b> one pure substance, <b>(2)</b> one mixture (say homogeneous or heterogeneous), and <b>(3)</b> one separation method used &mdash; and whether it is physical or chemical.</p>
+  </div>
+</section>
+
+<details class="key">
+  <summary>&#9654;&nbsp; Answer Key (facilitator)</summary>
+  <p><b>Poll:</b> (1) b &mdash; salty water with dissolved lithium; (2) mixture (homogeneous); (3) evaporation.</p>
+  <p><b>Sorting Challenge:</b></p>
+  <ul>
+    <li><b>Salt-flat crust</b> &rarr; Heterogeneous mixture (visible salt, clay, mud, brine pockets).</li>
+    <li><b>Pumped brine</b> &rarr; Homogeneous mixture (a solution: salts are the solute, water the solvent).</li>
+    <li><b>Turquoise pond water</b> &rarr; Homogeneous mixture (still a solution; color comes from dissolved minerals and depth).</li>
+    <li><b>Lithium metal ingot</b> &rarr; Element (one kind of atom, Li, #3 on the periodic table).</li>
+    <li><b>Lithium carbonate powder (Li&#8322;CO&#8323;)</b> &rarr; Compound (Li, C, and O chemically bonded in a fixed ratio).</li>
+    <li><b>Phone battery cathode (LiCoO&#8322;)</b> &rarr; Compound (fixed-ratio formula).</li>
+    <li><b>Recycling "black mass"</b> &rarr; Heterogeneous mixture (shredded graphite, metal oxides, bits of foil and plastic).</li>
+    <li><b>Desert air above the ponds</b> &rarr; Homogeneous mixture (a gas solution: N&#8322;, O&#8322;, Ar, CO&#8322;).</li>
+  </ul>
+  <p><b>Separation Showdown:</b> 1&nbsp;=&nbsp;Evaporation &bull; 2&nbsp;=&nbsp;ions too small for filter paper &bull; 3&nbsp;=&nbsp;chemical change (electrolysis).</p>
+</details>
+
+<footer>
+  Hook activity for Week 3 (Classification of Matter). Vocabulary aligns with the class notes and the CK-12 Chemistry for High School study guide. The lithium supply chain is used as a current real-world context; facts are general and may be updated with a fresh headline.
+</footer>
+
+</div>
+
+<script>
+/* ---------- Sorting Challenge data ---------- */
+var CATS = ["Element","Compound","Homogeneous mixture","Heterogeneous mixture"];
+var ITEMS = [
+  {ico:"🧂",t:"Salt-flat crust",d:"The cracked white ground of the salar: rock salt, clay, mud and trapped brine all jumbled together.",a:"Heterogeneous mixture",why:"You can see different components unevenly mixed — the definition of heterogeneous."},
+  {ico:"💧",t:"Pumped brine",d:"Liquid pumped from wells: lithium, sodium, potassium and magnesium salts dissolved in water.",a:"Homogeneous mixture",why:"A solution — uniform throughout. The salts are the solute; water is the solvent."},
+  {ico:"🏖️",t:"Turquoise pond water",d:"The famous bright blue-green pool sitting in the sun for months.",a:"Homogeneous mixture",why:"Still one uniform solution; the vivid color is from dissolved minerals and depth, not a second visible phase."},
+  {ico:"🥈",t:"Lithium metal ingot",d:"A soft, silvery bar of the finished metal, stored under oil because it is so reactive.",a:"Element",why:"One kind of atom only (Li, element #3). Cannot be broken into anything simpler by chemistry."},
+  {ico:"🧂",t:"Lithium carbonate powder",d:"White Li₂CO₃ powder — the main product shipped from the mine.",a:"Compound",why:"Lithium, carbon and oxygen chemically bonded in a fixed 2:1:3 ratio given by the formula."},
+  {ico:"🔋",t:"Phone battery cathode",d:"The LiCoO₂ layer inside a phone battery.",a:"Compound",why:"A fixed-ratio chemical formula — elements bonded, not just mixed."},
+  {ico:"♻️",t:'Recycling "black mass"',d:"The dark powder left after a used battery is shredded: graphite, metal oxides, flecks of foil and plastic.",a:"Heterogeneous mixture",why:"A non-uniform jumble of solids — you could sort pieces by sight or magnet."},
+  {ico:"💨",t:"Desert air above the ponds",d:"The dry air blowing across the salar that carries the water vapor away.",a:"Homogeneous mixture",why:"A gas solution — nitrogen, oxygen, argon and CO₂ evenly blended."}
+];
+
+var solved = 0;
+(function build(){
+  var host = document.getElementById('cards');
+  ITEMS.forEach(function(it, i){
+    var c = document.createElement('div'); c.className = 'card';
+    var opts = CATS.map(function(cat){
+      return '<button data-cat="'+cat+'">'+cat+'</button>';
+    }).join('');
+    c.innerHTML =
+      '<div class="ico">'+it.ico+'</div>'+
+      '<h3>'+it.t+'</h3>'+
+      '<p class="desc">'+it.d+'</p>'+
+      '<div class="opts" data-i="'+i+'">'+opts+'</div>'+
+      '<div class="fb" id="fb'+i+'"></div>';
+    host.appendChild(c);
+  });
+  host.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-cat]'); if(!b) return;
+    var box = b.parentNode; if(box.dataset.done) return;
+    var i = +box.dataset.i, pick = b.dataset.cat, ans = ITEMS[i].a;
+    box.dataset.done = "1";
+    Array.prototype.forEach.call(box.children, function(x){ x.disabled = true; });
+    var fb = document.getElementById('fb'+i);
+    if(pick === ans){
+      b.className = 'correct'; solved++;
+      fb.className = 'fb ok show'; fb.innerHTML = '✔ Correct — <b>'+ans+'</b>. '+ITEMS[i].why;
+    } else {
+      b.className = 'wrong';
+      Array.prototype.forEach.call(box.children, function(x){ if(x.dataset.cat===ans) x.className='correct'; });
+      fb.className = 'fb no show'; fb.innerHTML = '✖ Not quite. Answer: <b>'+ans+'</b>. '+ITEMS[i].why;
+    }
+    updateScore();
+  });
+})();
+
+function updateScore(){ document.getElementById('score').textContent = 'Score: '+solved+' / '+ITEMS.length; }
+
+function revealAll(){
+  document.querySelectorAll('#cards .opts').forEach(function(box){
+    if(box.dataset.done) return;
+    box.dataset.done = "1";
+    var i = +box.dataset.i, ans = ITEMS[i].a;
+    Array.prototype.forEach.call(box.children, function(x){
+      x.disabled = true; if(x.dataset.cat===ans) x.className='correct';
+    });
+    var fb = document.getElementById('fb'+i);
+    fb.className = 'fb ok show'; fb.innerHTML = '<b>'+ans+'</b>. '+ITEMS[i].why;
+  });
+}
+function resetCards(){
+  solved = 0; updateScore();
+  document.querySelectorAll('#cards .opts').forEach(function(box){
+    delete box.dataset.done;
+    Array.prototype.forEach.call(box.children, function(x){ x.disabled=false; x.className=''; });
+  });
+  document.querySelectorAll('#cards .fb').forEach(function(f){ f.className='fb'; f.innerHTML=''; });
+}
+
+/* ---------- Separation Showdown ---------- */
+document.querySelectorAll('.q').forEach(function(q){
+  var correct = +q.dataset.a;
+  var msg = q.dataset.fb;
+  var btns = q.querySelectorAll('.opts button');
+  var fb = q.querySelector('.fb');
+  btns.forEach(function(b, idx){
+    b.addEventListener('click', function(){
+      btns.forEach(function(x){ x.disabled = true; });
+      var right = (idx+1 === correct);
+      if(right){ b.className='correct'; }
+      else { b.className='wrong'; btns[correct-1].className='correct'; }
+      fb.className = 'fb show ' + (right ? 'ok':'no');
+      fb.innerHTML = (right ? '✔ ' : '✖ ') + msg;
+    });
+  });
+});
+
+/* ---------- Facilitator countdown ---------- */
+var total = 12*60, left = total, tick = null;
+function paint(){
+  var m = Math.floor(left/60), s = left%60;
+  document.getElementById('clock').textContent = m+':'+(s<10?'0':'')+s;
+}
+function tStart(){ if(tick) return; tick = setInterval(function(){
+  if(left>0){ left--; paint(); } else { clearInterval(tick); tick=null; }
+}, 1000); }
+function tPause(){ clearInterval(tick); tick=null; }
+function tReset(){ tPause(); left = total; paint(); }
+paint();
+</script>
+</body>
+</html>
