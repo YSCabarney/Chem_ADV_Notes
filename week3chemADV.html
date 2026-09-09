@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 3 Study Guide: Classification of Matter</title>
+<!--
+  ==========================================================================
+  WEEK 3 STUDY GUIDE — CLASSIFICATION OF MATTER
+  High School Chemistry
+  --------------------------------------------------------------------------
+  Self-contained single file. No external fonts, scripts, images, or CSS.
+  Safe to host on GitHub Pages and embed in Canvas LMS as an iframe.
+
+  HOW TO EMBED IN CANVAS (after uploading to GitHub Pages):
+    <iframe src="https://YOURNAME.github.io/REPO/index.html"
+            title="Week 3 Study Guide: Classification of Matter"
+            width="100%" height="900" style="border:1px solid #ccc;"
+            loading="lazy"></iframe>
+  In the Canvas Rich Content Editor, use the </> (HTML) view and paste that.
+
+  SOURCES:
+   - Class notes: "Notes for WEEK 3" (Classification of Matter).
+   - CK-12 Chemistry for High School (CK-12 Foundation), chapters on
+     "Matter and Change" / "Classification of Matter" / "Water, Solutions,
+     Mixtures". Licensed CC BY-NC. Content below is paraphrased/synthesized
+     for classroom use.
+  ==========================================================================
+-->
+<style>
+  :root{
+    --bg:#ffffff;
+    --ink:#1a2332;
+    --muted:#5b6572;
+    --line:#dfe4ea;
+    --brand:#0b6b5b;         /* teal-green */
+    --brand-dark:#084f43;
+    --brand-soft:#e6f2ef;
+    --accent:#c2410c;        /* burnt orange for key terms */
+    --accent-soft:#fdeee4;
+    --blue:#1d4ed8;
+    --blue-soft:#e8eefc;
+    --yellow-soft:#fbf6e3;
+    --purple:#6d28d9;
+    --purple-soft:#f0e9fb;
+    --radius:12px;
+    --maxw:960px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:28px 20px 80px;}
+
+  /* ---------- Header ---------- */
+  header.hero{
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    color:#fff;border-radius:var(--radius);
+    padding:30px 28px;margin-bottom:26px;
+  }
+  header.hero .kicker{
+    text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;
+    font-weight:700;opacity:.85;margin:0 0 8px;
+  }
+  header.hero h1{margin:0 0 10px;font-size:1.9rem;line-height:1.2;}
+  header.hero p{margin:0;opacity:.95;font-size:1rem;max-width:60ch;}
+
+  /* ---------- Table of contents ---------- */
+  nav.toc{
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:16px 20px;margin-bottom:30px;background:#fafbfc;
+  }
+  nav.toc h2{margin:0 0 10px;font-size:.8rem;text-transform:uppercase;
+    letter-spacing:.1em;color:var(--muted);}
+  nav.toc ol{margin:0;padding-left:1.3em;columns:2;column-gap:32px;}
+  nav.toc li{margin:4px 0;break-inside:avoid;}
+  nav.toc a{color:var(--brand-dark);text-decoration:none;}
+  nav.toc a:hover{text-decoration:underline;}
+
+  /* ---------- Sections ---------- */
+  section{margin:0 0 42px;scroll-margin-top:16px;}
+  h2.sec{
+    font-size:1.4rem;margin:0 0 6px;padding-bottom:8px;
+    border-bottom:3px solid var(--brand);color:var(--brand-dark);
+  }
+  h2.sec .num{
+    display:inline-block;background:var(--brand);color:#fff;
+    font-size:.9rem;font-weight:700;border-radius:6px;
+    padding:1px 9px;margin-right:10px;vertical-align:middle;
+  }
+  h3{font-size:1.1rem;margin:26px 0 6px;color:var(--ink);}
+  h4{font-size:1rem;margin:18px 0 4px;color:var(--brand-dark);}
+  p{margin:10px 0;}
+  ul,ol{margin:10px 0;padding-left:1.4em;}
+  li{margin:5px 0;}
+  .lead{font-size:1.05rem;color:var(--muted);}
+
+  /* ---------- Key term ---------- */
+  .term{color:var(--accent);font-weight:700;}
+  dfn{font-style:normal;font-weight:700;color:var(--brand-dark);}
+
+  /* ---------- Callout boxes ---------- */
+  .box{border-radius:var(--radius);padding:14px 18px;margin:16px 0;
+    border:1px solid var(--line);}
+  .box .label{font-weight:700;font-size:.72rem;text-transform:uppercase;
+    letter-spacing:.09em;display:block;margin-bottom:4px;}
+  .box p:first-of-type{margin-top:0;}
+  .box p:last-child{margin-bottom:0;}
+  .box.def{background:var(--brand-soft);border-color:#bfe0d8;}
+  .box.def .label{color:var(--brand-dark);}
+  .box.real{background:var(--accent-soft);border-color:#f6d3bd;}
+  .box.real .label{color:var(--accent);}
+  .box.ck12{background:var(--blue-soft);border-color:#c7d6f7;}
+  .box.ck12 .label{color:var(--blue);}
+  .box.tip{background:var(--yellow-soft);border-color:#ecdfae;}
+  .box.tip .label{color:#92720a;}
+  .box.check{background:var(--purple-soft);border-color:#d9c8f4;}
+  .box.check .label{color:var(--purple);}
+  .box.check ol{margin-bottom:0;}
+
+  /* ---------- Tables ---------- */
+  .table-scroll{overflow-x:auto;margin:16px 0;-webkit-overflow-scrolling:touch;}
+  table{border-collapse:collapse;width:100%;min-width:460px;font-size:.95rem;}
+  caption{caption-side:top;text-align:left;font-weight:700;color:var(--brand-dark);
+    margin-bottom:8px;font-size:1rem;}
+  th,td{border:1px solid var(--line);padding:9px 12px;text-align:left;
+    vertical-align:top;}
+  thead th{background:var(--brand);color:#fff;font-weight:600;}
+  tbody th{background:var(--brand-soft);color:var(--brand-dark);white-space:nowrap;}
+  tbody tr:nth-child(even) td{background:#fafbfc;}
+
+  /* ---------- Figures / diagrams ---------- */
+  figure{margin:20px 0;border:1px solid var(--line);border-radius:var(--radius);
+    padding:16px;background:#fcfdfd;}
+  figure svg{display:block;width:100%;height:auto;}
+  figcaption{font-size:.86rem;color:var(--muted);margin-top:10px;text-align:center;}
+  .fig-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:14px;margin:20px 0;}
+  .fig-grid figure{margin:0;}
+
+  /* ---------- Vocab list ---------- */
+  .vocab dt{font-weight:700;color:var(--brand-dark);margin-top:12px;}
+  .vocab dd{margin:2px 0 0;padding-left:0;}
+
+  /* ---------- Back to top ---------- */
+  .toplink{font-size:.82rem;}
+  .toplink a{color:var(--muted);text-decoration:none;}
+  .toplink a:hover{text-decoration:underline;}
+
+  footer.credits{border-top:1px solid var(--line);margin-top:50px;padding-top:18px;
+    font-size:.85rem;color:var(--muted);}
+  footer.credits a{color:var(--brand-dark);}
+
+  @media (max-width:640px){
+    body{font-size:16px;}
+    nav.toc ol{columns:1;}
+    header.hero h1{font-size:1.5rem;}
+    .wrap{padding:18px 14px 60px;}
+  }
+  @media print{
+    header.hero{background:none;color:#000;border:1px solid #000;}
+    nav.toc{break-after:page;}
+    section{break-inside:avoid;}
+    .box{border:1px solid #999;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero" id="top">
+  <p class="kicker">High School Chemistry &bull; Week 3</p>
+  <h1>Classification of Matter</h1>
+  <p>Pure substances vs. mixtures, elements vs. compounds, homogeneous vs. heterogeneous, and how scientists physically and chemically pull them apart. Includes worked definitions, comparison tables, diagrams, and real-world examples.</p>
+</header>
+
+<nav class="toc" aria-label="Table of contents">
+  <h2>On this page</h2>
+  <ol>
+    <li><a href="#matter">What Is Matter?</a></li>
+    <li><a href="#flowchart">The Classification Flowchart</a></li>
+    <li><a href="#pure">Pure Substances</a></li>
+    <li><a href="#elements">Elements</a></li>
+    <li><a href="#compounds">Compounds &amp; the Law of Definite Proportions</a></li>
+    <li><a href="#mixtures">Mixtures</a></li>
+    <li><a href="#homo-hetero">Homogeneous vs. Heterogeneous</a></li>
+    <li><a href="#solutions">Solutions, Colloids, Suspensions &amp; Emulsions</a></li>
+    <li><a href="#mix-vs-compound">Mixture vs. Compound</a></li>
+    <li><a href="#separation">Separating Mixtures</a></li>
+    <li><a href="#properties">Physical vs. Chemical Properties &amp; Changes</a></li>
+    <li><a href="#real-world">Real-World Connections</a></li>
+    <li><a href="#vocab">Vocabulary Glossary</a></li>
+    <li><a href="#selfcheck">Self-Check Questions</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================= -->
+<section id="matter">
+  <h2 class="sec"><span class="num">1</span>What Is Matter?</h2>
+  <p class="lead">Everything you can touch, taste, breathe, or weigh is made of matter.</p>
+
+  <div class="box def">
+    <span class="label">Definition</span>
+    <p><dfn>Matter</dfn> is anything that has <strong>mass</strong> and takes up <strong>space</strong> (volume).</p>
+  </div>
+
+  <p>Your chair, the air in the room, the water in a bottle, and the aluminum in a soda can are all matter. Light, heat, sound, and gravity are <em>not</em> matter &mdash; they have no mass and occupy no volume.</p>
+
+  <p>Chemists sort all matter into a branching system. At every branch you ask one yes/no question:</p>
+  <ol>
+    <li><strong>Is the composition fixed everywhere in the sample?</strong> &rarr; separates <em>pure substances</em> from <em>mixtures</em>.</li>
+    <li><strong>Can it be broken into simpler substances by a chemical reaction?</strong> &rarr; separates <em>compounds</em> from <em>elements</em>.</li>
+    <li><strong>Is the sample uniform all the way through?</strong> &rarr; separates <em>homogeneous</em> from <em>heterogeneous</em> mixtures.</li>
+  </ol>
+
+  <div class="box ck12">
+    <span class="label">From CK-12 Chemistry</span>
+    <p>The three common <strong>states of matter</strong> &mdash; solid, liquid, and gas &mdash; describe <em>physical form</em>, not chemical identity. Water is the same substance (H<sub>2</sub>O) whether it is ice, liquid, or steam. Classification of matter is about <em>what a sample is made of</em>, which does not change when it melts or boils.</p>
+  </div>
+
+  <p class="toplink"><a href="#top">&uarr; Back to top</a></p>
+</section>
+
+<!-- ============================================================= -->
+<section id="flowchart">
+  <h2 class="sec"><span class="num">2</span>The Classification Flowchart</h2>
+  <p>Matter splits into <span class="term">pure substances</span> and <span class="term">mixtures</span>. Pure substances split into <span class="term">elements</span> and <span class="term">compounds</span>. Mixtures split into <span class="term">homogeneous</span> and <span class="term">heterogeneous</span>.</p>
+
+  <figure>
+    <svg viewBox="0 0 860 470" role="img" aria-label="Flowchart classifying matter. Matter divides into pure substances and mixtures, separated by physical means. Pure substances divide into elements and compounds, separated by chemical means. Mixtures divide into homogeneous and heterogeneous.">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#5b6572"/>
+        </marker>
+        <style>
+          .n{fill:#e6f2ef;stroke:#0b6b5b;stroke-width:2;}
+          .n2{fill:#e8eefc;stroke:#1d4ed8;stroke-width:2;}
+          .t{font:600 15px -apple-system,Segoe UI,Roboto,sans-serif;fill:#1a2332;}
+          .ti{font:600 13px -apple-system,Segoe UI,Roboto,sans-serif;fill:#1a2332;}
+          .lbl{font:italic 12px -apple-system,Segoe UI,Roboto,sans-serif;fill:#c2410c;}
+          .con{stroke:#5b6572;stroke-width:2;fill:none;}
+        </style>
+      </defs>
+
+      <!-- MATTER -->
+      <rect class="n" x="360" y="16" width="140" height="46" rx="9"/>
+      <text class="t" x="430" y="44" text-anchor="middle">MATTER</text>
+      <text class="ti" x="430" y="76" text-anchor="middle" fill="#5b6572">has mass &amp; volume</text>
+
+      <!-- split lines to level 2 -->
+      <path class="con" d="M430,90 L430,104 M180,104 L680,104 M180,104 L180,128 M680,104 L680,128"/>
+
+      <!-- PURE SUBSTANCE / MIXTURE -->
+      <rect class="n" x="90" y="128" width="180" height="52" rx="9"/>
+      <text class="t" x="180" y="150" text-anchor="middle">PURE SUBSTANCE</text>
+      <text class="ti" x="180" y="169" text-anchor="middle" fill="#5b6572">fixed composition</text>
+
+      <rect class="n" x="590" y="128" width="180" height="52" rx="9"/>
+      <text class="t" x="680" y="150" text-anchor="middle">MIXTURE</text>
+      <text class="ti" x="680" y="169" text-anchor="middle" fill="#5b6572">variable composition</text>
+
+      <!-- physical separation arrow between them -->
+      <path class="con" d="M270,154 L590,154" marker-start="url(#ar)" marker-end="url(#ar)"/>
+      <rect x="356" y="120" width="248" height="20" rx="6" fill="#fff" stroke="#f6d3bd"/>
+      <text class="lbl" x="430" y="134" text-anchor="middle">separated by PHYSICAL means</text>
+
+      <!-- PURE SUBSTANCE children -->
+      <path class="con" d="M180,182 L180,196 M100,196 L260,196 M100,196 L100,220 M260,196 L260,220"/>
+      <rect class="n" x="30" y="220" width="140" height="52" rx="9"/>
+      <text class="t" x="100" y="242" text-anchor="middle">ELEMENTS</text>
+      <text class="ti" x="100" y="261" text-anchor="middle" fill="#5b6572">1 kind of atom</text>
+
+      <rect class="n" x="190" y="220" width="140" height="52" rx="9"/>
+      <text class="t" x="260" y="242" text-anchor="middle">COMPOUNDS</text>
+      <text class="ti" x="260" y="261" text-anchor="middle" fill="#5b6572">2+ elements bonded</text>
+
+      <!-- chemical separation arrow between elements & compounds -->
+      <path class="con" d="M170,300 L190,300" marker-start="url(#ar)" marker-end="url(#ar)"/>
+      <rect x="52" y="286" width="256" height="20" rx="6" fill="#fff" stroke="#f6d3bd"/>
+      <text class="lbl" x="180" y="300" text-anchor="middle">separated by CHEMICAL means</text>
+
+      <!-- MIXTURE children -->
+      <path class="con" d="M680,182 L680,196 M560,196 L800,196 M560,196 L560,220 M800,196 L800,220"/>
+      <rect class="n2" x="470" y="220" width="180" height="52" rx="9"/>
+      <text class="t" x="560" y="242" text-anchor="middle">HOMOGENEOUS</text>
+      <text class="ti" x="560" y="261" text-anchor="middle" fill="#5b6572">uniform throughout</text>
+
+      <rect class="n2" x="700" y="220" width="150" height="52" rx="9"/>
+      <text class="t" x="775" y="242" text-anchor="middle">HETEROGENEOUS</text>
+      <text class="ti" x="775" y="261" text-anchor="middle" fill="#5b6572">non-uniform</text>
+
+      <!-- examples row -->
+      <path class="con" d="M100,272 L100,300 M260,272 L260,336 M560,272 L560,300 M775,272 L775,300"/>
+      <text class="ti" x="100" y="326" text-anchor="middle" fill="#5b6572">Fe, O&#8322;, Au, He</text>
+      <text class="ti" x="560" y="326" text-anchor="middle" fill="#5b6572">saltwater, air, brass</text>
+      <text class="ti" x="775" y="326" text-anchor="middle" fill="#5b6572">salad, sand, granite</text>
+      <text class="ti" x="260" y="360" text-anchor="middle" fill="#5b6572">H&#8322;O, CO&#8322;, NaCl, glucose</text>
+
+      <!-- legend -->
+      <rect x="30" y="410" width="16" height="16" rx="3" class="n"/>
+      <text class="ti" x="54" y="423" fill="#5b6572">Pure substance</text>
+      <rect x="190" y="410" width="16" height="16" rx="3" class="n2"/>
+      <text class="ti" x="214" y="423" fill="#5b6572">Mixture</text>
+      <text class="lbl" x="360" y="423">Orange labels = how you separate each branch</text>
+    </svg>
+    <figcaption>Figure 2.1 &mdash; The classification of matter. Move <em>down</em> a branch by asking a yes/no question; move <em>across</em> a branch by separating the sample.</figcaption>
+  </figure>
+
+  <div class="box tip">
+    <span class="label">Study tip</span>
+    <p>Read the chart as a decision tree: <em>"Is it uniform and fixed everywhere?"</em> If yes &rarr; pure substance, then ask <em>"Can a reaction break it down?"</em> If a sample's makeup can vary from spoonful to spoonful, it is a mixture.</p>
+  </div>
+
+  <p class="toplink"><a href="#top">&uarr; Back to top</a></p>
+</section>
+
+<!-- ============================================================= -->
+<section id="pure">
+  <h2 class="sec"><span class="num">3</span>Pure Substances</h2>
+
+  <div class="box def">
+    <span class="label">Definition</span>
+    <p>A <dfn>pure substance</dfn> is matter that has a <strong>fixed, uniform composition</strong> and a definite set of properties. It is made of a single element <em>or</em> a single compound.</p>
+  </div>
+
+  <ul>
+    <li><strong>Gold (Au)</strong> is a pure substance made of a single element &mdash; every atom in a gold bar is a gold atom.</li>
+    <li><strong>Glue</strong> is a pure substance too: it is made of many molecules of the <em>same</em> compound, polyvinyl acetate.</li>
+    <li><strong>Distilled water</strong>, <strong>table sugar</strong> (sucrose), and <strong>baking soda</strong> (sodium bicarbonate) are pure substances that are compounds.</li>
+  </ul>
+
+  <p>The key idea: a sample of a pure substance is <em>identical</em> everywhere. A gram taken from the top of a sugar jar has the same composition and properties as a gram from the bottom.</p>
+
+  <div class="box ck12">
+    <span class="label">From CK-12 Chemistry</span>
+    <p>Every pure substance has characteristic properties &mdash; a specific melting point, boiling point, and density &mdash; that never change and can be used to identify it. Pure water always freezes at 0&nbsp;&deg;C and boils at 100&nbsp;&deg;C at sea level. If a "water" sample boils at 102&nbsp;&deg;C, something is dissolved in it, so it is a mixture, not a pure substance.</p>
+  </div>
+
+  <p class="toplink"><a href="#top">&uarr; Back to top</a></p>
+</section>
+
+<!-- ============================================================= -->
+<section id="elements">
+  <h2 class="sec"><span class="num">4</span>Elements</h2>
+
+  <div class="box def">
+    <span class="label">Definition</span>
+    <p>An <dfn>element</dfn> is a pure substance that <strong>cannot be broken down into simpler substances</strong> by any chemical reaction. Each element is made of only one kind of atom.</p>
+  </div>
+
+  <p>All <strong>118 elements</strong> on the periodic table are pure substances. Examples: iron (Fe), oxygen (O<sub>2</sub>), helium (He), carbon (C), copper (Cu), gold (Au).</p>
+
+  <figure>
+    <svg viewBox="0 0 640 210" role="img" aria-label="Particle diagrams. An element shows identical single atoms. A diatomic element shows identical two-atom molecules. A compound shows molecules built from two different atoms bonded together.">
+      <defs>
+        <style>
+          .cap{font:600 13px -apple-system,Segoe UI,Roboto,sans-serif;fill:#1a2332;}
+          .sub{font:12px -apple-system,Segoe UI,Roboto,sans-serif;fill:#5b6572;}
+          .bond{stroke:#5b6572;stroke-width:3;}
+        </style>
+      </defs>
+      <rect x="8" y="8" width="196" height="160" rx="10" fill="#fcfdfd" stroke="#dfe4ea"/>
+      <rect x="222" y="8" width="196" height="160" rx="10" fill="#fcfdfd" stroke="#dfe4ea"/>
+      <rect x="436" y="8" width="196" height="160" rx="10" fill="#fcfdfd" stroke="#dfe4ea"/>
+
+      <!-- element: single atoms -->
+      <g fill="#0b6b5b">
+        <circle cx="55" cy="55" r="13"/><circle cx="120" cy="45" r="13"/><circle cx="90" cy="95" r="13"/>
+        <circle cx="150" cy="110" r="13"/><circle cx="55" cy="130" r="13"/><circle cx="165" cy="60" r="13"/>
+      </g>
+      <text class="cap" x="106" y="186" text-anchor="middle">Element</text>
+      <text class="sub" x="106" y="26" text-anchor="middle">one kind of atom (e.g. He, Fe)</text>
+
+      <!-- diatomic element -->
+      <g>
+        <g stroke="#1d4ed8" stroke-width="3"><line x1="270" y1="55" x2="298" y2="55"/><line x1="320" y1="100" x2="348" y2="100"/><line x1="285" y1="135" x2="313" y2="135"/></g>
+        <g fill="#1d4ed8">
+          <circle cx="270" cy="55" r="12"/><circle cx="298" cy="55" r="12"/>
+          <circle cx="320" cy="100" r="12"/><circle cx="348" cy="100" r="12"/>
+          <circle cx="285" cy="135" r="12"/><circle cx="313" cy="135" r="12"/>
+        </g>
+      </g>
+      <text class="cap" x="320" y="186" text-anchor="middle">Element (diatomic)</text>
+      <text class="sub" x="320" y="26" text-anchor="middle">O&#8322;, N&#8322;, H&#8322; &mdash; still one element</text>
+
+      <!-- compound -->
+      <g>
+        <g class="bond"><line x1="486" y1="55" x2="512" y2="55"/><line x1="512" y1="55" x2="538" y2="55"/>
+          <line x1="500" y1="105" x2="526" y2="105"/><line x1="526" y1="105" x2="552" y2="105"/>
+          <line x1="500" y1="140" x2="526" y2="140"/></g>
+        <g><circle cx="486" cy="55" r="10" fill="#c2410c"/><circle cx="512" cy="55" r="13" fill="#6d28d9"/><circle cx="538" cy="55" r="10" fill="#c2410c"/>
+          <circle cx="500" cy="105" r="10" fill="#c2410c"/><circle cx="526" cy="105" r="13" fill="#6d28d9"/><circle cx="552" cy="105" r="10" fill="#c2410c"/>
+          <circle cx="500" cy="140" r="10" fill="#c2410c"/><circle cx="526" cy="140" r="13" fill="#6d28d9"/></g>
+      </g>
+      <text class="cap" x="534" y="186" text-anchor="middle">Compound</text>
+      <text class="sub" x="534" y="26" text-anchor="middle">2+ elements bonded (e.g. H&#8322;O)</text>
+    </svg>
+    <figcaption>Figure 4.1 &mdash; Particle-level view. An element contains only one type of atom (even if those atoms travel in pairs). A compound always contains atoms of two or more different elements chemically bonded.</figcaption>
+  </figure>
+
+  <div class="box tip">
+    <span class="label">Common mix-up</span>
+    <p>Oxygen gas is written O<sub>2</sub> because its atoms bond in pairs, but it is still an <strong>element</strong> &mdash; both atoms are oxygen. A substance is a compound only when it contains <em>different</em> elements bonded together.</p>
+  </div>
+
+  <p class="toplink"><a href="#top">&uarr; Back to top</a></p>
+</section>
+
+<!-- ============================================================= -->
+<section id="compounds">
+  <h2 class="sec"><span class="num">5</span>Compounds &amp; the Law of Definite Proportions</h2>
+
+  <div class="box def">
+    <span class="label">Definition</span>
+    <p>A <dfn>compound</dfn> is a pure substance made of <strong>two or more elements chemically bonded</strong> in a fixed ratio. The smallest unit of a molecular compound is a <dfn>molecule</dfn>.</p>
+  </div>
+
+  <p>Examples of compounds: water (H<sub>2</sub>O), carbon dioxide (CO<sub>2</sub>), table salt (NaCl), baking soda (NaHCO<sub>3</sub>), glucose (C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>), and ethanol/alcohol (C<sub>2</sub>H<sub>6</sub>O).</p>
+
+  <h3>A compound's properties are brand new</h3>
+  <p>When elements bond, the compound behaves nothing like its parts:</p>
+  <div class="table-scroll">
+  <table>
+    <caption>Table 5.1 &mdash; Elements vs. the compound they form</caption>
+    <thead><tr><th>Element</th><th>On its own</th><th>Element</th><th>On its own</th><th>Compound formed</th></tr></thead>
+    <tbody>
+      <tr><td>Sodium (Na)</td><td>Soft metal that explodes in water</td><td>Chlorine (Cl)</td><td>Poisonous yellow-green gas</td><td><strong>NaCl</strong> &mdash; edible table salt</td></tr>
+      <tr><td>Hydrogen (H)</td><td>Flammable gas</td><td>Oxygen (O)</td><td>Supports burning</td><td><strong>H<sub>2</sub>O</strong> &mdash; water, puts out fire</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box ck12">
+    <span class="label">From CK-12 Chemistry &mdash; Law of Definite Proportions</span>
+    <p>Also called the <strong>law of constant composition</strong>: <em>a given compound always contains its elements in the same proportion by mass.</em> Every sample of pure water is <strong>11.2% hydrogen and 88.8% oxygen by mass</strong>, whether it came from a river in Brazil or a comet. This fixed ratio is exactly what makes a compound a <em>pure substance</em> and not a mixture &mdash; you cannot make "extra-oxygen water."</p>
+  </div>
+
+  <div class="box real">
+    <span class="label">Real-world example</span>
+    <p><strong>Hydrogen peroxide (H<sub>2</sub>O<sub>2</sub>) vs. water (H<sub>2</sub>O).</strong> Same two elements, different fixed ratio &rarr; completely different compounds. Water is safe to drink; hydrogen peroxide disinfects cuts and bleaches hair. One extra oxygen atom per molecule changes everything.</p>
+  </div>
+
+  <p class="toplink"><a href="#top">&uarr; Back to top</a></p>
+</section>
+
+<!-- ============================================================= -->
+<section id="mixtures">
+  <h2 class="sec"><span class="num">6</span>Mixtures</h2>
+
+  <div class="box def">
+    <span class="label">Definition</span>
+    <p>A <dfn>mixture</dfn> forms when two or more substances (solids, liquids, or gases) are physically combined <strong>without</strong> chemically bonding. Each substance <strong>keeps its own composition and properties</strong>, and the ratio can vary.</p>
+  </div>
+
+  <ul>
+    <li>Components can be the same state (two gases in air) or different states (sugar solid + water liquid).</li>
+    <li>No chemical reaction occurs, so mixtures can be pulled apart by <strong>physical</strong> methods.</li>
+    <li>The proportions are not fixed &mdash; coffee can be weak or strong; both are still "coffee."</li>
+  </ul>
+
+  <div class="box real">
+    <span class="label">Real-world example</span>
+    <p><strong>Ocean water</strong> is a mixture of pure water plus dissolved salts, gases, and minerals. Evaporate it and the water leaves as vapor while solid salt stays behind &mdash; proof the salt was never chemically bonded to the water. Salinity differs from the Baltic Sea to the Dead Sea, which is why the proportions of a mixture are described as "variable."</p>
+  </div>
+
+  <p class="toplink"><a href="#top">&uarr; Back to top</a></p>
+</section>
+
+<!-- ============================================================= -->
+<section id="homo-hetero">
+  <h2 class="sec"><span class="num">7</span>Homogeneous vs. Heterogeneous Mixtures</h2>
+
+  <div class="box def">
+    <span class="label">Definitions</span>
+    <p>A <dfn>homogeneous mixture</dfn> is uniform &mdash; the components are blended so evenly that any sample looks and behaves the same, even under a microscope. A <dfn>heterogeneous mixture</dfn> is <em>not</em> uniform &mdash; you can see (or scoop) different regions with different composition.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 520 240" role="img" aria-label="Two beakers. The homogeneous mixture has evenly spaced particles of both types throughout. The heterogeneous mixture has the particles clumped and settled unevenly.">
+      <defs><style>
+        .beaker{fill:#eef6f4;stroke:#0b6b5b;stroke-width:3;}
+        .cap{font:600 14px -apple-system,Segoe UI,Roboto,sans-serif;fill:#1a2332;}
+        .sub{font:12px -apple-system,Segoe UI,Roboto,sans-serif;fill:#5b6572;}
+      </style></defs>
+
+      <!-- homogeneous -->
+      <path class="beaker" d="M40,40 L40,190 Q40,205 55,205 L165,205 Q180,205 180,190 L180,40"/>
+      <g fill="#c2410c">
+        <circle cx="65" cy="70" r="6"/><circle cx="110" cy="65" r="6"/><circle cx="155" cy="72" r="6"/>
+        <circle cx="80" cy="105" r="6"/><circle cx="128" cy="102" r="6"/><circle cx="60" cy="140" r="6"/>
+        <circle cx="105" cy="145" r="6"/><circle cx="150" cy="140" r="6"/><circle cx="85" cy="175" r="6"/>
+        <circle cx="130" cy="178" r="6"/><circle cx="160" cy="108" r="6"/><circle cx="62" cy="105" r="6"/>
+      </g>
+      <g fill="#1d4ed8">
+        <circle cx="88" cy="72" r="5"/><circle cx="133" cy="70" r="5"/><circle cx="100" cy="120" r="5"/>
+        <circle cx="145" cy="122" r="5"/><circle cx="72" cy="122" r="5"/><circle cx="118" cy="160" r="5"/>
+        <circle cx="70" cy="160" r="5"/><circle cx="150" cy="160" r="5"/><circle cx="100" cy="90" r="5"/>
+      </g>
+      <text class="cap" x="110" y="228" text-anchor="middle">Homogeneous</text>
+      <text class="sub" x="110" y="30" text-anchor="middle">same everywhere</text>
+
+      <!-- heterogeneous -->
+      <path class="beaker" d="M330,40 L330,190 Q330,205 345,205 L455,205 Q470,205 470,190 L470,40"/>
+      <!-- settled layer -->
+      <path d="M332,205 Q332,205 347,205 L453,205 Q468,205 468,190 L468,168 Q400,150 332,172 Z" fill="#f6d3bd"/>
+      <g fill="#c2410c">
+        <circle cx="350" cy="185" r="7"/><circle cx="372" cy="192" r="7"/><circle cx="396" cy="186" r="7"/>
+        <circle cx="420" cy="193" r="7"/><circle cx="444" cy="187" r="7"/><circle cx="360" cy="170" r="7"/>
+        <circle cx="408" cy="172" r="7"/><circle cx="432" cy="176" r="7"/><circle cx="384" cy="176" r="7"/>
+      </g>
+      <g fill="#1d4ed8">
+        <circle cx="345" cy="70" r="5"/><circle cx="360" cy="60" r="5"/><circle cx="352" cy="88" r="5"/>
+        <circle cx="440" cy="120" r="5"/><circle cx="455" cy="108" r="5"/><circle cx="447" cy="135" r="5"/>
+      </g>
+      <text class="cap" x="400" y="228" text-anchor="middle">Heterogeneous</text>
+      <text class="sub" x="400" y="30" text-anchor="middle">visible different regions</text>
+    </svg>
+    <figcaption>Figure 7.1 &mdash; In a homogeneous mixture the particles are evenly distributed; in a heterogeneous mixture heavier or larger pieces clump and settle, so each scoop is different.</figcaption>
+  </figure>
+
+  <h3>Homogeneous mixtures</h3>
+  <p>Just one uniform phase is visible. Dissolving sugar in water makes a homogeneous mixture &mdash; the sugar "disappears" and every sip tastes equally sweet. Other examples: <strong>air, perfume, bleach, pulp-free orange juice, steel, brass, vinegar, gasoline</strong>. A homogeneous mixture of substances that stay mixed indefinitely is called a <span class="term">solution</span>.</p>
+
+  <h3>Heterogeneous mixtures</h3>
+  <p>Different components are unevenly spread. In a bag of trail mix, heavier peanuts sink and lighter raisins ride on top. <strong>Vegetable soup</strong> is heterogeneous because each spoonful catches a different mix of vegetables and broth. Other examples: <strong>salad dressing (oil + vinegar), granite, rocks, cereal in milk, sand, concrete, pizza, muddy water</strong>.</p>
+
+  <div class="box tip">
+    <span class="label">Quick test</span>
+    <p>Could you point to two spots in the sample that look or taste different? <strong>Yes &rarr; heterogeneous.</strong> Looks identical no matter where you sample it (even under magnification)? <strong>Homogeneous.</strong></p>
+  </div>
+
+  <p class="toplink"><a href="#top">&uarr; Back to top</a></p>
+</section>
+
+<!-- ============================================================= -->
+<section id="solutions">
+  <h2 class="sec"><span class="num">8</span>Solutions, Colloids, Suspensions &amp; Emulsions</h2>
+  <p>Homogeneous and heterogeneous mixtures can be sorted further by <strong>particle size</strong> and by whether the parts stay mixed or settle out.</p>
+
+  <h3>Solutions &mdash; solute + solvent</h3>
+  <div class="box def">
+    <span class="label">Key vocabulary</span>
+    <p>In a <dfn>solution</dfn>, the <span class="term">solute</span> is the substance being dissolved (present in the smaller amount) and the <span class="term">solvent</span> is the substance doing the dissolving (present in the larger amount). In saltwater, salt is the solute and water is the solvent.</p>
+  </div>
+  <p>Solution particles are individual atoms, ions, or molecules &mdash; far too small to see or filter out. Solutions can be:</p>
+  <ul>
+    <li><strong>Gaseous:</strong> air (oxygen and other gases dissolved in nitrogen).</li>
+    <li><strong>Liquid:</strong> saltwater, soda (CO<sub>2</sub> gas dissolved in flavored water), vinegar.</li>
+    <li><strong>Solid:</strong> <span class="term">alloys</span> such as brass (copper + zinc melted together, then cooled) or stainless steel (iron + chromium + nickel).</li>
+  </ul>
+
+  <div class="box ck12">
+    <span class="label">From CK-12 Chemistry &mdash; air composition</span>
+    <p>Dry air is a homogeneous solution of gases: about <strong>78% nitrogen, 21% oxygen, 0.9% argon,</strong> and <strong>0.04% carbon dioxide</strong>, plus trace gases. Because it is a mixture, these percentages can shift slightly (more CO<sub>2</sub> in a crowded room), unlike the fixed ratio in a compound.</p>
+  </div>
+
+  <h3>Colloids</h3>
+  <p>A <dfn>colloid</dfn> contains particles that are bigger than solution particles but still too small to settle out. Colloids <em>look</em> uniform, but because some regions can hold more suspended particles than others, chemists classify them as <strong>heterogeneous</strong>. Examples: <strong>milk, fog, whipped cream, gelatin, smoke, paint, butter</strong>.</p>
+
+  <div class="box ck12">
+    <span class="label">From CK-12 Chemistry &mdash; the Tyndall effect</span>
+    <p>Shine a flashlight through a true solution (saltwater) and the beam is invisible &mdash; the particles are too small to scatter light. Shine it through a colloid (milk, fog) and the beam lights up as a visible path. This light-scattering is the <strong>Tyndall effect</strong>, and it is a quick lab test to tell a colloid from a solution. It is why car headlights are visible in fog and why the sky looks hazy.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 520 200" role="img" aria-label="Two jars with a light beam entering each. In the solution jar the beam passes through invisibly. In the colloid jar the beam scatters and glows along its path, showing the Tyndall effect.">
+      <defs><style>
+        .jar{fill:#eef6f4;stroke:#0b6b5b;stroke-width:3;}
+        .cap{font:600 13px -apple-system,Segoe UI,Roboto,sans-serif;fill:#1a2332;}
+        .sub{font:11px -apple-system,Segoe UI,Roboto,sans-serif;fill:#5b6572;}
+      </style></defs>
+      <!-- solution -->
+      <rect class="jar" x="60" y="55" width="120" height="95" rx="8"/>
+      <line x1="10" y1="102" x2="60" y2="102" stroke="#f5b301" stroke-width="6"/>
+      <line x1="60" y1="102" x2="230" y2="102" stroke="#f5b301" stroke-width="2" stroke-dasharray="3 4"/>
+      <text class="cap" x="120" y="175" text-anchor="middle">Solution</text>
+      <text class="sub" x="120" y="190" text-anchor="middle">beam not visible</text>
+
+      <!-- colloid -->
+      <rect class="jar" x="330" y="55" width="120" height="95" rx="8"/>
+      <line x1="280" y1="102" x2="330" y2="102" stroke="#f5b301" stroke-width="6"/>
+      <polygon points="330,94 500,80 500,124 330,110" fill="#f5b301" opacity="0.35"/>
+      <line x1="330" y1="102" x2="500" y2="102" stroke="#f5b301" stroke-width="4"/>
+      <text class="cap" x="390" y="175" text-anchor="middle">Colloid</text>
+      <text class="sub" x="390" y="190" text-anchor="middle">beam glows (Tyndall effect)</text>
+    </svg>
+    <figcaption>Figure 8.1 &mdash; The Tyndall effect distinguishes a colloid from a true solution.</figcaption>
+  </figure>
+
+  <h3>Suspensions</h3>
+  <div class="box ck12">
+    <span class="label">From CK-12 Chemistry</span>
+    <p>A <dfn>suspension</dfn> has particles large enough to see and heavy enough to <strong>settle out</strong> if left alone (and they can be removed by filtering). Muddy water, Italian salad dressing, and some medicines ("shake well before use") are suspensions. This is the biggest-particle category: <em>solution &lt; colloid &lt; suspension.</em></p>
+  </div>
+
+  <h3>Emulsions</h3>
+  <p>An <dfn>emulsion</dfn> is a mixture of two liquids that normally do not mix (like oil and water). A third substance, an <span class="term">emulsifier</span>, holds them together. In <strong>mayonnaise</strong>, egg yolk is the emulsifier that lets oil and water-based vinegar stay blended. Milk is a natural emulsion of butterfat in water.</p>
+
+  <div class="table-scroll">
+  <table>
+    <caption>Table 8.1 &mdash; Comparing types of mixtures by particle size</caption>
+    <thead><tr><th>Type</th><th>Particle size</th><th>Settles out?</th><th>Filterable?</th><th>Tyndall effect?</th><th>Classification</th><th>Examples</th></tr></thead>
+    <tbody>
+      <tr><th>Solution</th><td>Smallest (atoms, ions, molecules)</td><td>No</td><td>No</td><td>No</td><td>Homogeneous</td><td>Saltwater, air, brass, vinegar</td></tr>
+      <tr><th>Colloid</th><td>Medium</td><td>No</td><td>No</td><td><strong>Yes</strong></td><td>Heterogeneous</td><td>Milk, fog, gelatin, paint</td></tr>
+      <tr><th>Suspension</th><td>Largest (visible)</td><td><strong>Yes</strong></td><td><strong>Yes</strong></td><td>Yes</td><td>Heterogeneous</td><td>Muddy water, sand in water</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p class="toplink"><a href="#top">&uarr; Back to top</a></p>
+</section>
+
+<!-- ============================================================= -->
+<section id="mix-vs-compound">
+  <h2 class="sec"><span class="num">9</span>Mixture vs. Compound &mdash; The Big Comparison</h2>
+  <p>This is the distinction students miss most often. A compound is a <em>pure substance</em>; a mixture is not.</p>
+
+  <div class="table-scroll">
+  <table>
+    <caption>Table 9.1 &mdash; Mixture and compound comparison</caption>
+    <thead><tr><th>&nbsp;</th><th>Mixture</th><th>Compound</th></tr></thead>
+    <tbody>
+      <tr><th>Composition</th><td>Varied &mdash; there is no set ratio in how the substances mix.</td><td>Definite &mdash; the atoms are bonded in specific ratios given by the chemical formula.</td></tr>
+      <tr><th>Properties</th><td>Each substance keeps its own chemical and physical properties.</td><td>The compound has entirely different properties from the elements it contains.</td></tr>
+      <tr><th>Bonding</th><td>The substances are <strong>not</strong> chemically bonded together.</td><td>The elements <strong>are</strong> chemically bonded together.</td></tr>
+      <tr><th>Separation</th><td>Can be separated by <strong>physical</strong> means (filtering, evaporating, etc.).</td><td>Can only be separated into elements by a <strong>chemical</strong> change (reaction).</td></tr>
+      <tr><th>Energy to separate</th><td>Little or none.</td><td>Usually a large amount (electricity, heat, another reactant).</td></tr>
+      <tr><th>Examples</th><td>Air, most rocks and ores, saltwater, brass, trail mix.</td><td>Water (H<sub>2</sub>O), carbon dioxide (CO<sub>2</sub>), sodium chloride (NaCl).</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box real">
+    <span class="label">Real-world example</span>
+    <p><strong>Sand + iron filings</strong> is a mixture &mdash; drag a magnet through it and the iron jumps out, unchanged, in seconds (a physical separation). <strong>Rust (iron oxide, Fe<sub>2</sub>O<sub>3</sub>)</strong> is a compound &mdash; the iron and oxygen are bonded, and getting the iron back requires a blast furnace running a chemical reaction at ~1,500&nbsp;&deg;C.</p>
+  </div>
+
+  <p class="toplink"><a href="#top">&uarr; Back to top</a></p>
+</section>
+
+<!-- ============================================================= -->
+<section id="separation">
+  <h2 class="sec"><span class="num">10</span>Separating Mixtures</h2>
+
+  <h3>Physical separation</h3>
+  <p>Because the parts of a mixture are not bonded, they can be sorted using differences in <strong>physical properties</strong> &mdash; size, mass, density, magnetism, boiling point, or solubility. Examples from everyday life:</p>
+  <ul>
+    <li>Picking your favorite fruit out of a fruit salad and leaving the rest.</li>
+    <li>Boiling saltwater so the water evaporates and salt crystals stay behind.</li>
+    <li>Opening a soda: lowering the pressure lets dissolved CO<sub>2</sub> gas escape from the liquid.</li>
+  </ul>
+  <p>Heterogeneous mixtures are usually easy (sort by size, color, or magnetism). Homogeneous mixtures take more work &mdash; heat, pressure changes, or density differences.</p>
+
+  <h3>Chemical separation</h3>
+  <p>A <strong>compound</strong> can only be broken into its elements by a chemical reaction. Table salt (NaCl) is made of sodium and chlorine; splitting it requires <span class="term">electrolysis</span> (running electricity through molten salt). Passing electricity through water breaks it into hydrogen and oxygen gas.</p>
+
+  <div class="table-scroll">
+  <table>
+    <caption>Table 10.1 &mdash; Common mixture-separation techniques</caption>
+    <thead><tr><th>Method</th><th>Property it exploits</th><th>How it works</th><th>Real-world use</th></tr></thead>
+    <tbody>
+      <tr><th>Magnetism</th><td>Magnetic vs. non-magnetic</td><td>A magnet pulls out iron, nickel, or cobalt pieces.</td><td>Recycling plants pull steel cans from crushed trash.</td></tr>
+      <tr><th>Filtration</th><td>Particle size</td><td>A liquid (filtrate) passes through filter paper; solids (residue) are trapped.</td><td>Coffee makers, water-treatment sand filters, kidney dialysis.</td></tr>
+      <tr><th>Centrifugation</th><td>Density</td><td>Rapid spinning forces denser components to the bottom of the tube.</td><td>Blood separated into plasma and cells; cream spun from milk.</td></tr>
+      <tr><th>Evaporation</th><td>Boiling point (one part is non-volatile)</td><td>The liquid solvent evaporates, leaving dissolved solid behind.</td><td>Sea-salt harvesting in shallow evaporation ponds.</td></tr>
+      <tr><th>Distillation</th><td>Different boiling points</td><td>The mixture is boiled; vapor is cooled in a condenser and collected separately.</td><td>Crude-oil refining into gasoline, kerosene, and diesel; desalination.</td></tr>
+      <tr><th>Chromatography</th><td>Different attraction to a surface / solvent</td><td>A solvent carries components up a paper or column at different speeds, spreading them out.</td><td>Testing inks and dyes; forensics; drug testing; separating plant pigments.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="fig-grid">
+    <figure>
+      <svg viewBox="0 0 220 200" role="img" aria-label="Filtration setup: a funnel lined with folded filter paper sits in a flask. Mixture is poured in; clear filtrate drips through while solid residue stays on the paper.">
+        <defs><style>.g{stroke:#0b6b5b;stroke-width:3;fill:none;}.txt{font:11px -apple-system,Segoe UI,Roboto,sans-serif;fill:#5b6572;}</style></defs>
+        <path class="g" d="M60,20 L160,20 L110,95 Z"/>
+        <path d="M60,20 L160,20 L133,60 L87,60 Z" fill="#f6d3bd" stroke="#c2410c" stroke-width="2"/>
+        <circle cx="100" cy="35" r="3" fill="#c2410c"/><circle cx="118" cy="40" r="3" fill="#c2410c"/><circle cx="110" cy="48" r="3" fill="#c2410c"/>
+        <line class="g" x1="110" y1="95" x2="110" y2="120"/>
+        <path class="g" d="M75,120 L75,170 Q75,182 88,182 L132,182 Q145,182 145,170 L145,120 Z"/>
+        <path d="M77,150 Q77,150 88,180 L132,180 Q143,180 143,168 L143,150 Z" fill="#dbeeff"/>
+        <circle cx="110" cy="108" r="2" fill="#1d4ed8"/><circle cx="110" cy="116" r="2" fill="#1d4ed8"/>
+        <text class="txt" x="110" y="16" text-anchor="middle">residue (solid)</text>
+        <text class="txt" x="110" y="197" text-anchor="middle">filtrate (liquid)</text>
+      </svg>
+      <figcaption>Filtration &mdash; sorts by particle size.</figcaption>
+    </figure>
+
+    <figure>
+      <svg viewBox="0 0 240 200" role="img" aria-label="Distillation setup: a flask of mixture is heated; vapor travels through a sloped condenser cooled by water and drips as pure liquid into a receiving beaker.">
+        <defs><style>.g{stroke:#0b6b5b;stroke-width:3;fill:none;}.txt{font:11px -apple-system,Segoe UI,Roboto,sans-serif;fill:#5b6572;}</style></defs>
+        <path class="g" d="M30,120 a26,26 0 1 0 52,0 L74,70 L38,70 Z"/>
+        <path d="M35,110 a21,21 0 0 0 42,0 Z" fill="#dbeeff"/>
+        <path class="g" d="M56,70 L56,55 L150,95"/>
+        <rect x="120" y="80" width="70" height="24" rx="10" class="g" transform="rotate(20 155 92)"/>
+        <path class="g" d="M172,110 L172,140"/>
+        <path class="g" d="M150,140 L150,180 Q150,190 160,190 L184,190 Q194,190 194,180 L194,140 Z"/>
+        <path d="M152,165 L152,178 Q152,188 162,188 L182,188 Q192,188 192,178 L192,165 Z" fill="#dbeeff"/>
+        <path d="M40,150 q6,-12 12,0 q6,12 12,0" stroke="#c2410c" stroke-width="2" fill="none"/>
+        <text class="txt" x="56" y="185" text-anchor="middle">heat</text>
+        <text class="txt" x="120" y="60" text-anchor="middle">vapor &rarr;</text>
+        <text class="txt" x="172" y="200" text-anchor="middle">pure distillate</text>
+      </svg>
+      <figcaption>Distillation &mdash; sorts by boiling point.</figcaption>
+    </figure>
+
+    <figure>
+      <svg viewBox="0 0 200 200" role="img" aria-label="Paper chromatography: a strip of paper stands in solvent. A single black ink spot has separated as the solvent rises, into bands of different colors at different heights.">
+        <defs><style>.g{stroke:#0b6b5b;stroke-width:3;fill:none;}.txt{font:11px -apple-system,Segoe UI,Roboto,sans-serif;fill:#5b6572;}</style></defs>
+        <rect x="55" y="20" width="60" height="150" fill="#fff" stroke="#dfe4ea" stroke-width="2"/>
+        <line x1="55" y1="150" x2="115" y2="150" stroke="#5b6572" stroke-dasharray="3 3"/>
+        <ellipse cx="85" cy="55" rx="12" ry="6" fill="#1d4ed8"/>
+        <ellipse cx="85" cy="85" rx="12" ry="6" fill="#c2410c"/>
+        <ellipse cx="85" cy="115" rx="12" ry="6" fill="#f5b301"/>
+        <path class="g" d="M40,170 L40,185 Q40,192 48,192 L122,192 Q130,192 130,185 L130,170 Z"/>
+        <path d="M42,178 L42,184 Q42,190 50,190 L120,190 Q128,190 128,184 L128,178 Z" fill="#dbeeff"/>
+        <text class="txt" x="140" y="58" text-anchor="start">fast</text>
+        <text class="txt" x="140" y="118" text-anchor="start">slow</text>
+        <text class="txt" x="85" y="15" text-anchor="middle">separated dyes</text>
+      </svg>
+      <figcaption>Chromatography &mdash; sorts by attraction to paper vs. solvent.</figcaption>
+    </figure>
+  </div>
+
+  <div class="box real">
+    <span class="label">Real-world example &mdash; one mixture, three steps</span>
+    <p><strong>Turning seawater into fresh water and salt:</strong> (1) <em>filter</em> out sand and seaweed, (2) <em>distill</em> the clear brine &mdash; water vapor rises and condenses as fresh drinking water, (3) the <em>evaporation</em> residue left in the flask is sea salt. No chemistry required, because seawater is a mixture.</p>
+  </div>
+
+  <p class="toplink"><a href="#top">&uarr; Back to top</a></p>
+</section>
+
+<!-- ============================================================= -->
+<section id="properties">
+  <h2 class="sec"><span class="num">11</span>Physical vs. Chemical Properties &amp; Changes</h2>
+  <div class="box ck12">
+    <span class="label">From CK-12 Chemistry &mdash; why this matters here</span>
+    <p>The whole classification system rests on the difference between physical and chemical change. <strong>Physical means</strong> separate mixtures; <strong>chemical means</strong> separate compounds. Knowing which is which tells you which branch of the flowchart you are on.</p>
+  </div>
+
+  <div class="table-scroll">
+  <table>
+    <caption>Table 11.1 &mdash; Physical vs. chemical</caption>
+    <thead><tr><th>&nbsp;</th><th>Physical</th><th>Chemical</th></tr></thead>
+    <tbody>
+      <tr><th>Property</th><td>Observed without changing the substance's identity: color, density, melting point, hardness, state, magnetism, solubility.</td><td>Describes how a substance reacts to form new substances: flammability, reactivity with acid, ability to rust or tarnish.</td></tr>
+      <tr><th>Change</th><td>Same substance, new form: melting ice, dissolving sugar, crushing a can, boiling water.</td><td>New substance(s) form: burning wood, rusting iron, baking a cake, digesting food, electrolysis of water.</td></tr>
+      <tr><th>Signs</th><td>Reversible by physical means; no new substance.</td><td>Often shows: gas bubbles, light or heat, color change, precipitate, odor; hard to reverse.</td></tr>
+      <tr><th>Role in classification</th><td>Separates the parts of a <strong>mixture</strong>.</td><td>Separates a <strong>compound</strong> into elements, or builds a compound from elements.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box tip">
+    <span class="label">Watch out</span>
+    <p>Dissolving salt in water is a <strong>physical</strong> change &mdash; evaporate the water and the salt returns unchanged. Electrolyzing that water into H<sub>2</sub> and O<sub>2</sub> gas is a <strong>chemical</strong> change &mdash; brand-new substances, not reversible by drying.</p>
+  </div>
+
+  <p class="toplink"><a href="#top">&uarr; Back to top</a></p>
+</section>
+
+<!-- ============================================================= -->
+<section id="real-world">
+  <h2 class="sec"><span class="num">12</span>Real-World Connections</h2>
+  <div class="table-scroll">
+  <table>
+    <caption>Table 12.1 &mdash; Classification of matter around you</caption>
+    <thead><tr><th>Everyday item</th><th>Classification</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Helium in a balloon</td><td>Element</td><td>One kind of atom (He); cannot be broken down.</td></tr>
+      <tr><td>Dry ice fog at a concert</td><td>Compound (CO<sub>2</sub>) + colloid</td><td>CO<sub>2</sub> is a compound; the visible fog is a colloid of water droplets (Tyndall effect).</td></tr>
+      <tr><td>Stainless-steel water bottle</td><td>Homogeneous mixture (alloy / solid solution)</td><td>Iron, chromium, and nickel melted and blended uniformly; ratio can vary by grade.</td></tr>
+      <tr><td>Italian salad dressing</td><td>Heterogeneous mixture (suspension)</td><td>Oil and vinegar separate into layers; you shake to temporarily mix.</td></tr>
+      <tr><td>Mayonnaise</td><td>Heterogeneous mixture (emulsion)</td><td>Egg yolk emulsifier keeps oil and water-based vinegar blended.</td></tr>
+      <tr><td>Tap water</td><td>Homogeneous mixture</td><td>Water plus dissolved minerals, fluoride, and chlorine; not pure H<sub>2</sub>O.</td></tr>
+      <tr><td>Distilled water</td><td>Pure substance (compound)</td><td>H<sub>2</sub>O only, fixed 2:1 atom ratio.</td></tr>
+      <tr><td>Granite countertop</td><td>Heterogeneous mixture</td><td>Visible grains of quartz, feldspar, and mica.</td></tr>
+      <tr><td>Air you breathe</td><td>Homogeneous mixture (gas solution)</td><td>N<sub>2</sub>, O<sub>2</sub>, Ar, CO<sub>2</sub> blended evenly; proportions vary slightly.</td></tr>
+      <tr><td>Blood</td><td>Heterogeneous mixture (colloid/suspension)</td><td>Cells suspended in plasma; a centrifuge separates them.</td></tr>
+      <tr><td>Gasoline</td><td>Homogeneous mixture</td><td>Many hydrocarbon compounds blended; made by distilling crude oil.</td></tr>
+      <tr><td>Rust on a bike chain</td><td>Compound (Fe<sub>2</sub>O<sub>3</sub>)</td><td>Iron chemically bonded to oxygen &mdash; a chemical change.</td></tr>
+      <tr><td>14-karat gold ring</td><td>Homogeneous mixture (alloy)</td><td>~58% gold with copper/silver; 24-karat would be the pure element.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="toplink"><a href="#top">&uarr; Back to top</a></p>
+</section>
+
+<!-- ============================================================= -->
+<section id="vocab">
+  <h2 class="sec"><span class="num">13</span>Vocabulary Glossary</h2>
+  <dl class="vocab">
+    <dt>Matter</dt><dd>Anything that has mass and takes up space.</dd>
+    <dt>Pure substance</dt><dd>Matter with a fixed, uniform composition; an element or a compound.</dd>
+    <dt>Element</dt><dd>A pure substance made of one kind of atom that cannot be chemically broken down.</dd>
+    <dt>Compound</dt><dd>A pure substance of two or more elements chemically bonded in a fixed ratio.</dd>
+    <dt>Molecule</dt><dd>The smallest unit of a molecular compound that still has its properties.</dd>
+    <dt>Mixture</dt><dd>Two or more substances physically combined, not bonded; each keeps its own properties; ratio varies.</dd>
+    <dt>Homogeneous mixture</dt><dd>A mixture that is uniform throughout (also called a solution when it stays mixed).</dd>
+    <dt>Heterogeneous mixture</dt><dd>A mixture with visibly different regions or composition.</dd>
+    <dt>Solution</dt><dd>A homogeneous mixture of a solute dissolved in a solvent.</dd>
+    <dt>Solute</dt><dd>The substance being dissolved (smaller amount).</dd>
+    <dt>Solvent</dt><dd>The substance doing the dissolving (larger amount).</dd>
+    <dt>Alloy</dt><dd>A solid solution of two or more metals (e.g., brass, steel, bronze).</dd>
+    <dt>Colloid</dt><dd>A mixture with mid-sized particles that do not settle; shows the Tyndall effect; classified as heterogeneous.</dd>
+    <dt>Suspension</dt><dd>A mixture with large particles that settle out and can be filtered.</dd>
+    <dt>Emulsion</dt><dd>A mixture of two normally unmixable liquids, held together by an emulsifier.</dd>
+    <dt>Tyndall effect</dt><dd>The scattering of a light beam by colloid particles, making the beam visible.</dd>
+    <dt>Physical separation</dt><dd>Splitting a mixture using physical property differences; no new substances.</dd>
+    <dt>Chemical separation</dt><dd>Splitting a compound into elements via a chemical reaction.</dd>
+    <dt>Filtration</dt><dd>Separating an insoluble solid from a liquid using filter paper.</dd>
+    <dt>Distillation</dt><dd>Separating liquids by differences in boiling point via evaporation and condensation.</dd>
+    <dt>Chromatography</dt><dd>Separating components by their different attraction to a stationary surface vs. a moving solvent.</dd>
+    <dt>Centrifugation</dt><dd>Using rapid spinning to separate components by density.</dd>
+    <dt>Electrolysis</dt><dd>Using electricity to drive a chemical reaction, e.g., splitting water or molten salt.</dd>
+    <dt>Law of definite proportions</dt><dd>A given compound always contains the same elements in the same mass ratio.</dd>
+  </dl>
+  <p class="toplink"><a href="#top">&uarr; Back to top</a></p>
+</section>
+
+<!-- ============================================================= -->
+<section id="selfcheck">
+  <h2 class="sec"><span class="num">14</span>Self-Check Questions</h2>
+  <div class="box check">
+    <span class="label">Try these &mdash; answers below</span>
+    <ol>
+      <li>Classify each: (a) copper wire, (b) sugar water, (c) chicken noodle soup, (d) carbon dioxide, (e) 18-karat gold.</li>
+      <li>A clear liquid boils completely at exactly 78&nbsp;&deg;C, leaving nothing behind. Is it more likely a pure substance or a mixture? Explain.</li>
+      <li>You have a beaker of sand, salt, and iron filings in water. List the steps and techniques to separate all four components.</li>
+      <li>Why is oxygen gas (O<sub>2</sub>) an element but carbon dioxide (CO<sub>2</sub>) a compound, even though both contain oxygen atoms bonded together?</li>
+      <li>Milk and saltwater both look uniform. How could you tell them apart with a flashlight, and what is that test called?</li>
+      <li>Explain, using the law of definite proportions, why H<sub>2</sub>O and H<sub>2</sub>O<sub>2</sub> are different substances.</li>
+    </ol>
+  </div>
+
+  <div class="box tip">
+    <span class="label">Answer key</span>
+    <ol>
+      <li>(a) element &bull; (b) homogeneous mixture (solution) &bull; (c) heterogeneous mixture &bull; (d) compound &bull; (e) homogeneous mixture (alloy).</li>
+      <li>Pure substance &mdash; a single sharp boiling point with no residue means fixed composition (this is ethanol). A mixture would boil over a range and/or leave residue.</li>
+      <li>Use a <strong>magnet</strong> to remove iron filings. <strong>Filter</strong> the rest to catch sand (residue); saltwater passes through (filtrate). <strong>Evaporate</strong> or <strong>distill</strong> the filtrate: collect pure water from the vapor, and salt is left behind.</li>
+      <li>O<sub>2</sub> contains only oxygen atoms &mdash; one element. CO<sub>2</sub> contains two <em>different</em> elements (carbon and oxygen) bonded together &mdash; that makes it a compound.</li>
+      <li>Shine the beam through each. It stays invisible in saltwater (true solution) but glows as a visible path in milk (colloid). The test is the <strong>Tyndall effect</strong>.</li>
+      <li>Each compound has one fixed mass ratio of its elements. Water is always 2 H : 1 O per molecule; hydrogen peroxide is always 2 H : 2 O. Different fixed ratios = different compounds with different properties.</li>
+    </ol>
+  </div>
+  <p class="toplink"><a href="#top">&uarr; Back to top</a></p>
+</section>
+
+<footer class="credits">
+  <p><strong>Sources &amp; attribution.</strong> Built from the Week&nbsp;3 class notes on the Classification of Matter, expanded with material on the same topics from <em>CK-12 Chemistry for High School</em> (CK-12 Foundation), which is released under a Creative Commons BY-NC license. CK-12 content here is paraphrased and reorganized for this study guide. Diagrams are original SVG illustrations created for this page.</p>
+  <p>For classroom use in a high school chemistry course. Last updated 2026.</p>
+</footer>
+
+</div>
+
+<script>
+/* Optional: tell a Canvas/parent page how tall this content is, so the
+   iframe can auto-resize if the parent listens for it. Harmless if ignored. */
+(function () {
+  function postHeight() {
+    try {
+      var h = document.documentElement.scrollHeight;
+      parent.postMessage({ type: "resize-iframe", height: h }, "*");
+    } catch (e) {}
+  }
+  window.addEventListener("load", postHeight);
+  window.addEventListener("resize", postHeight);
+})();
+</script>
+</body>
+</html>
