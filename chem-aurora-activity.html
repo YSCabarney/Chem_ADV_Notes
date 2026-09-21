@@ -1,0 +1,409 @@
+<title>Starlight Detectives</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#f5f7f1; --surface:#ffffff; --surface-2:#eaf0e6; --ink:#1d2620; --muted:#59665d; --line:#d9e0d1;
+    --accent:#1f7a5c; --accent-ink:#155c44; --accent-soft:#dcefe3;
+    --energy:#d9722f; --energy-soft:#f8e2cf;
+    --wave:#3d6fa8; --wave-soft:#dde8f5;
+    --purple:#7a4fc2; --purple-soft:#e9defa;
+    --good:#3f7f57; --good-soft:#e3efe6;
+    --bad:#b0432f; --bad-soft:#f6ded8;
+    --shadow: 0 1px 2px rgba(20,26,18,0.05), 0 8px 24px -12px rgba(20,26,18,0.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12161a; --surface:#191f1c; --surface-2:#212923; --ink:#e8ece4; --muted:#9caa9f; --line:#31392f;
+      --accent:#5fbf94; --accent-ink:#a6e0c2; --accent-soft:#1c3128;
+      --energy:#eb9a5c; --energy-soft:#3a2a1c;
+      --wave:#8fb3e0; --wave-soft:#1d2c3e;
+      --purple:#b79bef; --purple-soft:#2b2140;
+      --good:#7fc79a; --good-soft:#1e3327;
+      --bad:#e88b78; --bad-soft:#3a231d;
+      --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 8px 24px -12px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12161a; --surface:#191f1c; --surface-2:#212923; --ink:#e8ece4; --muted:#9caa9f; --line:#31392f;
+    --accent:#5fbf94; --accent-ink:#a6e0c2; --accent-soft:#1c3128;
+    --energy:#eb9a5c; --energy-soft:#3a2a1c; --wave:#8fb3e0; --wave-soft:#1d2c3e;
+    --purple:#b79bef; --purple-soft:#2b2140; --good:#7fc79a; --good-soft:#1e3327;
+    --bad:#e88b78; --bad-soft:#3a231d;
+    --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 8px 24px -12px rgba(0,0,0,0.55);
+  }
+
+  *{box-sizing:border-box;}
+  body{background:var(--bg); color:var(--ink); font-family:'Source Serif 4', Georgia, serif; font-size:16px; line-height:1.6; padding-inline:20px; padding-block:24px;}
+  .wrap{max-width:760px; margin:0 auto;}
+  h1,h2,h3,.disp{font-family:'Space Grotesk','Segoe UI',sans-serif;}
+  h1,h2,h3{text-wrap:balance;}
+  .mono{font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums;}
+  strong{font-weight:600;}
+  p{margin:0 0 12px;}
+  svg{max-width:100%; height:auto; display:block;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; overflow:hidden; border-radius:16px; padding:24px 24px 20px;
+    background:
+      radial-gradient(ellipse at 15% 100%, rgba(122,79,194,0.5), transparent 55%),
+      radial-gradient(ellipse at 85% 90%, rgba(61,111,168,0.5), transparent 55%),
+      radial-gradient(ellipse at 50% -10%, rgba(31,122,92,0.4), transparent 60%),
+      #0d1420;
+    color:#f2f5ee; margin-bottom:22px; box-shadow:var(--shadow);
+  }
+  .hero .stars{position:absolute; inset:0; opacity:0.6;
+    background-image:
+      radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 90px 80px, #fff, transparent),
+      radial-gradient(1px 1px at 160px 20px, #fff, transparent),
+      radial-gradient(1px 1px at 220px 90px, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 280px 40px, #fff, transparent),
+      radial-gradient(1px 1px at 340px 70px, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 400px 15px, #fff, transparent),
+      radial-gradient(1px 1px at 460px 85px, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 520px 35px, #fff, transparent),
+      radial-gradient(1px 1px at 580px 60px, #fff, transparent);
+    background-repeat:repeat-x; background-size:640px 100px;
+  }
+  .hero-inner{position:relative; z-index:1; display:grid; grid-template-columns:1fr auto; gap:18px; align-items:center;}
+  @media (max-width:520px){.hero-inner{grid-template-columns:1fr;}}
+  .hero .eyebrow{font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#c9e8d8; margin-bottom:8px;}
+  .hero h1{font-size:clamp(26px,6vw,34px); font-weight:700; margin:0 0 8px; color:#fff;}
+  .hero p{color:#d9ded3; font-size:15.5px; max-width:50ch; margin:0;}
+  .hero-art{flex:none;}
+
+  /* ---------- progress ---------- */
+  .progress{display:flex; gap:6px; overflow-x:auto; padding-block:4px 18px; scrollbar-width:none;}
+  .progress::-webkit-scrollbar{display:none;}
+  .progress .pstep{flex:none; font-family:'Space Grotesk',sans-serif; font-size:11.5px; font-weight:600; color:var(--muted); background:var(--surface); border:1px solid var(--line); padding:5px 10px; border-radius:99px; white-space:nowrap;}
+  .progress .pstep.active{color:var(--accent-ink); border-color:var(--accent);}
+
+  /* ---------- steps ---------- */
+  .step{padding-block:26px; border-bottom:1px solid var(--line); scroll-margin-top:16px;}
+  .step:last-of-type{border-bottom:none;}
+  .step-head{display:flex; align-items:center; gap:10px; margin-bottom:6px; flex-wrap:wrap;}
+  .step-num{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:13px; color:#fff;
+    background:var(--accent); width:28px; height:28px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .step-title{font-size:21px; font-weight:700; margin:0;}
+  .step-time{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--muted); background:var(--surface-2); padding:3px 9px; border-radius:99px;}
+  .step-body{padding-left:38px;}
+  @media (max-width:480px){.step-body{padding-left:0;}}
+
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px; box-shadow:var(--shadow);}
+  .diagram-card{margin:14px 0;}
+  .diagram-label{font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px;}
+  .svg-caption{font-size:13px; color:var(--muted); margin-top:8px; margin-bottom:0;}
+
+  .callout{display:flex; gap:12px; background:var(--purple-soft); border-radius:10px; padding:14px 16px; margin:14px 0; border:1px solid color-mix(in srgb, var(--purple) 35%, transparent);}
+  .callout .icon{font-family:'Space Grotesk',sans-serif; font-weight:700; color:var(--purple); flex:none;}
+  .callout p{margin:0; font-size:15px;}
+  .callout.fact{background:var(--wave-soft); border-color:color-mix(in srgb, var(--wave) 35%, transparent);}
+  .callout.fact .icon{color:var(--wave);}
+
+  textarea.jot{
+    width:100%; min-height:70px; resize:vertical; font-family:'Source Serif 4',Georgia,serif; font-size:15px;
+    color:var(--ink); background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:10px 12px;
+  }
+  textarea.jot:focus{outline:2px solid var(--accent); outline-offset:1px;}
+  .jot-label{font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; display:block;}
+
+  /* ---------- matching game ---------- */
+  .match-wrap{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:16px 0;}
+  @media (max-width:520px){.match-wrap{grid-template-columns:1fr;}}
+  .match-col-label{font-family:'Space Grotesk',sans-serif; font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:8px;}
+  .match-chip{
+    display:flex; align-items:center; gap:10px; width:100%; text-align:left; font-family:'Source Serif 4',Georgia,serif;
+    font-size:14.5px; background:var(--surface); border:2px solid var(--line); border-radius:10px; padding:10px 12px;
+    margin-bottom:8px; cursor:pointer; color:var(--ink);
+  }
+  .match-chip .swatch{width:16px; height:34px; border-radius:3px; flex:none; border:1px solid rgba(0,0,0,0.15);}
+  .match-chip.selected{border-color:var(--wave); background:var(--wave-soft);}
+  .match-chip.matched{border-color:var(--good); background:var(--good-soft); cursor:default; opacity:0.85;}
+  .match-chip.shake{animation:shake 0.35s;}
+  .match-chip:disabled, .match-chip.matched{pointer-events:none;}
+  @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-4px);}75%{transform:translateX(4px);}}
+  #matchStatus{font-size:14px; color:var(--muted); margin-top:4px;}
+
+  /* ---------- flip cards ---------- */
+  .flip-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin:14px 0;}
+  @media (max-width:520px){.flip-grid{grid-template-columns:1fr;}}
+  .flip-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px 16px; cursor:pointer;
+    box-shadow:var(--shadow); min-height:96px; display:flex; flex-direction:column; justify-content:center;
+  }
+  .flip-card .term{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; color:var(--accent-ink); display:flex; align-items:center; gap:8px;}
+  .flip-card .term::after{content:"tap to reveal"; margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:400; color:var(--muted); text-transform:none; letter-spacing:0;}
+  .flip-card .def{display:none; font-size:14px; color:var(--ink); margin-top:8px;}
+  .flip-card.open .def{display:block;}
+  .flip-card.open .term::after{content:"";}
+
+  .checklist{list-style:none; margin:10px 0 0; padding:0; display:flex; flex-direction:column; gap:8px;}
+  .checklist li{display:flex; gap:10px; align-items:flex-start; font-size:15px;}
+  .checklist li::before{content:"🎤"; flex:none;}
+
+  footer{padding-top:20px; color:var(--muted); font-size:13px;}
+
+  @media (prefers-reduced-motion: reduce){*{transition:none !important; animation:none !important;}}
+</style>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="stars"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Chemistry · Intro Activity · Student Version</div>
+        <h1>Starlight Detectives</h1>
+        <p>Scientists have never touched most of the planets and stars they study — some are so far away their light takes years to reach us. So how do they know what those worlds are made of? Today, you'll crack that case.</p>
+      </div>
+      <div class="hero-art">
+        <svg viewBox="0 0 140 120" width="120" height="103" role="img" aria-label="A telescope pointed at a distant ringed planet and star">
+          <circle cx="105" cy="28" r="16" fill="#f0a83c" opacity="0.9"/>
+          <ellipse cx="105" cy="28" rx="26" ry="7" fill="none" stroke="#e9defa" stroke-width="2" opacity="0.85" transform="rotate(-18 105 28)"/>
+          <circle cx="30" cy="18" r="2" fill="#fff"/><circle cx="55" cy="10" r="1.6" fill="#fff"/><circle cx="18" cy="45" r="1.6" fill="#fff"/>
+          <g transform="translate(10,70) rotate(-25)">
+            <rect x="0" y="0" width="58" height="14" rx="3" fill="#dfe6da"/>
+            <rect x="46" y="-4" width="14" height="22" rx="3" fill="#b9c4b2"/>
+            <rect x="-6" y="10" width="16" height="8" rx="2" fill="#8a978a"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="progress">
+    <span class="pstep active">① Hook — 3 min</span>
+    <span class="pstep">② The Facts — 2 min</span>
+    <span class="pstep">③ Color Detective — 6 min</span>
+    <span class="pstep">④ Sneak Peek — 4 min</span>
+    <span class="pstep">⑤ Reflect &amp; Share — 3 min</span>
+  </div>
+
+  <!-- ================= STEP 1 ================= -->
+  <section class="step" id="step1">
+    <div class="step-head">
+      <span class="step-num">1</span>
+      <h2 class="step-title">A Planet We'll Never Visit</h2>
+      <span class="step-time">⏱ 3 min</span>
+    </div>
+    <div class="step-body">
+      <p>Over the past few years, space telescopes have been announcing something wild: they've identified the exact gases inside the atmospheres of <strong>exoplanets</strong> — planets orbiting stars other than our sun, so far away their light takes years to reach Earth. Scientists have found water vapor, carbon dioxide, even methane on worlds humans will probably never set foot on.</p>
+
+      <div class="card diagram-card">
+        <div class="diagram-label">How light from another world reaches us</div>
+        <svg viewBox="0 0 620 140" role="img" aria-label="A planet passing in front of its star, with starlight filtering through the planet's atmosphere toward Earth">
+          <circle cx="120" cy="70" r="46" fill="#f0a83c"/>
+          <circle cx="120" cy="70" r="46" fill="none" stroke="#d9722f" stroke-width="1"/>
+          <circle cx="255" cy="70" r="14" fill="#0d1420" stroke="#3d6fa8" stroke-width="3"/>
+          <text x="255" y="105" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="600" fill="var(--ink)">exoplanet</text>
+          <text x="120" y="128" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="600" fill="var(--ink)">distant star</text>
+          <path d="M 166 55 L 610 20 M 166 70 L 610 70 M 166 85 L 610 120" stroke="#f0a83c" stroke-width="1.5" opacity="0.55" fill="none"/>
+          <path d="M 240 58 L 270 58 M 240 82 L 270 82" stroke="#3d6fa8" stroke-width="3" opacity="0.8"/>
+          <text x="610" y="15" text-anchor="end" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="600" fill="var(--accent-ink)">to Earth's telescopes ➜</text>
+        </svg>
+        <p class="svg-caption">As the planet crosses in front of its star, a sliver of starlight filters straight through the planet's atmosphere before reaching our telescopes — picking up a chemical "fingerprint" along the way.</p>
+      </div>
+
+      <div class="card">
+        <span class="jot-label">Your first guess — no wrong answers</span>
+        <p style="margin-bottom:8px;">Before we explain anything: how do you think scientists could possibly know what gases are in a planet's atmosphere without ever going there?</p>
+        <textarea class="jot" id="guess1" placeholder="Type your prediction here... maybe something about light? color? telescopes?"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STEP 2 ================= -->
+  <section class="step" id="step2">
+    <div class="step-head">
+      <span class="step-num">2</span>
+      <h2 class="step-title">What's Actually Happening</h2>
+      <span class="step-time">⏱ 2 min</span>
+    </div>
+    <div class="step-body">
+      <p>Here's the short version — we'll go deeper over the next few classes:</p>
+
+      <div class="card diagram-card">
+        <div class="diagram-label">Splitting starlight into a spectrum</div>
+        <svg viewBox="0 0 620 110" role="img" aria-label="A beam of white starlight passing through a prism and spreading into a rainbow spectrum with dark absorption lines">
+          <rect x="10" y="42" width="70" height="6" fill="#f2f5ee"/>
+          <polygon points="86,20 122,70 86,70" fill="#dfe6da" opacity="0.9"/>
+          <defs>
+            <linearGradient id="rb" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#7b2ff7"/><stop offset="25%" stop-color="#3fb0e0"/>
+              <stop offset="50%" stop-color="#3fd67a"/><stop offset="75%" stop-color="#f0d23f"/><stop offset="100%" stop-color="#f74b3a"/>
+            </linearGradient>
+          </defs>
+          <rect x="140" y="30" width="470" height="40" fill="url(#rb)"/>
+          <rect x="210" y="30" width="3" height="40" fill="#0b0d12" opacity="0.75"/>
+          <rect x="330" y="30" width="3" height="40" fill="#0b0d12" opacity="0.75"/>
+          <rect x="470" y="30" width="3" height="40" fill="#0b0d12" opacity="0.75"/>
+          <text x="140" y="88" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--muted)">rainbow of colors</text>
+          <text x="610" y="88" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--muted)">dark lines = missing colors</text>
+        </svg>
+        <p class="svg-caption">A prism (or a spectrograph, its high-tech cousin) spreads starlight into a rainbow. Gases in the way soak up their own specific colors, leaving dark gaps — a fingerprint of exactly which gases the light passed through.</p>
+      </div>
+
+      <div class="callout fact">
+        <span class="icon">🔭</span>
+        <p>Every gas — whether it's floating in a star, wrapped around a planet, or drifting through an exoplanet's atmosphere light years away — absorbs and releases the <em>exact same</em> colors every time. That consistency is what makes this whole trick work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STEP 3 ================= -->
+  <section class="step" id="step3">
+    <div class="step-head">
+      <span class="step-num">3</span>
+      <h2 class="step-title">Color Detective</h2>
+      <span class="step-time">⏱ 6 min</span>
+    </div>
+    <div class="step-body">
+      <p>Astronomers identify elements the same way you're about to: by the color of the line each one produces. Match the spectral line color to the element it reveals — and where in the universe it helped make a discovery. Click a chip on the left, then click the one you think matches on the right.</p>
+      <div class="match-wrap">
+        <div>
+          <div class="match-col-label">The spectral line</div>
+          <button class="match-chip" data-group="left" data-match="hydrogen"><span class="swatch" style="background:#e0473f;"></span> Reddish-pink line</button>
+          <button class="match-chip" data-group="left" data-match="sodium"><span class="swatch" style="background:#f0a83c;"></span> Yellow-orange line</button>
+          <button class="match-chip" data-group="left" data-match="helium"><span class="swatch" style="background:#8a5cf0;"></span> Violet-blue line</button>
+        </div>
+        <div>
+          <div class="match-col-label">The element it reveals</div>
+          <button class="match-chip" data-group="right" data-match="sodium">Sodium — detected in the thin atmospheres of Mercury and Jupiter's volcanic moon, Io</button>
+          <button class="match-chip" data-group="right" data-match="helium">Helium — found in the Sun's spectrum in 1868, a full 27 years before anyone found it on Earth</button>
+          <button class="match-chip" data-group="right" data-match="hydrogen">Hydrogen — the most abundant element in stars, and common in exoplanet atmospheres</button>
+        </div>
+      </div>
+      <p id="matchStatus">0 of 3 matched.</p>
+      <div class="callout">
+        <span class="icon">💡</span>
+        <p>Notice the pattern: <strong>same idea as a fingerprint at a crime scene</strong> — a specific color always points to one specific element, whether you're looking at a flame in the lab or a star 100 light years away.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STEP 4 ================= -->
+  <section class="step" id="step4">
+    <div class="step-head">
+      <span class="step-num">4</span>
+      <h2 class="step-title">Sneak Peek: the Words Behind the Light</h2>
+      <span class="step-time">⏱ 4 min</span>
+    </div>
+    <div class="step-body">
+      <p>You don't need to memorize these yet — just tap each card to meet the four ideas we'll build the whole unit on.</p>
+      <div class="flip-grid">
+        <div class="flip-card" data-term="atom">
+          <div class="term">⚛️ Atom</div>
+          <div class="def">The tiny particle every gas is made of — whether it's floating in a lab flame or drifting through an exoplanet's atmosphere. Every spectral line you matched in Step 3 starts inside one of these.</div>
+        </div>
+        <div class="flip-card" data-term="electron">
+          <div class="term">⚡ Electron</div>
+          <div class="def">A tiny negatively-charged particle inside every atom. When starlight or heat energy hits an atom, it's the electron that absorbs it.</div>
+        </div>
+        <div class="flip-card" data-term="energy level">
+          <div class="term">🪜 Energy Level</div>
+          <div class="def">Electrons can only sit at specific "steps" of energy — never in between. Absorb energy and an electron jumps up a step. It can't stay there long.</div>
+        </div>
+        <div class="flip-card" data-term="photon">
+          <div class="term">✨ Photon</div>
+          <div class="def">When the electron falls back down a step, it releases the extra energy as a single particle of light — a photon. Its color depends on exactly how big that step was, which is why every element's fingerprint is unique.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STEP 5 ================= -->
+  <section class="step" id="step5">
+    <div class="step-head">
+      <span class="step-num">5</span>
+      <h2 class="step-title">Reflect &amp; Share</h2>
+      <span class="step-time">⏱ 3 min</span>
+    </div>
+    <div class="step-body">
+      <div class="card">
+        <span class="jot-label">Revise your prediction</span>
+        <p style="margin-bottom:8px;">Look back at your Step 1 guess. Now that you've investigated, how would you explain — in your own words — how scientists identify gases on a planet light years away?</p>
+        <textarea class="jot" id="guess2" placeholder="Something about light splitting into colors... certain gases block or release certain colors..."></textarea>
+      </div>
+      <ul class="checklist">
+        <li>Unmute or raise your hand — be ready to share your revised explanation with the class.</li>
+        <li>Compare notes with a classmate in the chat: did you pick the same colors in Step 3?</li>
+      </ul>
+      <div class="callout">
+        <span class="icon">➡</span>
+        <p><strong>Coming up next:</strong> we'll meet the full atom — protons, neutrons, and the scientists who discovered them — and pick up the exact formulas (like E = hf) that tell you the energy of any photon, from a lab flame to a planet you'll never visit.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Virtual class activity · 15–20 min · designed for small-group discussion (5–7 students).
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  // Matching game
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.match-chip'));
+  var selectedLeft = null, selectedRight = null, matchedCount = 0;
+  var statusEl = document.getElementById('matchStatus');
+
+  function clearSelection(){
+    chips.forEach(function(c){ if(!c.classList.contains('matched')) c.classList.remove('selected'); });
+    selectedLeft = null; selectedRight = null;
+  }
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      if(chip.classList.contains('matched')) return;
+      var group = chip.getAttribute('data-group');
+      if(group === 'left'){
+        chips.forEach(function(c){ if(c.getAttribute('data-group')==='left' && !c.classList.contains('matched')) c.classList.remove('selected'); });
+        chip.classList.add('selected');
+        selectedLeft = chip;
+      } else {
+        chips.forEach(function(c){ if(c.getAttribute('data-group')==='right' && !c.classList.contains('matched')) c.classList.remove('selected'); });
+        chip.classList.add('selected');
+        selectedRight = chip;
+      }
+      if(selectedLeft && selectedRight){
+        if(selectedLeft.getAttribute('data-match') === selectedRight.getAttribute('data-match')){
+          selectedLeft.classList.add('matched');
+          selectedRight.classList.add('matched');
+          selectedLeft.classList.remove('selected');
+          selectedRight.classList.remove('selected');
+          matchedCount++;
+          statusEl.textContent = matchedCount < 3 ? (matchedCount + ' of 3 matched.') : 'All matched! Nice work, detective.';
+          selectedLeft = null; selectedRight = null;
+        } else {
+          [selectedLeft, selectedRight].forEach(function(c){ c.classList.add('shake'); setTimeout(function(){ c.classList.remove('shake'); }, 350); });
+          setTimeout(clearSelection, 500);
+        }
+      }
+    });
+  });
+
+  // Flip / reveal cards
+  document.querySelectorAll('.flip-card').forEach(function(card){
+    card.addEventListener('click', function(){
+      card.classList.toggle('open');
+    });
+  });
+
+  // Best-effort local jotting persistence (per-viewer only; fine if unavailable)
+  ['guess1','guess2'].forEach(function(id){
+    var el = document.getElementById(id);
+    try{
+      var saved = localStorage.getItem('starlight_'+id);
+      if(saved) el.value = saved;
+    }catch(e){}
+    el.addEventListener('input', function(){
+      try{ localStorage.setItem('starlight_'+id, el.value); }catch(e){}
+    });
+  });
+})();
+</script>
