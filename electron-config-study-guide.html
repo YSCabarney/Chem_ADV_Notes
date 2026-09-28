@@ -1,0 +1,590 @@
+<title>The Atom's Address Book</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#f5f7f1; --surface:#ffffff; --surface-2:#eaf0e6; --ink:#1d2620; --muted:#59665d; --line:#d9e0d1;
+    --accent:#1f7a5c; --accent-ink:#155c44; --accent-soft:#dcefe3;
+    --energy:#d9722f; --energy-soft:#f8e2cf;
+    --wave:#3d6fa8; --wave-soft:#dde8f5;
+    --fblock:#7a4fc2; --fblock-soft:#e9defa;
+    --good:#3f7f57; --good-soft:#e3efe6;
+    --shadow: 0 1px 2px rgba(20,26,18,0.05), 0 8px 24px -12px rgba(20,26,18,0.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12161a; --surface:#191f1c; --surface-2:#212923; --ink:#e8ece4; --muted:#9caa9f; --line:#31392f;
+      --accent:#5fbf94; --accent-ink:#a6e0c2; --accent-soft:#1c3128;
+      --energy:#eb9a5c; --energy-soft:#3a2a1c;
+      --wave:#8fb3e0; --wave-soft:#1d2c3e;
+      --fblock:#b79bef; --fblock-soft:#2b2140;
+      --good:#7fc79a; --good-soft:#1e3327;
+      --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 8px 24px -12px rgba(0,0,0,0.55);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12161a; --surface:#191f1c; --surface-2:#212923; --ink:#e8ece4; --muted:#9caa9f; --line:#31392f;
+    --accent:#5fbf94; --accent-ink:#a6e0c2; --accent-soft:#1c3128;
+    --energy:#eb9a5c; --energy-soft:#3a2a1c; --wave:#8fb3e0; --wave-soft:#1d2c3e;
+    --fblock:#b79bef; --fblock-soft:#2b2140;
+    --good:#7fc79a; --good-soft:#1e3327;
+    --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 8px 24px -12px rgba(0,0,0,0.55);
+    color-scheme: dark;
+  }
+  :root[data-theme="light"]{ color-scheme: light; }
+
+  *{box-sizing:border-box;}
+  body{background:var(--bg); color:var(--ink); font-family:'Source Serif 4', Georgia, serif; font-size:16px; line-height:1.62; padding-inline:20px; padding-block:28px;}
+  .wrap{max-width:800px; margin:0 auto;}
+  h1,h2,h3,.disp{font-family:'Space Grotesk','Segoe UI',sans-serif;}
+  h1,h2,h3{text-wrap:balance; color:var(--ink);}
+  code,.mono,.eq{font-family:'IBM Plex Mono',ui-monospace,monospace;}
+  .mono{font-variant-numeric:tabular-nums;}
+  a{color:var(--accent-ink);}
+  sup{font-size:0.7em;}
+
+  header.masthead{padding-block:6px 22px; border-bottom:2px solid var(--ink); margin-bottom:22px;}
+  .eyebrow{font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; letter-spacing:0.09em; text-transform:uppercase; color:var(--energy); display:flex; align-items:center; gap:8px; margin-bottom:10px;}
+  .eyebrow::before{content:""; width:22px; height:2px; background:var(--energy); display:inline-block;}
+  h1.title{font-size:clamp(28px,6vw,38px); font-weight:700; line-height:1.08; margin:0 0 10px;}
+  .subtitle{color:var(--muted); font-size:16px; max-width:60ch; margin:0 0 14px;}
+  .meta-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; padding:4px 10px; border-radius:99px; border:1px solid var(--line); color:var(--muted); background:var(--surface);}
+
+  nav.toc{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:var(--bg); padding-block:8px 14px; margin-bottom:8px; display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; border-bottom:1px solid var(--line);}
+  nav.toc::-webkit-scrollbar{display:none;}
+  nav.toc a{flex:none; font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; text-decoration:none; color:var(--muted); background:var(--surface); border:1px solid var(--line); padding:6px 12px; border-radius:8px; white-space:nowrap;}
+  nav.toc a:hover{color:var(--accent-ink); border-color:var(--accent);}
+
+  section{padding-block:30px; border-bottom:1px solid var(--line); scroll-margin-top:52px;}
+  section:last-of-type{border-bottom:none;}
+  .sec-label{font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent-ink); margin:0 0 8px;}
+  h2.sec-title{font-size:24px; font-weight:700; margin:0 0 14px;}
+  h3.sub-title{font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; margin:22px 0 8px;}
+  p{margin:0 0 12px;}
+  ul,ol{margin:0 0 12px; padding-left:22px;}
+  li{margin-bottom:5px;}
+  strong{font-weight:600;}
+  .lede{font-size:17px;}
+
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px; box-shadow:var(--shadow);}
+
+  .formula-box{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--energy); border-radius:10px; padding:14px 18px; margin:14px 0;}
+  .formula-box .name{font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px;}
+  .formula-box .eq{font-size:19px; font-weight:500; color:var(--ink);}
+  .formula-box .key{font-size:13.5px; color:var(--muted); margin-top:8px;}
+  .formula-box .key span{color:var(--ink); font-weight:600;}
+
+  .callout{display:flex; gap:12px; background:var(--accent-soft); border-radius:10px; padding:14px 16px; margin:16px 0; border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);}
+  .callout .icon{font-family:'Space Grotesk',sans-serif; font-weight:700; color:var(--accent-ink); flex:none;}
+  .callout p{margin:0; font-size:15px;}
+  .callout.world{background:var(--energy-soft); border-color:color-mix(in srgb, var(--energy) 35%, transparent);}
+  .callout.world .icon{color:var(--energy);}
+  .callout.wave{background:var(--wave-soft); border-color:color-mix(in srgb, var(--wave) 35%, transparent);}
+  .callout.wave .icon{color:var(--wave);}
+
+  .vocab-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:8px;}
+  @media (max-width:520px){.vocab-grid{grid-template-columns:1fr;}}
+  .vocab-item{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
+  .vocab-item .term{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14.5px; margin-bottom:3px;}
+  .vocab-item p{font-size:14px; margin:0; color:var(--muted);}
+
+  .table-wrap{overflow-x:auto; margin:14px 0;}
+  table{border-collapse:collapse; width:100%; min-width:460px; font-size:14.5px;}
+  th,td{padding:9px 12px; border-bottom:1px solid var(--line); text-align:left;}
+  th{font-family:'Space Grotesk',sans-serif; font-size:12.5px; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted); font-weight:600;}
+  tbody tr:nth-child(even){background:var(--surface-2);}
+  td.num{font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums;}
+
+  .trio{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:10px;}
+  @media (max-width:640px){.trio{grid-template-columns:1fr;}}
+  .trio .card{padding:14px 16px;}
+  .trio .glyph{margin-bottom:8px;}
+  .trio h4{font-family:'Space Grotesk',sans-serif; font-size:14.5px; margin:0 0 4px;}
+  .trio p{font-size:13.5px; color:var(--muted); margin:0 0 8px;}
+  .trio .ex{font-size:12.5px; color:var(--accent-ink); font-weight:600;}
+
+  .quad{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:10px;}
+  @media (max-width:680px){.quad{grid-template-columns:repeat(2,1fr);}}
+  .quad .card{padding:12px 12px; text-align:center;}
+  .quad h4{font-family:'Space Grotesk',sans-serif; font-size:14px; margin:6px 0 2px;}
+  .quad p{font-size:12.5px; color:var(--muted); margin:0;}
+
+  .diagram-card{margin:16px 0;}
+  .diagram-label{font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;}
+  svg{max-width:100%; height:auto; display:block;}
+  .svg-caption{font-size:13px; color:var(--muted); margin-top:8px;}
+
+  .steps{list-style:none; margin:12px 0 0; padding:0; counter-reset:step;}
+  .steps li{counter-increment:step; position:relative; padding-left:34px; margin-bottom:12px; font-size:15px;}
+  .steps li::before{content:counter(step); position:absolute; left:0; top:0; width:24px; height:24px; background:var(--energy); color:#fff; border-radius:50%; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:12.5px; display:flex; align-items:center; justify-content:center;}
+  .steps .eq-line{display:block; font-family:'IBM Plex Mono',monospace; background:var(--surface-2); border-radius:6px; padding:6px 10px; margin-top:5px; font-size:14px; width:fit-content;}
+
+  details{margin-top:10px;}
+  details summary{cursor:pointer; list-style:none; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:13px; color:var(--accent-ink); display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border:1px solid var(--accent); border-radius:8px;}
+  details summary::-webkit-details-marker{display:none;}
+  details summary::before{content:"▸"; font-size:11px; transition:transform .15s ease;}
+  details[open] summary::before{transform:rotate(90deg);}
+  details[open] summary{margin-bottom:10px;}
+  .answer{background:var(--good-soft); border:1px solid color-mix(in srgb, var(--good) 40%, transparent); border-radius:10px; padding:12px 14px; font-size:14.5px;}
+  .answer .result{font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--good); font-size:15px;}
+
+  .legend{display:flex; flex-wrap:wrap; gap:14px; margin:10px 0 4px; font-size:13px;}
+  .legend span{display:inline-flex; align-items:center; gap:6px; color:var(--muted);}
+  .legend i{width:12px; height:12px; border-radius:3px; display:inline-block;}
+
+  .ref-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:10px;}
+  @media (max-width:560px){.ref-grid{grid-template-columns:1fr;}}
+  .ref-card{background:var(--ink); color:var(--bg); border-radius:10px; padding:12px 14px;}
+  .ref-card .rname{font-family:'Space Grotesk',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:0.06em; opacity:0.65; margin-bottom:4px;}
+  .ref-card .req{font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:500;}
+  .ref-card .rsolve{font-size:12px; opacity:0.75; margin-top:6px;}
+
+  .checklist{list-style:none; margin:10px 0 0; padding:0; display:flex; flex-direction:column; gap:8px;}
+  .checklist li{display:flex; gap:10px; align-items:flex-start; font-size:15px;}
+  .checklist li::before{content:"☐"; color:var(--accent); font-size:17px; line-height:1.3;}
+
+  footer{padding-top:24px; color:var(--muted); font-size:13px;}
+
+  @media (prefers-reduced-motion: reduce){*{transition:none !important; animation:none !important;}}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Chemistry · Quantum Models &amp; Electron Configuration</div>
+    <h1 class="title">The Atom's Address Book</h1>
+    <p class="subtitle">You already know that an excited electron releases a specific color of light. This guide answers the next question: where exactly does that electron live, and how does its address shape the entire periodic table?</p>
+    <div class="meta-row">
+      <span class="chip">Builds on: quantized energy &amp; the visible spectrum</span>
+      <span class="chip">New: orbitals, electron configuration, the periodic table</span>
+      <span class="chip">~20&nbsp;min read</span>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <a href="#refresher">Particle Refresher</a>
+    <a href="#cat">Schrödinger's Cat</a>
+    <a href="#address">Electron Addresses</a>
+    <a href="#shapes">Orbital Shapes</a>
+    <a href="#rules">Filling Rules</a>
+    <a href="#configs">Configurations</a>
+    <a href="#table">The Periodic Table</a>
+    <a href="#trends">Periodic Trends</a>
+    <a href="#world">Real World</a>
+    <a href="#reference">Reference</a>
+  </nav>
+
+  <!-- ================= REFRESHER ================= -->
+  <section id="refresher">
+    <p class="sec-label">Before You Start</p>
+    <h2 class="sec-title">Quick Refresher: Inside the Atom</h2>
+    <p class="lede">Every atom is built from three particles. Before we zoom in on where electrons live, make sure these three are solid.</p>
+
+    <div class="card diagram-card">
+      <div class="diagram-label">A labeled atom</div>
+      <svg viewBox="0 0 620 220" role="img" aria-label="A diagram of an atom showing a nucleus of protons and neutrons surrounded by an electron cloud">
+        <circle cx="180" cy="110" r="95" fill="var(--wave-soft)" opacity="0.5"/>
+        <circle cx="180" cy="110" r="95" fill="none" stroke="var(--wave)" stroke-width="1.5" stroke-dasharray="3,4"/>
+        <g>
+          <circle cx="168" cy="102" r="15" fill="var(--energy)"/><text x="168" y="107" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" font-weight="700" fill="#fff">p+</text>
+          <circle cx="194" cy="100" r="15" fill="var(--muted)"/><text x="194" y="105" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" font-weight="700" fill="#fff">n</text>
+          <circle cx="180" cy="122" r="15" fill="var(--energy)"/><text x="180" y="127" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" font-weight="700" fill="#fff">p+</text>
+          <circle cx="200" cy="122" r="15" fill="var(--muted)"/><text x="200" y="127" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" font-weight="700" fill="#fff">n</text>
+        </g>
+        <circle cx="80" cy="60" r="6" fill="var(--accent)"/><text x="80" y="46" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent-ink)">e-</text>
+        <circle cx="275" cy="70" r="6" fill="var(--accent)"/><text x="275" y="56" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent-ink)">e-</text>
+        <circle cx="90" cy="165" r="6" fill="var(--accent)"/><text x="90" y="182" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent-ink)">e-</text>
+        <circle cx="260" cy="150" r="6" fill="var(--accent)"/><text x="260" y="167" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent-ink)">e-</text>
+        <line x1="168" y1="102" x2="330" y2="40" stroke="var(--line)" stroke-width="1"/>
+        <text x="336" y="44" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" fill="var(--ink)">Nucleus: protons + neutrons</text>
+        <line x1="270" y1="30" x2="330" y2="70" stroke="var(--line)" stroke-width="1"/>
+        <text x="336" y="74" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" fill="var(--accent-ink)">Electron cloud: where electrons are likely to be</text>
+        <line x1="180" y1="15" x2="330" y2="105" stroke="var(--line)" stroke-width="1"/>
+        <text x="336" y="109" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--muted)">Mostly empty space</text>
+      </svg>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Particle</th><th>Charge</th><th>Location</th><th class="num">Relative Mass</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Proton</strong></td><td>Positive (+)</td><td>Nucleus</td><td class="num">1</td><td>Defines the element — the atomic number is the proton count, and it never changes</td></tr>
+          <tr><td><strong>Neutron</strong></td><td>Neutral (0)</td><td>Nucleus</td><td class="num">1</td><td>Adds mass and holds the nucleus together; same-element atoms can have different neutron counts (isotopes)</td></tr>
+          <tr><td><strong>Electron</strong></td><td>Negative (–)</td><td>Electron cloud</td><td class="num">~0</td><td>Handles bonding, charge, and — as this guide is about to show — light and color</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <span class="icon">🔑</span>
+      <p><strong>The rule everything else depends on:</strong> the number of electrons in a neutral atom always equals the number of protons. It's that outer layer of electrons — not the nucleus — that decides how an atom behaves, bonds, and reacts. That's exactly what the rest of this guide maps out.</p>
+    </div>
+  </section>
+
+  <!-- ================= SCHRODINGER'S CAT ================= -->
+  <section id="cat">
+    <p class="sec-label">Concept One</p>
+    <h2 class="sec-title">Schrödinger's Cat: Why We Needed a New Model</h2>
+    <p class="lede">Bohr's model drew electrons circling the nucleus in neat orbits, like planets around the sun. It's a useful sketch, but it's not what actually happens — and physicist Erwin Schrödinger proved it with a famous thought experiment.</p>
+    <p>Imagine sealing a cat in a box with a 50% chance that a random event kills it within the hour. Until you open the box, the cat's fate is undetermined — physics only lets you say it is in some sense <em>both</em> alive and dead at once, a blend of both possibilities, until the moment you look and the outcome resolves into one.</p>
+    <p>Electrons behave the same way. An electron doesn't sit at one fixed point on a tidy orbit. Until it's measured, its position is a <strong>blur of probabilities</strong> — not "somewhere we haven't checked yet," but genuinely undetermined. Schrödinger and physicist Werner Heisenberg proved mathematically that we can only ever predict the <em>region</em> an electron is likely to occupy, never its exact position and motion at the same instant.</p>
+    <div class="callout wave">
+      <span class="icon">☁</span>
+      <p>This is why modern chemistry replaced Bohr's neat rings with the <strong>electron cloud</strong>: a fuzzy region where an electron is probably found. Where the cloud is densest, the odds of finding the electron there are highest.</p>
+    </div>
+  </section>
+
+  <!-- ================= ELECTRON ADDRESSES ================= -->
+  <section id="address">
+    <p class="sec-label">Concept Two</p>
+    <h2 class="sec-title">An Electron's Home Address</h2>
+    <p class="lede">Scientists still need a way to describe roughly where an electron lives, even if they can't pin down an exact spot. So they give every electron an <strong>address</strong>, built the same way your home address is: broad category first, more specific each step.</p>
+
+    <div class="card diagram-card">
+      <div class="diagram-label">The building analogy</div>
+      <svg viewBox="0 0 640 260" role="img" aria-label="An apartment building diagram where floors represent energy levels and rooms represent orbitals">
+        <g>
+          <rect x="40" y="20" width="220" height="220" fill="var(--surface-2)" stroke="var(--line)"/>
+          <line x1="40" y1="75" x2="260" y2="75" stroke="var(--line)"/>
+          <line x1="40" y1="130" x2="260" y2="130" stroke="var(--line)"/>
+          <line x1="40" y1="185" x2="260" y2="185" stroke="var(--line)"/>
+          <text x="30" y="212" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--muted)">n=1</text>
+          <text x="30" y="160" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--muted)">n=2</text>
+          <text x="30" y="105" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--muted)">n=3</text>
+          <text x="30" y="50" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--muted)">n=4</text>
+          <rect x="50" y="192" width="45" height="38" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="72" y="215" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--accent-ink)">1s</text>
+          <rect x="50" y="137" width="45" height="38" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="72" y="160" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--accent-ink)">2s</text>
+          <rect x="105" y="137" width="145" height="38" fill="var(--wave-soft)" stroke="var(--wave)"/><text x="177" y="160" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--wave)">2p ×3</text>
+          <rect x="50" y="82" width="45" height="38" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="72" y="105" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--accent-ink)">3s</text>
+          <rect x="105" y="82" width="65" height="38" fill="var(--wave-soft)" stroke="var(--wave)"/><text x="137" y="105" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--wave)">3p ×3</text>
+          <rect x="180" y="82" width="70" height="38" fill="var(--energy-soft)" stroke="var(--energy)"/><text x="215" y="105" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--energy)">3d ×5</text>
+        </g>
+        <text x="330" y="45" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="var(--ink)">Floor = energy level (n)</text>
+        <text x="330" y="65" font-family="Source Serif 4, serif" font-size="13" fill="var(--muted)">Bigger n, farther from the nucleus, more energy.</text>
+        <text x="330" y="100" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="var(--ink)">Room type = subshell (s, p, d, f)</text>
+        <text x="330" y="120" font-family="Source Serif 4, serif" font-size="13" fill="var(--muted)">Each floor offers certain room types.</text>
+        <text x="330" y="155" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="var(--ink)">Room = orbital</text>
+        <text x="330" y="175" font-family="Source Serif 4, serif" font-size="13" fill="var(--muted)">A specific space that fits at most 2 electrons.</text>
+        <text x="330" y="210" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="var(--ink)">Roommates = electron pair</text>
+        <text x="330" y="230" font-family="Source Serif 4, serif" font-size="13" fill="var(--muted)">Two electrons per room must "sleep in shifts" — opposite spins.</text>
+      </svg>
+      <p class="svg-caption">Think of an atom like an apartment building. Electrons fill the lowest, most stable floors first, just like tenants take the ground floor before the penthouse.</p>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="term">Principal quantum number (n)</div><p>The floor number: a whole number from 1 to 7. Higher n = farther from the nucleus = more energy.</p></div>
+      <div class="vocab-item"><div class="term">Subshell</div><p>The room type on that floor: s, p, d, or f. Each type has its own shape and its own room count.</p></div>
+      <div class="vocab-item"><div class="term">Orbital</div><p>A single room — a region where an electron is most likely to be found. Holds at most 2 electrons.</p></div>
+      <div class="vocab-item"><div class="term">Electron spin</div><p>The two electrons sharing an orbital must have opposite spins, shown as ↑ and ↓ — never two arrows pointing the same way.</p></div>
+    </div>
+  </section>
+
+  <!-- ================= ORBITAL SHAPES ================= -->
+  <section id="shapes">
+    <p class="sec-label">Concept Two, continued</p>
+    <h2 class="sec-title">The Four Room Shapes</h2>
+    <p>Every subshell has a distinct 3D shape and a fixed number of orbitals (rooms), which sets its maximum electron capacity.</p>
+    <div class="quad">
+      <div class="card">
+        <svg class="glyph" viewBox="0 0 100 80" width="100%" height="70"><circle cx="50" cy="40" r="26" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/></svg>
+        <h4>s &nbsp;·&nbsp; sphere</h4>
+        <p>1 orbital · max 2 e⁻</p>
+      </div>
+      <div class="card">
+        <svg class="glyph" viewBox="0 0 100 80" width="100%" height="70">
+          <ellipse cx="50" cy="22" rx="12" ry="18" fill="var(--wave-soft)" stroke="var(--wave)" stroke-width="2"/>
+          <ellipse cx="50" cy="58" rx="12" ry="18" fill="var(--wave-soft)" stroke="var(--wave)" stroke-width="2"/>
+        </svg>
+        <h4>p &nbsp;·&nbsp; dumbbell</h4>
+        <p>3 orbitals · max 6 e⁻</p>
+      </div>
+      <div class="card">
+        <svg class="glyph" viewBox="0 0 100 80" width="100%" height="70">
+          <ellipse cx="35" cy="30" rx="10" ry="15" fill="var(--energy-soft)" stroke="var(--energy)" stroke-width="1.5" transform="rotate(-30 35 30)"/>
+          <ellipse cx="65" cy="30" rx="10" ry="15" fill="var(--energy-soft)" stroke="var(--energy)" stroke-width="1.5" transform="rotate(30 65 30)"/>
+          <ellipse cx="50" cy="55" rx="10" ry="15" fill="var(--energy-soft)" stroke="var(--energy)" stroke-width="1.5"/>
+        </svg>
+        <h4>d &nbsp;·&nbsp; cloverleaf</h4>
+        <p>5 orbitals · max 10 e⁻</p>
+      </div>
+      <div class="card">
+        <svg class="glyph" viewBox="0 0 100 80" width="100%" height="70">
+          <ellipse cx="30" cy="24" rx="8" ry="13" fill="var(--fblock-soft)" stroke="var(--fblock)" stroke-width="1.4" transform="rotate(-40 30 24)"/>
+          <ellipse cx="70" cy="24" rx="8" ry="13" fill="var(--fblock-soft)" stroke="var(--fblock)" stroke-width="1.4" transform="rotate(40 70 24)"/>
+          <ellipse cx="30" cy="56" rx="8" ry="13" fill="var(--fblock-soft)" stroke="var(--fblock)" stroke-width="1.4" transform="rotate(40 30 56)"/>
+          <ellipse cx="70" cy="56" rx="8" ry="13" fill="var(--fblock-soft)" stroke="var(--fblock)" stroke-width="1.4" transform="rotate(-40 70 56)"/>
+        </svg>
+        <h4>f &nbsp;·&nbsp; complex</h4>
+        <p>7 orbitals · max 14 e⁻</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FILLING RULES ================= -->
+  <section id="rules">
+    <p class="sec-label">Concept Three</p>
+    <h2 class="sec-title">The Filling Rules</h2>
+    <p class="lede">Like any building, this one has strict move-in rules. Three principles govern every atom in the universe.</p>
+
+    <div class="trio">
+      <div class="card">
+        <h4>Aufbau Principle</h4>
+        <p>Electrons fill the lowest-energy orbitals first, floor by floor, before any higher floor opens up.</p>
+        <div class="ex">"Aufbau" is German for "building up."</div>
+      </div>
+      <div class="card">
+        <h4>Pauli Exclusion Principle</h4>
+        <p>An orbital holds at most 2 electrons, and those two must have opposite spins (↑↓).</p>
+        <div class="ex">No two electrons in an atom are ever perfectly identical.</div>
+      </div>
+      <div class="card">
+        <h4>Hund's Rule</h4>
+        <p>Within a subshell, electrons spread across separate orbitals first before any pair up.</p>
+        <div class="ex">Like passengers taking empty rows before sharing a seat.</div>
+      </div>
+    </div>
+
+    <h3 class="sub-title">The one tricky exception: the diagonal rule</h3>
+    <p>Energy levels overlap in a way that surprises most students: the 4s orbital is actually <em>lower energy</em> than 3d, so it fills first — even though "4" is a bigger number than "3." This single exception is the reason the periodic table has the shape it does, as you'll see shortly.</p>
+
+    <div class="card diagram-card">
+      <div class="diagram-label">Fill order for the first 8 subshells</div>
+      <svg viewBox="0 0 340 260" role="img" aria-label="A diagonal rule chart showing the order orbitals fill: 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p">
+        <defs><marker id="afh" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 z" fill="var(--energy)"/></marker></defs>
+        <!-- boxes: col s=60 p=140 d=220 ; row n1=40 n2=100 n3=160 n4=220 -->
+        <rect x="35" y="20" width="50" height="34" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="60" y="41" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--accent-ink)">1s</text>
+        <rect x="35" y="80" width="50" height="34" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="60" y="101" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--accent-ink)">2s</text>
+        <rect x="115" y="80" width="50" height="34" rx="4" fill="var(--wave-soft)" stroke="var(--wave)"/><text x="140" y="101" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--wave)">2p</text>
+        <rect x="35" y="140" width="50" height="34" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="60" y="161" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--accent-ink)">3s</text>
+        <rect x="115" y="140" width="50" height="34" rx="4" fill="var(--wave-soft)" stroke="var(--wave)"/><text x="140" y="161" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--wave)">3p</text>
+        <rect x="195" y="140" width="50" height="34" rx="4" fill="var(--energy-soft)" stroke="var(--energy)"/><text x="220" y="161" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--energy)">3d</text>
+        <rect x="35" y="200" width="50" height="34" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="60" y="221" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--accent-ink)">4s</text>
+        <rect x="115" y="200" width="50" height="34" rx="4" fill="var(--wave-soft)" stroke="var(--wave)"/><text x="140" y="221" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--wave)">4p</text>
+        <polyline points="60,54 60,80 140,80 140,114 60,140 60,140 140,140 140,174 220,174 220,157 60,200 60,200 140,200" fill="none" stroke="var(--energy)" stroke-width="0" />
+        <path d="M60,54 L60,80 M60,97 L140,97 M140,114 L140,140 M140,157 L60,157 M60,174 L60,200 M60,200 L220,200 L220,174 M220,157 L220,157 M220,157 L140,200"
+              fill="none" stroke="none"/>
+        <path d="M60,54 L60,77" stroke="var(--energy)" stroke-width="2" marker-end="url(#afh)" fill="none"/>
+        <path d="M60,97 L133,97" stroke="var(--energy)" stroke-width="2" marker-end="url(#afh)" fill="none"/>
+        <path d="M140,114 L140,137" stroke="var(--energy)" stroke-width="2" marker-end="url(#afh)" fill="none"/>
+        <path d="M140,157 L67,157" stroke="var(--energy)" stroke-width="2" marker-end="url(#afh)" fill="none"/>
+        <path d="M60,174 L60,197" stroke="var(--energy)" stroke-width="2" marker-end="url(#afh)" fill="none"/>
+        <path d="M60,200 L188,178" stroke="var(--energy)" stroke-width="2" marker-end="url(#afh)" fill="none"/>
+        <path d="M220,157 L147,197" stroke="var(--energy)" stroke-width="2" marker-end="url(#afh)" fill="none"/>
+        <text x="60" y="12" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">s</text>
+        <text x="140" y="12" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">p</text>
+        <text x="220" y="12" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">d</text>
+      </svg>
+      <p class="svg-caption">Follow the arrow: 1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p. Notice 4s fills before 3d — that's the exception in action, and the same zig-zag pattern keeps going for every element on the table.</p>
+    </div>
+  </section>
+
+  <!-- ================= CONFIGURATIONS ================= -->
+  <section id="configs">
+    <p class="sec-label">Concept Four</p>
+    <h2 class="sec-title">Writing Electron Configurations</h2>
+    <p class="lede">An <strong>electron configuration</strong> is the complete address list for every electron in an atom, written in fill order. Each atom's configuration is unique to it — and to its element.</p>
+
+    <h3 class="sub-title">Worked example: Oxygen (8 electrons)</h3>
+    <ol class="steps">
+      <li>Find the atomic number. Oxygen's is 8, so a neutral oxygen atom has 8 electrons to place.<span class="eq-line">8 electrons total</span></li>
+      <li>Follow the fill order from the diagram above, filling each subshell to its max before moving on: 1s holds 2, 2s holds 2 — that's 4 placed, 4 left for 2p.<span class="eq-line">1s² 2s² → 4 electrons placed, 4 remaining</span></li>
+      <li>Place the rest in 2p (which can hold up to 6).<span class="eq-line">1s² 2s² 2p⁴</span></li>
+    </ol>
+    <p>Check your work: add up the superscripts. 2 + 2 + 4 = 8. That matches oxygen's atomic number, so the configuration is correct.</p>
+
+    <div class="callout world">
+      <span class="icon">💡</span>
+      <p><strong>Connecting back to what you already know:</strong> when oxygen gas glows in a neon-style tube, one of its 2p electrons is briefly kicked up to a higher, unoccupied address — an <strong>excited state</strong>. It doesn't stay there. It falls back to 1s²2s²2p⁴, its <strong>ground state</strong>, and releases a photon whose energy exactly equals the gap between the two addresses. That's the same quantized-light idea from your last unit, now explained by electron addresses.</p>
+    </div>
+
+    <details>
+      <summary>Try it yourself: Sodium (11 electrons)</summary>
+      <div class="answer">
+        <p>Fill in order: 1s² (2) → 2s² (4) → 2p⁶ (10) → 3s¹ (11).</p>
+        <p class="result">1s² 2s² 2p⁶ 3s¹ — check: 2+2+6+1 = 11 ✓</p>
+        <p style="margin-top:6px;">Notice sodium's very last electron sits alone in 3s — that lone outermost electron will turn out to matter a lot once we reach the periodic table.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ================= PERIODIC TABLE ================= -->
+  <section id="table">
+    <p class="sec-label">Concept Five — The Big Connection</p>
+    <h2 class="sec-title">From Addresses to the Periodic Table</h2>
+    <p class="lede">Here's the payoff. The periodic table isn't an arbitrary grid — its exact shape is a map of electron addresses. Every row, column, and block traces directly back to everything above.</p>
+
+    <div class="card diagram-card">
+      <div class="diagram-label">The periodic table, colored by which subshell is filling</div>
+      <svg id="ptable" viewBox="0 0 720 300" role="img" aria-label="A periodic table shaped diagram colored by s-block, p-block, d-block, and f-block regions"></svg>
+      <div class="legend">
+        <span><i style="background:var(--accent-soft); border:1.5px solid var(--accent);"></i>s-block — filling an s subshell</span>
+        <span><i style="background:var(--wave-soft); border:1.5px solid var(--wave);"></i>p-block — filling a p subshell</span>
+        <span><i style="background:var(--energy-soft); border:1.5px solid var(--energy);"></i>d-block — filling a d subshell</span>
+        <span><i style="background:var(--fblock-soft); border:1.5px solid var(--fblock);"></i>f-block — filling an f subshell</span>
+      </div>
+      <p class="svg-caption">Each row (period) is a new floor. The d-block appears starting on row 4, not row 3 — because of that 4s-before-3d exception you just learned.</p>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="term">A period (row)</div><p>Each new row means a new principal quantum number, n, has started — a new floor of the building.</p></div>
+      <div class="vocab-item"><div class="term">A block</div><p>Which region of the table an element sits in tells you which subshell its highest-energy electrons are filling.</p></div>
+      <div class="vocab-item"><div class="term">A group (column)</div><p>Elements in the same column have the same number of outermost, or <strong>valence</strong>, electrons — which is why they behave alike.</p></div>
+      <div class="vocab-item"><div class="term">Valence electrons</div><p>The electrons in the highest occupied energy level. They're the ones involved in bonding, and they drive the periodic trends up next.</p></div>
+    </div>
+  </section>
+
+  <!-- ================= TRENDS ================= -->
+  <section id="trends">
+    <p class="sec-label">Concept Five, continued</p>
+    <h2 class="sec-title">A Sneak Peek: Periodic Trends</h2>
+    <p>You'll study these in depth soon, but you already have everything you need to predict them, because each one is a direct consequence of electron addresses.</p>
+
+    <div class="card diagram-card">
+      <div class="diagram-label">Two directions, two trends</div>
+      <svg viewBox="0 0 500 210" role="img" aria-label="A grid representing the periodic table with an arrow pointing right labeled increasing across a period and an arrow pointing down labeled increasing down a group">
+        <g>
+          <rect x="30" y="30" width="300" height="120" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+          <line x1="105" y1="30" x2="105" y2="150" stroke="var(--line)"/><line x1="180" y1="30" x2="180" y2="150" stroke="var(--line)"/><line x1="255" y1="30" x2="255" y2="150" stroke="var(--line)"/>
+          <line x1="30" y1="70" x2="330" y2="70" stroke="var(--line)"/><line x1="30" y1="110" x2="330" y2="110" stroke="var(--line)"/>
+        </g>
+        <path d="M40,180 L320,180" stroke="var(--energy)" stroke-width="2.5" marker-end="url(#tarr)"/>
+        <defs><marker id="tarr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--energy)"/></marker>
+        <marker id="tarr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--wave)"/></marker></defs>
+        <text x="180" y="200" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" fill="var(--energy)">across a period: ionization energy &amp; electronegativity ↑</text>
+        <path d="M395,25 L395,150" stroke="var(--wave)" stroke-width="2.5" marker-end="url(#tarr2)"/>
+        <text x="480" y="45" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" fill="var(--wave)" transform="rotate(90 480 45)"> </text>
+        <text x="410" y="60" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" fill="var(--wave)">down a</text>
+        <text x="410" y="76" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" fill="var(--wave)">group:</text>
+        <text x="410" y="96" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" fill="var(--wave)">atomic</text>
+        <text x="410" y="112" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" fill="var(--wave)">radius ↑</text>
+      </svg>
+    </div>
+
+    <div class="trio">
+      <div class="card">
+        <h4>Atomic radius</h4>
+        <p><strong>Shrinks</strong> across a period: more protons pull the same energy level's electrons in tighter. <strong>Grows</strong> down a group: each row adds a whole new, farther-out floor.</p>
+      </div>
+      <div class="card">
+        <h4>Ionization energy</h4>
+        <p>The energy to remove an electron. It <strong>rises</strong> across a period, because electrons are held closer and tighter to the nucleus.</p>
+      </div>
+      <div class="card">
+        <h4>Electronegativity</h4>
+        <p>How strongly an atom pulls electrons in a bond. It also <strong>rises</strong> across a period, for the same reason: a tighter grip on the outer floor.</p>
+      </div>
+    </div>
+    <p style="margin-top:12px; color:var(--muted); font-size:14.5px;">Notice the pattern: every trend traces back to one idea — how tightly the nucleus holds its outermost electrons. That's electron addresses in action.</p>
+  </section>
+
+  <!-- ================= REAL WORLD ================= -->
+  <section id="world">
+    <p class="sec-label">Why It Matters</p>
+    <h2 class="sec-title">Real World: Electron Addresses at Work</h2>
+
+    <div class="card diagram-card">
+      <div class="diagram-label">Fireworks and neon signs</div>
+      <svg viewBox="0 0 620 150" role="img" aria-label="A firework burst with colored sparks representing electrons falling to ground state and releasing photons">
+        <circle cx="310" cy="75" r="4" fill="var(--ink)"/>
+        <g stroke-width="3" stroke-linecap="round">
+          <line x1="310" y1="75" x2="310" y2="20" stroke="#e0473f"/><circle cx="310" cy="16" r="4" fill="#e0473f"/>
+          <line x1="310" y1="75" x2="355" y2="35" stroke="#f0a83c"/><circle cx="358" cy="32" r="4" fill="#f0a83c"/>
+          <line x1="310" y1="75" x2="385" y2="75" stroke="var(--accent)"/><circle cx="390" cy="75" r="4" fill="var(--accent)"/>
+          <line x1="310" y1="75" x2="355" y2="115" stroke="var(--wave)"/><circle cx="358" cy="118" r="4" fill="var(--wave)"/>
+          <line x1="310" y1="75" x2="310" y2="130" stroke="var(--fblock)"/><circle cx="310" cy="134" r="4" fill="var(--fblock)"/>
+          <line x1="310" y1="75" x2="265" y2="115" stroke="#e0473f"/><circle cx="262" cy="118" r="4" fill="#e0473f"/>
+          <line x1="310" y1="75" x2="235" y2="75" stroke="#f0a83c"/><circle cx="230" cy="75" r="4" fill="#f0a83c"/>
+          <line x1="310" y1="75" x2="265" y2="35" stroke="var(--accent)"/><circle cx="262" cy="32" r="4" fill="var(--accent)"/>
+        </g>
+      </svg>
+      <p class="svg-caption">Copper compounds glow blue-green, strontium glows red, sodium glows yellow-orange. Same idea every time: heat kicks an electron to a higher address, it falls back, and releases a photon whose color is fixed by that element's exact energy gaps.</p>
+    </div>
+
+    <div class="card diagram-card">
+      <div class="diagram-label">Quantum dot displays</div>
+      <svg viewBox="0 0 620 130" role="img" aria-label="A row of quantum dot nanocrystals of increasing size glowing blue, green, and red">
+        <rect x="10" y="20" width="600" height="90" rx="10" fill="#0d1420"/>
+        <circle cx="90" cy="65" r="14" fill="#4fa8ff"/><text x="90" y="100" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#cfe3f7">small dot</text>
+        <circle cx="290" cy="65" r="20" fill="#3fd67a"/><text x="290" y="100" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#cfe3f7">medium dot</text>
+        <circle cx="500" cy="65" r="27" fill="#f74b3a"/><text x="500" y="105" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#cfe3f7">large dot</text>
+      </svg>
+      <p class="svg-caption">Quantum dot TVs use nanocrystals so small that squeezing an electron into them changes its energy gap. Smaller dot, bigger gap, bluer light. Larger dot, smaller gap, redder light — engineers tuning electron addresses on purpose.</p>
+    </div>
+
+    <div class="callout world">
+      <span class="icon">💻</span>
+      <p><strong>Silicon chips:</strong> silicon sits in the p-block with exactly 4 valence electrons — the same reason every silicon atom in your phone's processor bonds the same predictable way. Chip designers rely on that valence-electron pattern, straight from silicon's spot on the periodic table, to build billions of identical, reliable connections.</p>
+    </div>
+  </section>
+
+  <!-- ================= REFERENCE ================= -->
+  <section id="reference">
+    <p class="sec-label">Keep This Handy</p>
+    <h2 class="sec-title">Quick Reference Card</h2>
+    <div class="ref-grid">
+      <div class="ref-card"><div class="rname">Subshell Capacities</div><div class="req">s=2 · p=6 · d=10 · f=14</div><div class="rsolve">electrons per subshell, max</div></div>
+      <div class="ref-card"><div class="rname">Aufbau Order</div><div class="req">1s 2s 2p 3s 3p 4s 3d 4p …</div><div class="rsolve">lowest energy fills first</div></div>
+      <div class="ref-card"><div class="rname">Pauli Exclusion</div><div class="req">2 e⁻ per orbital, ↑↓</div><div class="rsolve">opposite spins required</div></div>
+      <div class="ref-card"><div class="rname">Hund's Rule</div><div class="req">spread, then pair</div><div class="rsolve">one per orbital before doubling up</div></div>
+    </div>
+
+    <h3 class="sub-title">Mastery checklist</h3>
+    <ul class="checklist">
+      <li>I can state the charge, location, and role of protons, neutrons, and electrons.</li>
+      <li>I can explain why the electron cloud model replaced Bohr's fixed orbits.</li>
+      <li>I can identify n, subshell, and orbital in an electron's "address."</li>
+      <li>I can apply the Aufbau principle, Pauli exclusion principle, and Hund's rule to write a ground-state electron configuration.</li>
+      <li>I can connect an excited/ground state electron transition back to quantized light.</li>
+      <li>I can explain why the periodic table's rows, blocks, and columns match electron configuration.</li>
+      <li>I can predict the direction of atomic radius, ionization energy, and electronegativity across a period and down a group.</li>
+    </ul>
+  </section>
+
+  <footer>
+    Study guide adapted from class notes on quantum models and electron configuration, with the electron configuration and orbital diagram POGIL activity (chemdoctor.org) as a source. Bring any step you get stuck on to class or office hours.
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var svg=document.getElementById('ptable');
+  if(!svg) return;
+  var NS='http://www.w3.org/2000/svg';
+  function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e;}
+  var cw=38, ch=36, x0=6, y0=10;
+  function cell(period,group,cls){
+    var x=x0+(group-1)*cw, y=y0+(period-1)*ch;
+    el('rect',{x:x,y:y,width:cw-3,height:ch-3,rx:3,'class':cls});
+  }
+  var S='sblk', P='pblk', D='dblk', F='fblk';
+  for(var period=1;period<=7;period++){
+    for(var group=1;group<=18;group++){
+      var block=null;
+      if(period===1){ if(group===1||group===18) block=S; }
+      else if(period===2||period===3){
+        if(group<=2) block=S;
+        else if(group>=13) block=P;
+      } else {
+        if(group<=2) block=S;
+        else if(group>=3 && group<=12) block=D;
+        else if(group>=13) block=P;
+      }
+      if((period===6||period===7) && group===3) block=null; // La/Ac placeholder column left open
+      if(block) cell(period,group,block);
+    }
+  }
+  // f-block strip, offset under groups 3-16, two rows below
+  var fY=y0+7*ch+14;
+  for(var col=0; col<14; col++){
+    var x=x0+(3-1)*cw + col*cw;
+    el('rect',{x:x,y:fY,width:cw-3,height:ch-3,rx:3,'class':F});
+    el('rect',{x:x,y:fY+ch,width:cw-3,height:ch-3,rx:3,'class':F});
+  }
+  el('text',{x:x0,y:fY+2*ch+16,'class':'tick'}).textContent='lanthanides / actinides (f-block)';
+
+  var style=document.createElement('style');
+  style.textContent='#ptable .sblk{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.2;} #ptable .pblk{fill:var(--wave-soft);stroke:var(--wave);stroke-width:1.2;} #ptable .dblk{fill:var(--energy-soft);stroke:var(--energy);stroke-width:1.2;} #ptable .fblk{fill:var(--fblock-soft);stroke:var(--fblock);stroke-width:1.2;} #ptable .tick{font-family:"IBM Plex Mono",monospace;font-size:11px;fill:var(--muted);}';
+  document.head.appendChild(style);
+})();
+</script>
