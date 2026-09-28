@@ -93,6 +93,14 @@
   .task-q{display:flex; gap:10px; align-items:baseline; margin-bottom:6px;}
   .task-num{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:13px; color:#fff; background:var(--wave); width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:none;}
   .task p.qt{font-weight:600; font-size:15.5px; margin:0;}
+  .mini-steps{margin:8px 0 10px 32px; padding:0; list-style:none; counter-reset:mini;}
+  .mini-steps li{counter-increment:mini; position:relative; padding-left:26px; margin-bottom:6px; font-size:14.5px; color:var(--ink);}
+  .mini-steps li::before{content:counter(mini); position:absolute; left:0; top:1px; width:18px; height:18px; border-radius:50%; background:var(--wave-soft); color:var(--wave); font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:11px; display:flex; align-items:center; justify-content:center;}
+  .worked{background:var(--good-soft); border:1px dashed var(--good); border-radius:10px; padding:12px 16px; margin:12px 0;}
+  .worked .wk-label{font-family:'Space Grotesk',sans-serif; font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--good); margin-bottom:6px;}
+  .chip2{display:inline-flex; gap:8px; margin:0 4px;}
+  .chip2 button{font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; padding:5px 11px; border-radius:8px; border:1.5px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer;}
+  .chip2 button.picked{background:var(--wave); border-color:var(--wave); color:#fff;}
 
   textarea.jot{width:100%; min-height:60px; resize:vertical; font-family:'Source Serif 4',Georgia,serif; font-size:15px; color:var(--ink); background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:10px 12px;}
   textarea.jot:focus{outline:2px solid var(--accent); outline-offset:1px;}
@@ -146,42 +154,52 @@
     </div>
 
     <div class="card diagram-card">
-      <div class="diagram-label">What's actually inside the screen</div>
-      <svg viewBox="0 0 620 250" role="img" aria-label="Cross-section comparison of a standard LED LCD TV, a QLED TV, and an OLED TV">
-        <text x="95" y="20" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="var(--ink)">Standard LED / LCD</text>
-        <rect x="30" y="150" width="130" height="26" rx="3" fill="#e8dca0"/><text x="95" y="167" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#5a4d1c">white LED backlight</text>
-        <rect x="30" y="110" width="130" height="30" rx="3" fill="#c7ccd1"/><text x="95" y="129" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#3a3f45">LCD + color filters</text>
-        <path d="M95,105 L95,88" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#eye1)"/>
-        <text x="95" y="200" text-anchor="middle" font-family="Source Serif 4, serif" font-size="11.5" fill="var(--muted)">White light pushed through</text>
-        <text x="95" y="216" text-anchor="middle" font-family="Source Serif 4, serif" font-size="11.5" fill="var(--muted)">tiny red/green/blue filters.</text>
-
-        <text x="310" y="20" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="var(--ink)">QLED (Quantum Dot)</text>
-        <rect x="245" y="160" width="130" height="26" rx="3" fill="#3d6fa8"/><text x="310" y="177" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#eaf1fa">blue LED backlight</text>
-        <rect x="245" y="128" width="130" height="26" rx="3" fill="url(#qdgrad)"/><text x="310" y="145" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#20241c">quantum dot film</text>
-        <rect x="245" y="96" width="130" height="26" rx="3" fill="#c7ccd1"/><text x="310" y="113" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#3a3f45">LCD + color filters</text>
-        <path d="M310,91 L310,80" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#eye1)"/>
-        <text x="310" y="206" text-anchor="middle" font-family="Source Serif 4, serif" font-size="11.5" fill="var(--muted)">Dots convert blue light into</text>
-        <text x="310" y="222" text-anchor="middle" font-family="Source Serif 4, serif" font-size="11.5" fill="var(--muted)">precise, pure red and green first.</text>
-
-        <text x="525" y="20" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="var(--ink)">OLED</text>
-        <g>
-          <rect x="460" y="128" width="18" height="30" fill="#f74b3a"/><rect x="482" y="128" width="18" height="30" fill="#3fd67a"/>
-          <rect x="504" y="128" width="18" height="30" fill="#0b0f18" stroke="var(--line)" stroke-width="1"/>
-          <rect x="526" y="128" width="18" height="30" fill="#4fa8ff"/><rect x="548" y="128" width="18" height="30" fill="#f0d23f"/>
-        </g>
-        <text x="525" y="177" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">every pixel is its own light</text>
-        <path d="M525,123 L525,112" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#eye1)"/>
-        <text x="525" y="206" text-anchor="middle" font-family="Source Serif 4, serif" font-size="11.5" fill="var(--muted)">No backlight at all — a pixel can</text>
-        <text x="525" y="222" text-anchor="middle" font-family="Source Serif 4, serif" font-size="11.5" fill="var(--muted)">switch fully off for true black.</text>
-
+      <div class="diagram-label">Follow the light: three ways a screen makes color</div>
+      <svg viewBox="0 0 720 430" role="img" aria-label="Three left-to-right diagrams showing how light travels through a standard LED LCD screen, a QLED screen, and an OLED screen">
         <defs>
-          <linearGradient id="qdgrad" x1="0" y1="0" x2="1" y2="0">
+          <marker id="rarrow" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--muted)"/></marker>
+          <linearGradient id="qdgrad2" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stop-color="#4fa8ff"/><stop offset="50%" stop-color="#3fd67a"/><stop offset="100%" stop-color="#f74b3a"/>
           </linearGradient>
-          <marker id="eye1" markerWidth="8" markerHeight="8" refX="4" refY="6" orient="auto"><path d="M0,6 L4,0 L8,6 z" fill="var(--muted)"/></marker>
         </defs>
+
+        <!-- ROW 1: Standard LED/LCD -->
+        <text x="20" y="26" font-family="Space Grotesk, sans-serif" font-size="15" font-weight="700" fill="var(--ink)">1. Standard LED / LCD</text>
+        <rect x="20" y="40" width="220" height="60" rx="8" fill="#e8dca0" stroke="#c9b877"/>
+        <text x="130" y="75" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600" fill="#5a4d1c">White LED</text>
+        <path d="M244,70 L266,70" stroke="var(--muted)" stroke-width="2" marker-end="url(#rarrow)"/>
+        <rect x="270" y="40" width="220" height="60" rx="8" fill="#c7ccd1" stroke="#9aa1a8"/>
+        <text x="380" y="75" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600" fill="#33383d">Color filter</text>
+        <path d="M494,70 L516,70" stroke="var(--muted)" stroke-width="2" marker-end="url(#rarrow)"/>
+        <circle cx="540" cy="70" r="11" fill="#f74b3a"/><circle cx="566" cy="70" r="11" fill="#3fd67a"/><circle cx="592" cy="70" r="11" fill="#4fa8ff"/>
+        <text x="130" y="118" font-family="Source Serif 4, serif" font-size="13" fill="var(--muted)">One white light shines through tiny red, green, and blue filters to make every color.</text>
+
+        <!-- ROW 2: QLED -->
+        <text x="20" y="166" font-family="Space Grotesk, sans-serif" font-size="15" font-weight="700" fill="var(--ink)">2. QLED (Quantum Dot)</text>
+        <rect x="20" y="180" width="150" height="60" rx="8" fill="#3d6fa8" stroke="#2c5482"/>
+        <text x="95" y="215" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600" fill="#eaf1fa">Blue LED</text>
+        <path d="M174,210 L196,210" stroke="var(--muted)" stroke-width="2" marker-end="url(#rarrow)"/>
+        <rect x="200" y="180" width="210" height="60" rx="8" fill="url(#qdgrad2)" stroke="#2c5482"/>
+        <text x="305" y="215" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="700" fill="#14202c">Quantum dots</text>
+        <path d="M414,210 L436,210" stroke="var(--muted)" stroke-width="2" marker-end="url(#rarrow)"/>
+        <rect x="440" y="180" width="150" height="60" rx="8" fill="#c7ccd1" stroke="#9aa1a8"/>
+        <text x="515" y="215" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600" fill="#33383d">Color filter</text>
+        <path d="M594,210 L616,210" stroke="var(--muted)" stroke-width="2" marker-end="url(#rarrow)"/>
+        <circle cx="640" cy="210" r="11" fill="#f74b3a"/><circle cx="666" cy="210" r="11" fill="#3fd67a"/><circle cx="692" cy="210" r="11" fill="#4fa8ff"/>
+        <text x="20" y="258" font-family="Source Serif 4, serif" font-size="13" fill="var(--muted)">Blue light hits the dots first. Each dot size converts it into one pure color before it even reaches the filter.</text>
+
+        <!-- ROW 3: OLED -->
+        <text x="20" y="306" font-family="Space Grotesk, sans-serif" font-size="15" font-weight="700" fill="var(--ink)">3. OLED</text>
+        <rect x="20" y="320" width="260" height="70" rx="8" fill="#0b0f18" stroke="var(--line)"/>
+        <rect x="38" y="342" width="26" height="26" rx="3" fill="#f74b3a"/><rect x="72" y="342" width="26" height="26" rx="3" fill="#3fd67a"/>
+        <rect x="106" y="342" width="26" height="26" rx="3" fill="#4fa8ff"/><rect x="140" y="342" width="26" height="26" rx="3" fill="#242a35" stroke="#454c58"/>
+        <text x="205" y="360" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" fill="#e8ece4">each pixel lights itself</text>
+        <path d="M284,355 L306,355" stroke="var(--muted)" stroke-width="2" marker-end="url(#rarrow)"/>
+        <text x="316" y="349" font-family="Source Serif 4, serif" font-size="13" fill="var(--muted)">No backlight, no</text>
+        <text x="316" y="367" font-family="Source Serif 4, serif" font-size="13" fill="var(--muted)">filter needed — a pixel</text>
+        <text x="316" y="385" font-family="Source Serif 4, serif" font-size="13" fill="var(--muted)">can switch fully off.</text>
       </svg>
-      <p class="svg-caption">QLED is still an LCD screen underneath — it just adds a quantum dot film to sharpen the colors. OLED skips the backlight and lights each pixel individually.</p>
+      <p class="svg-caption">Read each row left to right, like a sentence: that's the path the light takes. QLED is really Row 1 with one extra step added in the middle.</p>
     </div>
 
     <div class="card">
@@ -206,6 +224,56 @@
 
     <p>Your group is the color-engineering team for a TV company. Real quantum dot researchers measured how dot size affects the energy gap electrons have to jump — here's a simplified version of their data.</p>
 
+    <div class="card diagram-card">
+      <div class="diagram-label">Your decoder tool — use this for every task below</div>
+      <svg viewBox="0 0 680 150" role="img" aria-label="A color strip decoder showing energy gap numbers lined up with their colors, from invisible ultraviolet on the left through blue, cyan, green, orange, red, to invisible infrared on the right">
+        <defs>
+          <linearGradient id="decoder" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#7b2ff7"/><stop offset="11%" stop-color="#2f7bf7"/>
+            <stop offset="33%" stop-color="#2fc9c9"/><stop offset="55%" stop-color="#3fd67a"/>
+            <stop offset="72%" stop-color="#f0a83c"/><stop offset="89%" stop-color="#f74b3a"/>
+            <stop offset="100%" stop-color="#7a2020"/>
+          </linearGradient>
+          <pattern id="hatch" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface-2)"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--line)" stroke-width="2"/></pattern>
+        </defs>
+        <rect x="0" y="45" width="40" height="34" fill="url(#hatch)"/>
+        <rect x="640" y="45" width="40" height="34" fill="url(#hatch)"/>
+        <rect x="40" y="45" width="600" height="34" fill="url(#decoder)"/>
+        <text x="20" y="40" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="10.5" font-weight="600" fill="var(--muted)">UV</text>
+        <text x="660" y="40" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="10.5" font-weight="600" fill="var(--muted)">infrared</text>
+        <text x="20" y="94" text-anchor="middle" font-family="Source Serif 4, serif" font-size="10" fill="var(--muted)">invisible</text>
+        <text x="660" y="94" text-anchor="middle" font-family="Source Serif 4, serif" font-size="10" fill="var(--muted)">invisible</text>
+
+        <g font-family="IBM Plex Mono, monospace" font-size="12.5" font-weight="600" fill="var(--ink)">
+          <line x1="100" y1="45" x2="100" y2="79" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+          <text x="100" y="35" text-anchor="middle">90</text>
+          <line x1="226" y1="45" x2="226" y2="79" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+          <text x="226" y="35" text-anchor="middle">70</text>
+          <line x1="351" y1="45" x2="351" y2="79" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+          <text x="351" y="35" text-anchor="middle">50</text>
+          <line x1="445" y1="45" x2="445" y2="79" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+          <text x="445" y="35" text-anchor="middle">35</text>
+          <line x1="538" y1="45" x2="538" y2="79" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+          <text x="538" y="35" text-anchor="middle">20</text>
+        </g>
+        <g font-family="Space Grotesk, sans-serif" font-size="11" fill="var(--muted)" text-anchor="middle">
+          <text x="100" y="94">Blue</text><text x="226" y="94">Cyan</text><text x="351" y="94">Green</text>
+          <text x="445" y="94">Orange</text><text x="538" y="94">Red</text>
+        </g>
+        <text x="360" y="118" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" font-weight="600" fill="var(--muted)">big energy gap = high energy = short wavelength</text>
+        <text x="360" y="136" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" font-weight="600" fill="var(--muted)">small energy gap = low energy = long wavelength</text>
+      </svg>
+    </div>
+
+    <div class="worked">
+      <div class="wk-label">Worked example — how "gap 90 = Blue" was decided</div>
+      <ol class="mini-steps" style="margin-left:0;">
+        <li>Find the dot's energy gap number. The 2 nm dot has a gap of <strong>90</strong>.</li>
+        <li>Find <strong>90</strong> on the decoder strip above — put your finger on the tick mark labeled 90.</li>
+        <li>Read the color name directly under that tick mark: <strong>Blue</strong>. That's the answer.</li>
+      </ol>
+    </div>
+
     <div class="table-wrap">
       <table>
         <thead><tr><th>Dot diameter</th><th>Energy gap (relative units)</th><th>Color emitted</th></tr></thead>
@@ -221,25 +289,46 @@
 
     <div class="task">
       <div class="task-q"><span class="task-num">1</span><p class="qt">Find the pattern.</p></div>
-      <p style="margin:0 0 8px 32px; font-size:14.5px; color:var(--muted);">As dot diameter goes up, what happens to the energy gap? Describe the pattern as a group, in your own words.</p>
-      <textarea class="jot" id="t1" placeholder="Recorder: type your group's answer here..."></textarea>
+      <p style="margin:0 0 8px 32px; font-size:14.5px; color:var(--muted);">Look at the Diameter and Energy Gap columns in the table above.</p>
+      <p style="margin:0 0 6px 32px; font-size:15px;">As diameter goes up, energy gap
+        <span class="chip2" id="t1chips">
+          <button type="button" data-v="up">goes up</button>
+          <button type="button" data-v="down">goes down</button>
+        </span>
+      </p>
+      <p style="margin:0 0 8px 32px; font-size:14.5px; color:var(--muted);">Now explain it in a sentence — why do you think that pattern makes sense?</p>
+      <textarea class="jot" id="t1" placeholder="Recorder: type your group's explanation here..."></textarea>
     </div>
 
     <div class="task">
       <div class="task-q"><span class="task-num">2</span><p class="qt">Fill in the two missing colors.</p></div>
-      <p style="margin:0 0 8px 32px; font-size:14.5px; color:var(--muted);">Using the pattern from Task 1, predict the color for the 3 nm dot and the 5 nm dot. Explain your reasoning using the word "energy."</p>
-      <textarea class="jot" id="t2" placeholder="Recorder: type your group's answer here..."></textarea>
+      <ol class="mini-steps">
+        <li>Find the 3 nm dot's energy gap in the table: it's 70.</li>
+        <li>Find 70 on the decoder strip and read the color underneath it.</li>
+        <li>Repeat both steps for the 5 nm dot (gap = 35).</li>
+      </ol>
+      <textarea class="jot" id="t2" placeholder="Recorder: 3 nm = ___ ,  5 nm = ___"></textarea>
     </div>
 
     <div class="task">
       <div class="task-q"><span class="task-num">3</span><p class="qt">Design brief: the "Sunset" pixel.</p></div>
-      <p style="margin:0 0 8px 32px; font-size:14.5px; color:var(--muted);">Marketing wants a new pixel color between green and red — a warm amber/orange, for a "sunset" display mode. What diameter should your team manufacture? Justify it using the table.</p>
-      <textarea class="jot" id="t3" placeholder="Recorder: type your group's answer here..."></textarea>
+      <p style="margin:0 0 8px 32px; font-size:14.5px; color:var(--muted);">Marketing wants a warm amber/orange "sunset" pixel.</p>
+      <ol class="mini-steps">
+        <li>Find the word "Orange" on the decoder strip and read the gap number above it.</li>
+        <li>Look at the table: which diameter is closest to that gap number?</li>
+        <li>That diameter is your answer — write it down with the gap number as your evidence.</li>
+      </ol>
+      <textarea class="jot" id="t3" placeholder="Recorder: our diameter is ___ nm because..."></textarea>
     </div>
 
     <div class="task">
       <div class="task-q"><span class="task-num">4</span><p class="qt">Push the limit.</p></div>
-      <p style="margin:0 0 8px 32px; font-size:14.5px; color:var(--muted);">An engineer wants to go smaller than 2 nm to make an even more intense color than blue. What color would you predict, and can dots keep shrinking forever to make ever-more-extreme colors? What do you think might stop them?</p>
+      <p style="margin:0 0 8px 32px; font-size:14.5px; color:var(--muted);">An engineer wants to go smaller than 2 nm (gap 90).</p>
+      <ol class="mini-steps">
+        <li>Using your answer to Task 1: if the dot gets smaller than 2 nm, does the gap number go above or below 90?</li>
+        <li>On the decoder strip, move past the 90 tick mark in that direction. What zone do you land in?</li>
+        <li>That zone is labeled "invisible." What does that mean for a TV trying to use this color?</li>
+      </ol>
       <textarea class="jot" id="t4" placeholder="Recorder: type your group's answer here..."></textarea>
     </div>
   </section>
@@ -302,6 +391,16 @@
       c.classList.add('picked');
     });
   });
+
+  var t1chips=document.getElementById('t1chips');
+  if(t1chips){
+    t1chips.querySelectorAll('button').forEach(function(c){
+      c.addEventListener('click', function(){
+        t1chips.querySelectorAll('button').forEach(function(o){o.classList.remove('picked');});
+        c.classList.add('picked');
+      });
+    });
+  }
 
   ['t1','t2','t3','t4'].forEach(function(id){
     var el=document.getElementById(id);
