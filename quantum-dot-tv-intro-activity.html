@@ -111,6 +111,12 @@
   .checklist li::before{content:"🎤"; flex:none;}
 
   footer{padding-top:20px; color:var(--muted); font-size:13px;}
+
+  @keyframes stringVibe{0%{transform:scaleY(1);}50%{transform:scaleY(-1);}100%{transform:scaleY(1);}}
+  .string-wave{transform-box:fill-box; transform-origin:center;}
+  .string-wave.slow{animation:stringVibe 1.1s ease-in-out infinite;}
+  .string-wave.fast{animation:stringVibe 0.32s ease-in-out infinite;}
+
   @media (prefers-reduced-motion: reduce){*{transition:none !important; animation:none !important;}}
 </style>
 
@@ -211,6 +217,61 @@
         <button class="predict-chip" data-g="3">It's just a manufacturing trick, no real reason</button>
         <button class="predict-chip" data-g="4">We have another idea</button>
       </div>
+    </div>
+
+    <div class="card diagram-card">
+      <div class="diagram-label">Here's what's really happening</div>
+      <p style="margin-bottom:8px;"><strong>What "energy gap" means:</strong> you already know that an excited electron eventually falls back to its resting (ground) state and releases a photon. The <strong>energy gap</strong> is just how big that fall is — how far the electron drops. A bigger drop releases a higher-energy, bluer photon. A smaller drop releases a lower-energy, redder photon. That's the whole reason the decoder strip in Step 2 works.</p>
+      <p style="margin-bottom:8px;"><strong>Why the size of the crystal changes the gap:</strong> think about a guitar string. A short string can only vibrate at a high pitch; a long string vibrates lower — the string's length limits which pitches are possible. An electron trapped inside a quantum dot is squeezed the same way. The smaller the dot, the more tightly the electron is confined, and the farther apart its allowed energy levels get pushed. That means a bigger gap to jump, a bigger energy release, and a bluer photon. Scientists call this <strong>quantum confinement</strong> — nothing about the chemical material changes, only the size of the space the electron is trapped in.</p>
+      <svg viewBox="0 0 680 240" role="img" aria-label="Three dots of decreasing size, each showing a ground energy level and an excited energy level; the gap between the two levels grows wider as the dot gets smaller">
+        <rect x="20" y="40" width="200" height="150" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>
+        <line x1="45" y1="170" x2="195" y2="170" stroke="var(--accent)" stroke-width="3"/>
+        <line x1="45" y1="150" x2="195" y2="150" stroke="var(--energy)" stroke-width="3"/>
+        <path d="M210,150 L210,170 M205,153 L210,150 L215,153 M205,167 L210,170 L215,167" stroke="var(--muted)" stroke-width="1.5" fill="none"/>
+        <text x="120" y="30" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="700" fill="var(--ink)">Large dot</text>
+        <text x="120" y="205" text-anchor="middle" font-family="Source Serif 4, serif" font-size="12.5" fill="var(--muted)">small gap</text>
+        <text x="120" y="222" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="#f74b3a">→ Red</text>
+
+        <rect x="270" y="40" width="150" height="150" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>
+        <line x1="290" y1="170" x2="400" y2="170" stroke="var(--accent)" stroke-width="3"/>
+        <line x1="290" y1="115" x2="400" y2="115" stroke="var(--energy)" stroke-width="3"/>
+        <path d="M410,115 L410,170 M405,118 L410,115 L415,118 M405,167 L410,170 L415,167" stroke="var(--muted)" stroke-width="1.5" fill="none"/>
+        <text x="345" y="30" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="700" fill="var(--ink)">Medium dot</text>
+        <text x="345" y="205" text-anchor="middle" font-family="Source Serif 4, serif" font-size="12.5" fill="var(--muted)">medium gap</text>
+        <text x="345" y="222" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="#3fd67a">→ Green</text>
+
+        <rect x="480" y="40" width="100" height="150" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>
+        <line x1="495" y1="170" x2="565" y2="170" stroke="var(--accent)" stroke-width="3"/>
+        <line x1="495" y1="60" x2="565" y2="60" stroke="var(--energy)" stroke-width="3"/>
+        <path d="M600,60 L600,170 M595,63 L600,60 L605,63 M595,167 L600,170 L605,167" stroke="var(--muted)" stroke-width="1.5" fill="none"/>
+        <text x="530" y="30" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="700" fill="var(--ink)">Small dot</text>
+        <text x="640" y="205" text-anchor="middle" font-family="Source Serif 4, serif" font-size="12.5" fill="var(--muted)">big gap</text>
+        <text x="640" y="222" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="#4fa8ff">→ Blue</text>
+        <text x="30" y="146" font-family="Space Grotesk, sans-serif" font-size="10.5" font-weight="600" fill="var(--energy)">excited state</text>
+        <text x="30" y="166" font-family="Space Grotesk, sans-serif" font-size="10.5" font-weight="600" fill="var(--accent-ink)">ground state</text>
+      </svg>
+      <p class="svg-caption">The green line is the excited state, the teal line is the resting (ground) state. Same two states in every dot — only the gap between them changes as the box gets smaller.</p>
+    </div>
+
+    <div class="card diagram-card">
+      <div class="diagram-label">The guitar-string version of the same idea</div>
+      <p style="margin-bottom:8px;">A short guitar string isn't storing extra energy — it's just more <em>restricted</em>, so it can only vibrate fast, at a high pitch. A long string is less restricted, so it vibrates slow, at a low pitch. The string's length doesn't add energy; it controls what's even possible.</p>
+      <svg viewBox="0 0 640 200" role="img" aria-label="Animation comparing a long guitar string vibrating slowly at a low pitch to a short guitar string vibrating quickly at a high pitch">
+        <text x="160" y="26" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="700" fill="var(--ink)">Long string</text>
+        <circle cx="40" cy="110" r="5" fill="var(--ink)"/><circle cx="280" cy="110" r="5" fill="var(--ink)"/>
+        <line x1="40" y1="110" x2="280" y2="110" stroke="var(--line)" stroke-width="1.5"/>
+        <path class="string-wave slow" d="M40,110 Q160,86 280,110" fill="none" stroke="#f74b3a" stroke-width="3" stroke-linecap="round"/>
+        <text x="160" y="150" text-anchor="middle" font-family="Source Serif 4, serif" font-size="12.5" fill="var(--muted)">vibrates slowly</text>
+        <text x="160" y="168" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="#f74b3a">low pitch, like a large dot</text>
+
+        <text x="480" y="26" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="700" fill="var(--ink)">Short string</text>
+        <circle cx="400" cy="110" r="5" fill="var(--ink)"/><circle cx="560" cy="110" r="5" fill="var(--ink)"/>
+        <line x1="400" y1="110" x2="560" y2="110" stroke="var(--line)" stroke-width="1.5"/>
+        <path class="string-wave fast" d="M400,110 Q480,90 560,110" fill="none" stroke="#4fa8ff" stroke-width="3" stroke-linecap="round"/>
+        <text x="480" y="150" text-anchor="middle" font-family="Source Serif 4, serif" font-size="12.5" fill="var(--muted)">vibrates quickly</text>
+        <text x="480" y="168" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="#4fa8ff">high pitch, like a small dot</text>
+      </svg>
+      <p class="svg-caption">Small dot, big jump — same idea as a short string and a high note. Neither one has "more energy" stored in it; both are just more confined, which forces a faster vibration (or a bigger electron energy jump).</p>
     </div>
   </section>
 
