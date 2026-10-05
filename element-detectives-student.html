@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Element Detectives — Student Activity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16233B;
+    --paper:#F3F4EF;
+    --paper-line:#DADCD1;
+    --brass:#A8791E;
+    --brass-dark:#7C5A16;
+    --teal:#33606B;
+    --red:#A23B33;
+    --cream:#FBFAF6;
+    --alert:#D4580A;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      linear-gradient(var(--paper-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+    background-size:28px 28px;
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:740px;margin:0 auto;padding:0 24px 80px;}
+
+  /* HERO */
+  header.hero{
+    background:var(--ink);
+    background-image:
+      linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size:24px 24px;
+    color:var(--cream);
+    padding:44px 24px 40px;
+  }
+  .hero-inner{max-width:740px;margin:0 auto;}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#D9C489;letter-spacing:.02em;margin:0 0 14px;}
+  h1.title{font-family:'Spectral',serif;font-weight:600;font-size:38px;line-height:1.12;margin:0 0 12px;}
+  .hero p.lede{font-size:16px;max-width:52ch;color:#C9CFDC;margin:0 0 20px;}
+
+  /* TIMING BAR */
+  .timing-bar{
+    display:flex;gap:12px;flex-wrap:wrap;margin:24px 0 0;
+  }
+  .timing-chip{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    border:1px solid rgba(217,196,137,.4);
+    color:#D9C489;
+    padding:5px 12px;
+  }
+
+  section{padding:40px 0;border-bottom:1px solid var(--paper-line);}
+  section:last-of-type{border-bottom:none;}
+
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--teal);margin:0 0 8px;}
+  h2{font-family:'Spectral',serif;font-weight:600;font-size:26px;margin:0 0 16px;}
+  h3{font-family:'Spectral',serif;font-weight:600;font-size:19px;margin:24px 0 8px;}
+  p{max-width:64ch;margin:0 0 14px;font-size:16px;}
+  strong{color:var(--ink);}
+
+  /* ROLE BADGES */
+  .roles{display:flex;gap:14px;flex-wrap:wrap;margin:20px 0;}
+  .role-card{
+    border:2px solid var(--ink);
+    padding:16px 18px;
+    flex:1 1 160px;
+    max-width:220px;
+    background:var(--cream);
+  }
+  .role-name{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--teal);
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    margin:0 0 6px;
+    font-weight:600;
+  }
+  .role-job{font-size:14px;margin:0;max-width:none;}
+
+  /* EVIDENCE CARDS */
+  .evidence-grid{display:flex;flex-direction:column;gap:16px;margin:20px 0;}
+  .evidence-card{
+    background:var(--cream);
+    border:1px solid var(--paper-line);
+    border-left:4px solid var(--brass);
+    padding:18px 22px;
+  }
+  .evidence-card.redacted{border-left-color:var(--red);}
+  .evidence-card .e-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--brass-dark);
+    margin:0 0 8px;
+    letter-spacing:.03em;
+  }
+  .evidence-card.redacted .e-label{color:var(--red);}
+  .evidence-card p{margin:0;font-size:15px;max-width:none;}
+  .redact{
+    background:var(--ink);
+    color:var(--ink);
+    padding:0 6px;
+    border-radius:0;
+    user-select:none;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:14px;
+  }
+
+  /* ANSWER FIELDS */
+  .question-block{margin:18px 0;}
+  .q-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--teal);
+    margin:0 0 6px;
+    display:block;
+  }
+  .answer-field{
+    width:100%;
+    border:none;
+    border-bottom:2px solid var(--ink);
+    background:transparent;
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    color:var(--ink);
+    padding:6px 4px;
+    outline:none;
+    resize:none;
+  }
+  .answer-field:focus{border-bottom-color:var(--teal);}
+  textarea.answer-field{border:1px solid var(--paper-line);padding:10px;min-height:72px;border-bottom-width:1px;}
+  textarea.answer-field:focus{border-color:var(--teal);}
+
+  /* CALLOUT */
+  .callout{
+    background:var(--cream);
+    border-left:4px solid var(--brass);
+    padding:16px 20px;
+    margin:20px 0;
+  }
+  .callout p{margin:0;font-size:15px;max-width:none;}
+  .callout .k{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--brass-dark);margin:0 0 6px;}
+
+  /* PHASE BANNER */
+  .phase-banner{
+    background:var(--teal);
+    color:white;
+    padding:10px 18px;
+    margin:28px 0 16px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .phase-time{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    background:rgba(255,255,255,.2);
+    padding:3px 8px;
+    white-space:nowrap;
+  }
+  .phase-title{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;}
+
+  .phase-banner.solo{background:var(--ink);}
+  .phase-banner.share{background:var(--brass-dark);}
+
+  /* PERIODIC TABLE MINI (SVG) */
+  .pt-mini-wrap{overflow-x:auto;margin:20px 0;}
+
+  /* VOTE DISPLAY */
+  .vote-box{
+    display:flex;gap:10px;flex-wrap:wrap;margin:12px 0;
+  }
+  .vote-btn{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    border:2px solid var(--ink);
+    background:transparent;
+    color:var(--ink);
+    padding:8px 18px;
+    cursor:pointer;
+    transition:background .15s;
+  }
+  .vote-btn:hover{background:var(--paper-line);}
+  .vote-btn.selected{background:var(--teal);color:white;border-color:var(--teal);}
+
+  ul{padding-left:20px;}
+  li{margin-bottom:8px;font-size:15px;max-width:60ch;}
+
+  footer{padding:30px 24px 56px;}
+  footer p{color:#5b6472;font-size:13px;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="tag">Chemistry · Hook Activity · Periodic Table Unit</p>
+    <h1 class="title">Element Detectives: The Lithium Supply Chain Crisis</h1>
+    <p class="lede">A real shortage is reshaping the global battery industry. Your team has the evidence — now use the periodic table to crack the case.</p>
+    <div class="timing-bar">
+      <span class="timing-chip">⏱ 15–20 min total</span>
+      <span class="timing-chip">👥 Zoom breakout rooms</span>
+      <span class="timing-chip">3 roles per team</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- BRIEFING -->
+<section id="briefing">
+  <p class="eyebrow">Your mission briefing</p>
+  <h2>What's going on?</h2>
+
+  <p>Right now, in 2026, the global race to build electric vehicles and store renewable energy has created a massive demand for <strong>lithium</strong> — the key element inside rechargeable batteries. Lithium supplies are tight, prices have spiked, and several countries have accused battery suppliers of sending shipments that <em>aren't what they claimed to be</em>.</p>
+
+  <p>Your team has received three mystery element samples from a suspected shipment fraud. The supplier claims all three samples are lithium. Your job: use the data provided and the periodic table to figure out which samples are real — and what the fake ones actually are.</p>
+
+  <figure style="margin:20px 0;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Lithium_paraffin.jpg/480px-Lithium_paraffin.jpg" alt="Pieces of lithium metal stored in paraffin oil" style="width:100%;max-width:380px;display:block;border:1px solid var(--paper-line);">
+    <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5b6472;margin-top:6px;max-width:380px;">Lithium metal — so reactive it must be stored in paraffin oil to keep it from reacting with air or water. Atomic number: 3.</figcaption>
+  </figure>
+
+  <div class="callout">
+    <p class="k">What you already know (no chemistry vocabulary needed)</p>
+    <p>Every element has a unique set of properties — its atomic number, mass, reactivity, and location on the periodic table. Like a fingerprint, these can't be faked. A substance claiming to be lithium either <em>is</em> lithium, or it's something else entirely.</p>
+  </div>
+</section>
+
+<!-- ROLES -->
+<section id="roles">
+  <p class="eyebrow">Step 1 — Before breakout rooms (2 min)</p>
+  <h2>Assign your roles</h2>
+  <p>Each person on your team takes one role. You'll each focus your analysis through that lens, then combine findings.</p>
+
+  <div class="roles">
+    <div class="role-card">
+      <p class="role-name">🔬 Property Scout</p>
+      <p class="role-job">You compare the physical properties of each sample to what we know about lithium. Does it look and behave right?</p>
+    </div>
+    <div class="role-card">
+      <p class="role-name">🔢 Number Cruncher</p>
+      <p class="role-job">You focus on the numeric data — atomic mass, atomic number — and check the math against the periodic table.</p>
+    </div>
+    <div class="role-card">
+      <p class="role-name">🗺 Table Navigator</p>
+      <p class="role-job">You use the periodic table to locate candidates. What other elements are near lithium? Could a fake blend in?</p>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 1: BREAKOUT -->
+<section id="breakout">
+  <div class="phase-banner">
+    <span class="phase-time">⏱ ~10 min</span>
+    <span class="phase-title">PHASE 2 — Breakout Rooms: Analyze the Evidence</span>
+  </div>
+
+  <p>Your teacher will move you into breakout rooms now. Work through the three evidence files below together. Each person should focus on their role, but everyone records answers.</p>
+
+  <!-- PERIODIC TABLE REFERENCE -->
+  <h3>Your reference tool — the periodic table</h3>
+  <p>Use this simplified version as your guide. Key elements to locate: <strong>H (1), Li (3), Be (4), Na (11), K (19), B (5), Mg (12)</strong>.</p>
+
+  <div class="pt-mini-wrap">
+    <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" style="min-width:580px;width:100%;font-family:IBM Plex Mono,monospace;font-size:9px;">
+      <!-- Period 1 -->
+      <rect x="4" y="4" width="34" height="34" fill="#1E3550" rx="1"/>
+      <text x="21" y="16" text-anchor="middle" fill="#D9C489" font-size="7">1</text>
+      <text x="21" y="28" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">H</text>
+      <rect x="600" y="4" width="34" height="34" fill="#352040" rx="1"/>
+      <text x="617" y="16" text-anchor="middle" fill="#D9C489" font-size="7">2</text>
+      <text x="617" y="28" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">He</text>
+
+      <!-- Period 2 -->
+      <!-- Li HIGHLIGHTED -->
+      <rect x="4" y="42" width="34" height="34" fill="#A8791E" rx="1"/>
+      <text x="21" y="54" text-anchor="middle" fill="#fff" font-size="7">3</text>
+      <text x="21" y="66" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Spectral,serif">Li</text>
+      <rect x="42" y="42" width="34" height="34" fill="#1E3550" rx="1"/>
+      <text x="59" y="54" text-anchor="middle" fill="#D9C489" font-size="7">4</text>
+      <text x="59" y="66" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">Be</text>
+      <!-- gap -->
+      <rect x="336" y="42" width="34" height="34" fill="#2E4A35" rx="1"/>
+      <text x="353" y="54" text-anchor="middle" fill="#D9C489" font-size="7">5</text>
+      <text x="353" y="66" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">B</text>
+      <rect x="374" y="42" width="34" height="34" fill="#2E4A35" rx="1"/>
+      <text x="391" y="54" text-anchor="middle" fill="#D9C489" font-size="7">6</text>
+      <text x="391" y="66" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">C</text>
+      <rect x="412" y="42" width="34" height="34" fill="#2E4A35" rx="1"/>
+      <text x="429" y="54" text-anchor="middle" fill="#D9C489" font-size="7">7</text>
+      <text x="429" y="66" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">N</text>
+      <rect x="450" y="42" width="34" height="34" fill="#2E4A35" rx="1"/>
+      <text x="467" y="54" text-anchor="middle" fill="#D9C489" font-size="7">8</text>
+      <text x="467" y="66" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">O</text>
+      <rect x="488" y="42" width="34" height="34" fill="#2E4A35" rx="1"/>
+      <text x="505" y="54" text-anchor="middle" fill="#D9C489" font-size="7">9</text>
+      <text x="505" y="66" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">F</text>
+      <rect x="526" y="42" width="34" height="34" fill="#2E4A35" rx="1"/>
+      <text x="543" y="54" text-anchor="middle" fill="#D9C489" font-size="7">10</text>
+      <text x="543" y="66" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">Ne</text>
+      <rect x="562" y="42" width="34" height="34" fill="#352040" rx="1"/>
+      <rect x="600" y="42" width="34" height="34" fill="#352040" rx="1"/>
+
+      <!-- Period 3 -->
+      <rect x="4" y="80" width="34" height="34" fill="#1E3550" rx="1"/>
+      <text x="21" y="92" text-anchor="middle" fill="#D9C489" font-size="7">11</text>
+      <text x="21" y="104" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">Na</text>
+      <rect x="42" y="80" width="34" height="34" fill="#1E3550" rx="1"/>
+      <text x="59" y="92" text-anchor="middle" fill="#D9C489" font-size="7">12</text>
+      <text x="59" y="104" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">Mg</text>
+      <rect x="336" y="80" width="34" height="34" fill="#2E4A35" rx="1"/>
+      <text x="353" y="92" text-anchor="middle" fill="#D9C489" font-size="7">13</text>
+      <text x="353" y="104" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">Al</text>
+      <rect x="374" y="80" width="34" height="34" fill="#4A3020" rx="1"/>
+      <text x="391" y="92" text-anchor="middle" fill="#D9C489" font-size="7">14</text>
+      <text x="391" y="104" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">Si</text>
+      <rect x="412" y="80" width="34" height="34" fill="#2E4A35" rx="1"/>
+      <text x="429" y="92" text-anchor="middle" fill="#D9C489" font-size="7">15</text>
+      <text x="429" y="104" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">P</text>
+      <rect x="450" y="80" width="34" height="34" fill="#2E4A35" rx="1"/>
+      <text x="467" y="92" text-anchor="middle" fill="#D9C489" font-size="7">16</text>
+      <text x="467" y="104" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">S</text>
+      <rect x="488" y="80" width="34" height="34" fill="#2E4A35" rx="1"/>
+      <text x="505" y="92" text-anchor="middle" fill="#D9C489" font-size="7">17</text>
+      <text x="505" y="104" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">Cl</text>
+      <rect x="526" y="80" width="34" height="34" fill="#352040" rx="1"/>
+      <text x="543" y="92" text-anchor="middle" fill="#D9C489" font-size="7">18</text>
+      <text x="543" y="104" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">Ar</text>
+
+      <!-- Period 4 partial -->
+      <rect x="4" y="118" width="34" height="34" fill="#1E3550" rx="1"/>
+      <text x="21" y="130" text-anchor="middle" fill="#D9C489" font-size="7">19</text>
+      <text x="21" y="142" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">K</text>
+      <rect x="42" y="118" width="34" height="34" fill="#1E3550" rx="1"/>
+      <text x="59" y="130" text-anchor="middle" fill="#D9C489" font-size="7">20</text>
+      <text x="59" y="142" text-anchor="middle" fill="#FBFAF6" font-size="13" font-weight="700" font-family="Spectral,serif">Ca</text>
+
+      <!-- Legend -->
+      <rect x="4" y="180" width="14" height="14" fill="#1E3550"/>
+      <text x="22" y="192" fill="#5b6472" font-size="9">Metal</text>
+      <rect x="70" y="180" width="14" height="14" fill="#2E4A35"/>
+      <text x="88" y="192" fill="#5b6472" font-size="9">Nonmetal</text>
+      <rect x="150" y="180" width="14" height="14" fill="#4A3020"/>
+      <text x="168" y="192" fill="#5b6472" font-size="9">Metalloid</text>
+      <rect x="232" y="180" width="14" height="14" fill="#352040"/>
+      <text x="250" y="192" fill="#5b6472" font-size="9">Noble gas</text>
+      <rect x="314" y="180" width="14" height="14" fill="#A8791E"/>
+      <text x="332" y="192" fill="#5b6472" font-size="9">Li (target element)</text>
+
+      <!-- Label period/group -->
+      <text x="21" y="210" text-anchor="middle" fill="#5b6472" font-size="8">Group 1</text>
+      <text x="59" y="210" text-anchor="middle" fill="#5b6472" font-size="8">Group 2</text>
+    </svg>
+  </div>
+
+  <!-- EVIDENCE FILES -->
+  <h3>Evidence files — three mystery samples</h3>
+  <p>Read each file carefully. Your supplier claims all three are lithium. Lithium's known properties: atomic number 3, atomic mass ≈ 6.94 u, soft silvery metal, extremely reactive with water, lowest density of all solid metals (0.534 g/cm³), burns with a crimson-red flame.</p>
+
+  <div class="evidence-grid">
+
+    <div class="evidence-card">
+      <p class="e-label">EVIDENCE FILE A — Sample Alpha</p>
+      <p>Lab report shows atomic number: <strong>3</strong>. Atomic mass recorded: <strong>6.94 u</strong>. Sample is soft and silvery. When a small piece was dropped in water, it reacted vigorously and floated. Flame test produced a <strong>crimson-red</strong> color. Mass: 4.2 g. Volume by displacement: 7.9 cm³. Calculated density: 0.53 g/cm³.</p>
+    </div>
+
+    <div class="evidence-card redacted">
+      <p class="e-label">EVIDENCE FILE B — Sample Beta</p>
+      <p>Lab report shows atomic number: <strong>3</strong>. Atomic mass recorded: <strong>6.94 u</strong>. Sample appears silvery but is harder than expected. Flame test: <strong>yellow-orange</strong>. Mass: 5.1 g. Volume by displacement: 2.4 cm³. Calculated density: <strong>2.13 g/cm³</strong>. Reacted slowly with water — much less vigorously than Sample Alpha.</p>
+    </div>
+
+    <div class="evidence-card">
+      <p class="e-label">EVIDENCE FILE C — Sample Gamma</p>
+      <p>Lab report shows atomic number: <strong>3</strong>. Atomic mass recorded: <strong>6.94 u</strong>. Sample is soft and silvery. Flame test produced a <strong>crimson-red</strong> color. However, a mass spectrometer reading showed an unusual isotope ratio — far more <span class="num">⁷Li</span> (mass 7) than expected. Supplier could not explain the ratio. Density: 0.535 g/cm³.</p>
+    </div>
+
+  </div>
+
+  <!-- BREAKOUT QUESTIONS -->
+  <h3>Your team's analysis questions</h3>
+  <p>Work through these together in your breakout room. Write your team's answers in the fields below.</p>
+
+  <div class="question-block">
+    <span class="q-label">Q1 — Property Scout: Which sample(s) have physical properties that DON'T match lithium? What's the giveaway?</span>
+    <textarea class="answer-field" placeholder="Write your team's answer here..."></textarea>
+  </div>
+
+  <div class="question-block">
+    <span class="q-label">Q2 — Number Cruncher: Sample Beta's density is 2.13 g/cm³. Lithium's is 0.534 g/cm³. If the atomic number is really 3, what could explain such a different density?</span>
+    <textarea class="answer-field" placeholder="Write your team's answer here..."></textarea>
+  </div>
+
+  <div class="question-block">
+    <span class="q-label">Q3 — Table Navigator: Use the partial periodic table above. Which element near lithium has a yellow-orange flame color and a density around 0.97 g/cm³? (Hint: same group as lithium, one row below.)</span>
+    <input class="answer-field" type="text" placeholder="Element name:">
+  </div>
+
+  <div class="question-block">
+    <span class="q-label">Q4 — Everyone: Sample Gamma has the right density and flame color, but an unusual isotope ratio. Is it real lithium? Explain your reasoning.</span>
+    <textarea class="answer-field" placeholder="Write your team's answer here..."></textarea>
+  </div>
+
+  <div class="question-block">
+    <span class="q-label">Q5 — Team verdict: Which samples are genuine lithium? Which is fake, and what do you think it actually is?</span>
+    <textarea class="answer-field" placeholder="Our verdict: Sample A is ___, Sample B is ___, Sample C is ___..."></textarea>
+  </div>
+
+  <div class="callout" style="margin-top:24px;">
+    <p class="k">Stuck? Use this hint</p>
+    <p>Look at Group 1 (the leftmost column). Lithium (Li, #3) and sodium (Na, #11) are neighbors in the same group. They're both reactive metals. The biggest differences between them are their density, atomic mass, and flame color. Sodium burns yellow. Lithium burns crimson-red. One of these samples may be sodium masquerading as lithium.</p>
+  </div>
+</section>
+
+<!-- PHASE 3: CLASS SHARE-OUT -->
+<section id="shareout">
+  <div class="phase-banner share">
+    <span class="phase-time">⏱ ~5 min</span>
+    <span class="phase-title">PHASE 3 — Back Together: Share Out</span>
+  </div>
+
+  <p>Your teacher will bring everyone back together. Each team will share their verdict on one of the three samples. Then as a class, you'll vote on the final verdict.</p>
+
+  <h3>Class vote</h3>
+  <p>Before your teacher reveals the answer — what does your team think Sample Beta actually is?</p>
+
+  <div class="vote-box">
+    <button class="vote-btn" onclick="selectVote(this,'sodium')">Sodium (Na)</button>
+    <button class="vote-btn" onclick="selectVote(this,'magnesium')">Magnesium (Mg)</button>
+    <button class="vote-btn" onclick="selectVote(this,'potassium')">Potassium (K)</button>
+    <button class="vote-btn" onclick="selectVote(this,'aluminum')">Aluminum (Al)</button>
+  </div>
+
+  <div id="vote-response" style="display:none;margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:var(--teal);"></div>
+
+  <h3>Big picture question</h3>
+  <div class="question-block">
+    <span class="q-label">Why does it matter that the periodic table is organized the way it is? How did the table help you catch the fake sample?</span>
+    <textarea class="answer-field" placeholder="Your reflection..."></textarea>
+  </div>
+
+  <div class="callout" style="border-left-color:var(--teal);">
+    <p class="k">What you just did</p>
+    <p>You used element position, physical properties, density, flame tests, and isotope ratios to identify an unknown material. Real forensic chemists do exactly this — using mass spectrometry and elemental analysis to authenticate materials, catch fraud, and analyze evidence. The periodic table is their map.</p>
+  </div>
+</section>
+
+<!-- LOOKING AHEAD -->
+<section id="ahead">
+  <p class="eyebrow">Coming up in the study guide</p>
+  <h2>What you'll learn this week</h2>
+  <ul>
+    <li>How Mendeleev organized the first periodic table — and why he left deliberate gaps</li>
+    <li>How to read every piece of information in an element box</li>
+    <li>The difference between periods (rows) and groups (columns)</li>
+    <li>How atomic number, mass number, and isotopes work — and how to calculate particles</li>
+    <li>Why atomic mass on the table is a decimal (weighted average across all isotopes)</li>
+    <li>How electron configuration connects directly to where an element sits on the table</li>
+  </ul>
+</section>
+
+</div><!-- end .wrap -->
+
+<footer>
+  <p>YSC Academy · Chemistry · Periodic Table Unit · Hook Activity — Student Version · No answers included</p>
+</footer>
+
+<script>
+function selectVote(btn, choice) {
+  document.querySelectorAll('.vote-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  const resp = document.getElementById('vote-response');
+  resp.style.display = 'block';
+  resp.textContent = 'Your team voted: ' + btn.textContent + '. Lock it in and see what the class decides!';
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Periodic Table — Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16233B;
+    --paper:#F3F4EF;
+    --paper-line:#DADCD1;
+    --brass:#A8791E;
+    --brass-dark:#7C5A16;
+    --teal:#33606B;
+    --red:#A23B33;
+    --cream:#FBFAF6;
+    --green:#2E6B45;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      linear-gradient(var(--paper-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+    background-size:28px 28px;
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px 80px;}
+  .num{font-family:'IBM Plex Mono',monospace;}
+
+  /* HERO */
+  header.hero{
+    background:var(--ink);
+    background-image:
+      linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size:24px 24px;
+    color:var(--cream);
+    padding:56px 24px 48px;
+  }
+  .hero-inner{max-width:760px;margin:0 auto;}
+  .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:#D9C489;
+    letter-spacing:.02em;
+    margin:0 0 18px;
+  }
+  h1.title{
+    font-family:'Spectral',serif;
+    font-weight:600;
+    font-size:44px;
+    line-height:1.12;
+    margin:0 0 16px;
+    max-width:14ch;
+  }
+  .hero p.lede{
+    font-size:17px;
+    max-width:52ch;
+    color:#C9CFDC;
+    margin:0 0 28px;
+  }
+  .link-back{
+    display:inline-block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:#D9C489;
+    text-decoration:none;
+    border:1px solid rgba(217,196,137,.35);
+    padding:6px 14px;
+    margin-bottom:28px;
+  }
+  .link-back:hover{background:rgba(217,196,137,.1);}
+
+  /* SECTIONS */
+  section{padding:52px 0;border-bottom:1px solid var(--paper-line);}
+  section:last-of-type{border-bottom:none;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--teal);
+    margin:0 0 10px;
+  }
+  h2{
+    font-family:'Spectral',serif;
+    font-weight:600;
+    font-size:29px;
+    margin:0 0 18px;
+    max-width:22ch;
+  }
+  h3{
+    font-family:'Spectral',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:28px 0 10px;
+  }
+  p{max-width:66ch;margin:0 0 16px;font-size:16px;}
+  strong{color:var(--ink);}
+  .lead-word{color:var(--brass-dark);font-weight:600;}
+
+  figure{margin:24px 0;}
+  figure img{
+    width:100%;
+    max-width:480px;
+    display:block;
+    border:1px solid var(--paper-line);
+  }
+  figcaption{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:#5b6472;
+    margin-top:8px;
+    max-width:480px;
+  }
+  .figure-row{display:flex;gap:20px;flex-wrap:wrap;}
+  .figure-row figure{flex:1 1 200px;margin:16px 0;}
+  .figure-row img{max-width:100%;}
+
+  table{border-collapse:collapse;width:100%;margin:20px 0;font-size:15px;}
+  caption{
+    text-align:left;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:#5b6472;
+    margin-bottom:8px;
+  }
+  th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--paper-line);}
+  th{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:500;
+    font-size:13px;
+    color:var(--teal);
+    border-bottom:2px solid var(--teal);
+  }
+  td.n{font-family:'IBM Plex Mono',monospace;}
+
+  .callout{
+    background:var(--cream);
+    border-left:4px solid var(--brass);
+    padding:20px 24px;
+    margin:24px 0;
+  }
+  .callout p:last-child{margin-bottom:0;}
+  .callout .k{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--brass-dark);
+    margin:0 0 8px;
+  }
+  .callout-teal{border-left-color:var(--teal);}
+  .callout-teal .k{color:var(--teal);}
+  .callout-green{border-left-color:var(--green);}
+  .callout-green .k{color:var(--green);}
+
+  /* full bleed band */
+  .band{
+    background:var(--ink);
+    color:var(--cream);
+    margin:0 -24px;
+    padding:44px 24px;
+  }
+  .band .wrap-in{max-width:712px;margin:0 auto;}
+  .band h2{color:var(--cream);}
+  .band .eyebrow{color:#D9C489;}
+  .band p{color:#C9CFDC;}
+  .band-teal{background:var(--teal);}
+  .band-teal .eyebrow{color:#BEE3EA;}
+  .band-teal p{color:#DEF0F3;}
+  .band-red{background:var(--red);}
+  .band-red .eyebrow{color:#F3D2CD;}
+  .band-red p{color:#F6E3E0;}
+
+  .formula{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:22px;
+    background:var(--cream);
+    border:1px solid var(--paper-line);
+    padding:18px 22px;
+    display:inline-block;
+    margin:16px 0;
+  }
+
+  details{
+    background:var(--cream);
+    border:1px solid var(--paper-line);
+    padding:14px 18px;
+    margin:12px 0;
+  }
+  summary{
+    cursor:pointer;
+    font-weight:600;
+    font-family:'Inter',sans-serif;
+  }
+  details p{margin-top:12px;margin-bottom:0;}
+
+  ul{padding-left:20px;}
+  li{margin-bottom:8px;max-width:60ch;}
+
+  footer{padding:36px 24px 60px;text-align:left;}
+  footer p{color:#5b6472;font-size:14px;}
+
+  /* ELEMENT TILE */
+  .element-tile{
+    display:inline-block;
+    background:var(--ink);
+    color:var(--cream);
+    padding:12px 16px 10px;
+    min-width:80px;
+    text-align:center;
+    margin:4px;
+    vertical-align:top;
+    line-height:1.2;
+  }
+  .element-tile .at-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#D9C489;display:block;}
+  .element-tile .sym{font-family:'Spectral',serif;font-size:32px;font-weight:700;display:block;margin:4px 0 2px;}
+  .element-tile .name{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#C9CFDC;display:block;}
+  .element-tile .mass{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#9BA8BA;display:block;}
+  .tile-metal{background:#1E3550;}
+  .tile-nonmetal{background:#2E4A35;}
+  .tile-metalloid{background:#4A3020;}
+  .tile-noble{background:#352040;}
+
+  /* PERIODIC TABLE SVG AREA */
+  .pt-wrap{overflow-x:auto;margin:24px 0;}
+
+  /* MINI ELEMENT CARD - for anatomy diagram */
+  .element-anatomy{
+    position:relative;
+    display:inline-block;
+    background:var(--cream);
+    border:2px solid var(--ink);
+    padding:16px 20px;
+    width:160px;
+    margin:24px 0;
+  }
+  .anatomy-label{
+    position:absolute;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--teal);
+    white-space:nowrap;
+  }
+
+  /* ISOTOPE CALCULATOR */
+  .calc-box{
+    background:var(--cream);
+    border:1px solid var(--paper-line);
+    padding:24px;
+    margin:24px 0;
+  }
+  .calc-box label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--teal);
+    display:block;
+    margin-bottom:6px;
+    margin-top:16px;
+  }
+  .calc-box label:first-of-type{margin-top:0;}
+  .calc-box input{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:15px;
+    border:1px solid var(--paper-line);
+    background:#fff;
+    padding:8px 12px;
+    width:120px;
+    color:var(--ink);
+  }
+  .calc-box button{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    background:var(--teal);
+    color:white;
+    border:none;
+    padding:10px 20px;
+    cursor:pointer;
+    margin-top:18px;
+    display:block;
+  }
+  .calc-box button:hover{background:var(--brass-dark);}
+  #calc-result{
+    margin-top:16px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:14px;
+    color:var(--ink);
+    background:var(--paper);
+    border-left:3px solid var(--brass);
+    padding:12px 16px;
+    display:none;
+  }
+
+  /* WEIGHTED AVG ANIMATION */
+  .isotope-bar-wrap{margin:24px 0;}
+  .isotope-bar-label{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#5b6472;margin-bottom:6px;}
+  .isotope-bar{height:32px;border-radius:0;display:flex;overflow:hidden;border:1px solid var(--paper-line);}
+  .isotope-seg{
+    display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:#fff;
+    transition:width 0.8s ease;
+  }
+
+  /* CONNECTION BOX */
+  .connection-box{
+    background:var(--ink);
+    color:var(--cream);
+    padding:28px 32px;
+    margin:0 0 48px;
+    border-left:4px solid #D9C489;
+  }
+  .connection-box .k{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:#D9C489;
+    margin:0 0 10px;
+  }
+  .connection-box p{color:#C9CFDC;margin:0;max-width:60ch;}
+
+  /* GLOSSARY */
+  .glossary dt{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:600;
+    font-size:13.5px;
+    color:var(--teal);
+    margin-top:14px;
+  }
+  .glossary dd{
+    margin:4px 0 0 0;
+    font-size:15px;
+    max-width:60ch;
+    padding-left:0;
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="tag">Chemistry · Week 3 Notes</p>
+    <h1 class="title">The Periodic Table</h1>
+    <p class="lede">One scientist, one dream, and 118 elements that turned out to follow a hidden pattern. Here's what that pattern reveals — and why your electron configuration notes from last week are the key to understanding all of it.</p>
+    <svg width="180" height="34" viewBox="0 0 180 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-top:8px;">
+      <line x1="20" y1="8" x2="160" y2="8" stroke="#D9C489" stroke-width="2"/>
+      <line x1="90" y1="8" x2="90" y2="2" stroke="#D9C489" stroke-width="2"/>
+      <line x1="20" y1="8" x2="20" y2="22" stroke="#D9C489" stroke-width="2"/>
+      <line x1="160" y1="8" x2="160" y2="22" stroke="#D9C489" stroke-width="2"/>
+      <path d="M8 22 A12 10 0 0 0 32 22" stroke="#D9C489" stroke-width="2" fill="none"/>
+      <path d="M148 22 A12 10 0 0 0 172 22" stroke="#D9C489" stroke-width="2" fill="none"/>
+    </svg>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- CONNECTION TO LAST WEEK -->
+<section id="connection">
+  <div class="connection-box">
+    <p class="k">← Connected to last week</p>
+    <p>Last week you mapped out how electrons arrange themselves in shells and subshells — the specific pattern called electron configuration. Here's the payoff: <strong style="color:#D9C489;">the periodic table is literally organized by electron configuration.</strong> Each row (period) represents a new electron shell. Each column (group) shares the same number of valence electrons — the outermost electrons that drive almost all of chemistry. Everything you learned last week is the reason this table works.</p>
+  </div>
+
+  <p class="eyebrow">The big picture</p>
+  <h2>Why organize elements at all?</h2>
+  <p>The human mind loves organization. We sort songs into playlists, food into pantries, and clothes into closets — because finding things is faster when there's a system. Scientists face the same problem with matter: there are 118 known elements, each with its own mass, reactivity, and behavior. Without a map, you'd have to memorize every element's behavior from scratch.</p>
+  <p>In the 1860s, a Russian chemist named <strong class="lead-word">Dmitri Mendeleev</strong> noticed that when elements were arranged by increasing atomic mass, their properties repeated in a predictable pattern. According to legend, the full arrangement came to him in a dream. He published it in 1869 — leaving deliberate gaps for elements he predicted must exist but hadn't been discovered yet. He was right about all of them.</p>
+
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Dimitri_Mendeleev_%28Unknown_Photographer%2C_1897%29.jpg/440px-Dimitri_Mendeleev_%28Unknown_Photographer%2C_1897%29.jpg" alt="Dmitri Mendeleev, circa 1897">
+    <figcaption>Dmitri Mendeleev (1834–1907). His 1869 periodic table left intentional blanks — gaps he predicted would be filled by undiscovered elements.</figcaption>
+  </figure>
+
+  <div class="callout">
+    <p class="k">Key insight</p>
+    <p>The modern periodic table organizes elements by <strong>atomic number</strong> (number of protons), not atomic mass as Mendeleev originally did. This small correction fixed the few places where Mendeleev's ordering didn't match observed properties.</p>
+  </div>
+</section>
+
+<!-- READING AN ELEMENT BOX -->
+<section id="element-box">
+  <p class="eyebrow">Reading the table</p>
+  <h2>What's inside each element box?</h2>
+  <p>Every square on the periodic table is a miniature data card for one element. Knowing how to read it is a skill you'll use all year.</p>
+
+  <!-- Anatomy diagram using inline SVG -->
+  <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" style="max-width:400px;display:block;margin:28px 0;font-family:IBM Plex Mono,monospace;">
+    <!-- box -->
+    <rect x="120" y="20" width="160" height="200" fill="#FBFAF6" stroke="#16233B" stroke-width="2"/>
+    <!-- atomic number -->
+    <text x="210" y="52" text-anchor="middle" font-size="18" font-weight="700" fill="#A8791E">79</text>
+    <!-- symbol -->
+    <text x="210" y="120" text-anchor="middle" font-size="64" font-weight="700" fill="#16233B" font-family="Spectral,serif">Au</text>
+    <!-- name -->
+    <text x="210" y="155" text-anchor="middle" font-size="14" fill="#16233B">Gold</text>
+    <!-- atomic mass -->
+    <text x="210" y="178" text-anchor="middle" font-size="13" fill="#5b6472">196.967</text>
+
+    <!-- labels left -->
+    <line x1="118" y1="46" x2="60" y2="46" stroke="#33606B" stroke-width="1.5"/>
+    <text x="55" y="50" text-anchor="end" font-size="12" fill="#33606B">atomic number</text>
+    <text x="55" y="64" text-anchor="end" font-size="10" fill="#5b6472">(# of protons)</text>
+
+    <line x1="118" y1="110" x2="60" y2="110" stroke="#33606B" stroke-width="1.5"/>
+    <text x="55" y="114" text-anchor="end" font-size="12" fill="#33606B">symbol</text>
+
+    <!-- labels right -->
+    <line x1="282" y1="155" x2="340" y2="155" stroke="#33606B" stroke-width="1.5"/>
+    <text x="345" y="159" text-anchor="start" font-size="12" fill="#33606B">element name</text>
+
+    <line x1="282" y1="174" x2="340" y2="174" stroke="#33606B" stroke-width="1.5"/>
+    <text x="345" y="178" text-anchor="start" font-size="12" fill="#33606B">atomic mass</text>
+    <text x="345" y="192" text-anchor="start" font-size="10" fill="#5b6472">(weighted avg)</text>
+  </svg>
+
+  <table>
+    <caption>What each piece of the element box means</caption>
+    <thead><tr><th>Field</th><th>What it tells you</th><th>Gold (Au) example</th></tr></thead>
+    <tbody>
+      <tr><td>Atomic number</td><td>Number of protons in the nucleus (defines the element)</td><td class="n">79</td></tr>
+      <tr><td>Symbol</td><td>1–2 letter chemical abbreviation</td><td class="n">Au (from <em>aurum</em>)</td></tr>
+      <tr><td>Element name</td><td>Full name of the element</td><td class="n">Gold</td></tr>
+      <tr><td>Atomic mass</td><td>Weighted average of all isotopes; shown in atomic mass units (u)</td><td class="n">196.967 u</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-teal">
+    <p class="k">Protons = atomic number = identity</p>
+    <p>The number of protons never changes for a given element. Gain or lose a proton and you have a completely different element. That's why atomic number — not mass, not electrons — defines what element you're looking at.</p>
+  </div>
+</section>
+
+<!-- STRUCTURE: PERIODS & GROUPS -->
+<section id="structure">
+  <p class="eyebrow">Layout of the table</p>
+  <h2>Periods, groups, and why they matter</h2>
+
+  <p>The periodic table isn't just a list — its shape encodes information. The position of an element tells you about its electron configuration before you even look it up.</p>
+
+  <div class="figure-row">
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Colour_18-col_PT_with_labels.png/1280px-Colour_18-col_PT_with_labels.png" alt="Labeled color periodic table showing periods and groups">
+      <figcaption>The modern periodic table — 18 groups (columns) and 7 periods (rows). Note where metals, nonmetals, and metalloids sit.</figcaption>
+    </figure>
+  </div>
+
+  <h3>Periods (rows)</h3>
+  <p>A <strong class="lead-word">period</strong> is a horizontal row. There are 7 periods. As you move across a period left to right, you're adding one proton — and one electron — at a time. That electron goes into the same energy shell. When a shell fills up, the next period begins.</p>
+  <p style="color:var(--teal);font-family:'IBM Plex Mono',monospace;font-size:14px;">← Last week's connection: Period 1 = shell 1 fills. Period 2 = shell 2 fills. Period 3 = shell 3 fills. The period number matches the outermost shell number in the electron configuration.</p>
+
+  <h3>Groups (columns)</h3>
+  <p>A <strong class="lead-word">group</strong> (also called a family) is a vertical column, numbered 1–18. Elements in the same group have the same number of <strong>valence electrons</strong> — the electrons in the outermost shell. That's why elements in the same group behave so similarly in chemical reactions.</p>
+
+  <table>
+    <caption>Key groups worth knowing by name</caption>
+    <thead><tr><th>Group #</th><th>Name</th><th>Valence electrons</th><th>Character</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td>Alkali metals</td><td class="n">1</td><td>Extremely reactive; blow up in water</td></tr>
+      <tr><td class="n">2</td><td>Alkaline earth metals</td><td class="n">2</td><td>Reactive, but less so than Group 1</td></tr>
+      <tr><td class="n">3–12</td><td>Transition metals</td><td class="n">varies</td><td>Include iron, copper, gold, silver</td></tr>
+      <tr><td class="n">17</td><td>Halogens</td><td class="n">7</td><td>One electron short of a full shell — very reactive</td></tr>
+      <tr><td class="n">18</td><td>Noble gases</td><td class="n">8 (or 2 for He)</td><td>Full outer shell — almost never react</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p class="k">Real-world example — Group 1</p>
+    <p>Sodium (Na) and potassium (K) are both in Group 1. Both have exactly one valence electron. Both react explosively with water. That's not a coincidence — it's the electron configuration they share. Doctors measure sodium and potassium levels in blood for the same reason: they behave chemically the same way in your body.</p>
+  </div>
+</section>
+
+<!-- METALS / NONMETALS / METALLOIDS -->
+<section id="categories">
+  <p class="eyebrow">Element categories</p>
+  <h2>Metals, nonmetals, and metalloids</h2>
+  <p>One of Mendeleev's first observations was that elements could be sorted into metals and nonmetals based on physical properties. A third category — <strong class="lead-word">metalloids</strong> — sits in between, on a staircase-shaped border on the right side of the table.</p>
+
+  <div class="figure-row">
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Na_%28Sodium%29.jpg/400px-Na_%28Sodium%29.jpg" alt="A piece of sodium metal, freshly cut, shiny surface">
+      <figcaption>Sodium — a typical metal. Shiny when freshly cut, solid at room temp, very reactive.</figcaption>
+    </figure>
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Sulfur_chunk.jpg/400px-Sulfur_chunk.jpg" alt="Chunk of yellow sulfur">
+      <figcaption>Sulfur — a nonmetal. Dull, brittle, poor conductor. Used in fertilizers and vulcanized rubber.</figcaption>
+    </figure>
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Chunk_of_silicon.jpg/400px-Chunk_of_silicon.jpg" alt="Chunk of silicon showing metallic sheen but brittle fracture">
+      <figcaption>Silicon — a metalloid. Has a metallic luster but breaks like a nonmetal. The backbone of every computer chip ever made.</figcaption>
+    </figure>
+  </div>
+
+  <table>
+    <caption>Comparing the three element categories</caption>
+    <thead><tr><th>Property</th><th>Metals</th><th>Metalloids</th><th>Nonmetals</th></tr></thead>
+    <tbody>
+      <tr><td>Luster (shine)</td><td>Shiny</td><td>Often shiny</td><td>Usually dull</td></tr>
+      <tr><td>State at room temp</td><td>Mostly solid</td><td>Solid</td><td>Solid, liquid, or gas</td></tr>
+      <tr><td>Conductivity</td><td>Good conductor</td><td>Semiconductor</td><td>Poor conductor</td></tr>
+      <tr><td>Malleability</td><td>Malleable, ductile</td><td>Brittle</td><td>Brittle (if solid)</td></tr>
+      <tr><td>Density</td><td>Higher</td><td>Intermediate</td><td>Lower</td></tr>
+      <tr><td>Location on table</td><td>Left &amp; center</td><td>Staircase border</td><td>Right side</td></tr>
+    </tbody>
+  </table>
+
+  <details>
+    <summary>Why are metalloids useful in electronics?</summary>
+    <p>Metalloids like silicon and germanium are <strong>semiconductors</strong> — they conduct electricity under certain conditions but not others. That switchable behavior is exactly what makes transistors (and therefore all modern computers and smartphones) possible. A semiconductor can act as an on/off switch for electrical current, which is how binary code (0s and 1s) gets physically encoded in a chip. Nearly every piece of digital technology you own depends on this property.</p>
+  </details>
+</section>
+
+<!-- ATOMIC NUMBER, MASS NUMBER, SUBATOMIC PARTICLES -->
+<section id="atomic-number">
+  <p class="eyebrow">Inside the atom</p>
+  <h2>Atomic number and mass number</h2>
+  <p>The element box gives you two numbers that together let you count every subatomic particle in a neutral atom.</p>
+
+  <div class="callout callout-teal">
+    <p class="k">The three key equations</p>
+    <p><strong>Atomic number (Z)</strong> = number of protons<br>
+    In a neutral atom: <strong>electrons = protons = atomic number</strong><br>
+    <strong>Mass number (A)</strong> = protons + neutrons → so <strong>neutrons = A − Z</strong></p>
+  </div>
+
+  <h3>Worked example — Chlorine-37</h3>
+  <p>Chlorine's atomic number is 17. An atom of chlorine-37 has a mass number of 37.</p>
+  <ul>
+    <li>Protons = atomic number = <strong>17</strong></li>
+    <li>Electrons = protons (neutral atom) = <strong>17</strong></li>
+    <li>Neutrons = mass number − atomic number = 37 − 17 = <strong>20</strong></li>
+  </ul>
+
+  <div class="calc-box">
+    <p style="margin:0 0 14px;font-size:15px;font-weight:600;">Subatomic particle calculator</p>
+    <label for="c-z">Atomic number (Z)</label>
+    <input type="number" id="c-z" placeholder="e.g. 17" min="1" max="118">
+    <label for="c-a">Mass number (A)</label>
+    <input type="number" id="c-a" placeholder="e.g. 37" min="1" max="300">
+    <button onclick="calcParticles()">Calculate</button>
+    <div id="calc-result"></div>
+  </div>
+
+  <div class="callout">
+    <p class="k">Mass number vs. atomic mass</p>
+    <p>The <strong>mass number</strong> is always a whole number — it's a count of protons + neutrons in one specific atom. The <strong>atomic mass</strong> on the periodic table is a decimal because it's the weighted average across all naturally occurring isotopes of that element. They're related but not the same.</p>
+  </div>
+</section>
+
+<!-- ISOTOPES -->
+<section id="isotopes">
+  <p class="eyebrow">Isotopes</p>
+  <h2>Same element, different mass</h2>
+  <p>Every atom of carbon has exactly 6 protons — that's what makes it carbon. But a carbon atom can have 6, 7, or 8 neutrons. These variants are called <strong class="lead-word">isotopes</strong>: atoms of the same element with different numbers of neutrons (and therefore different mass numbers).</p>
+
+  <!-- Isotope comparison diagram -->
+  <svg viewBox="0 0 500 160" xmlns="http://www.w3.org/2000/svg" style="max-width:500px;display:block;margin:24px 0;font-family:IBM Plex Mono,monospace;">
+    <!-- C-12 -->
+    <rect x="10" y="10" width="140" height="140" fill="#1E3550" rx="2"/>
+    <text x="80" y="38" text-anchor="middle" font-size="11" fill="#D9C489">carbon-12</text>
+    <text x="80" y="90" text-anchor="middle" font-size="52" font-weight="700" fill="#FBFAF6" font-family="Spectral,serif">C</text>
+    <text x="22" y="38" font-size="14" fill="#D9C489">12</text>
+    <text x="22" y="52" font-size="10" fill="#9BA8BA">6p  6n</text>
+    <!-- C-13 -->
+    <rect x="180" y="10" width="140" height="140" fill="#1E3550" rx="2"/>
+    <text x="250" y="38" text-anchor="middle" font-size="11" fill="#D9C489">carbon-13</text>
+    <text x="250" y="90" text-anchor="middle" font-size="52" font-weight="700" fill="#FBFAF6" font-family="Spectral,serif">C</text>
+    <text x="192" y="38" font-size="14" fill="#D9C489">13</text>
+    <text x="192" y="52" font-size="10" fill="#9BA8BA">6p  7n</text>
+    <!-- C-14 -->
+    <rect x="350" y="10" width="140" height="140" fill="#1E3550" rx="2"/>
+    <text x="420" y="38" text-anchor="middle" font-size="11" fill="#D9C489">carbon-14</text>
+    <text x="420" y="90" text-anchor="middle" font-size="52" font-weight="700" fill="#FBFAF6" font-family="Spectral,serif">C</text>
+    <text x="362" y="38" font-size="14" fill="#D9C489">14</text>
+    <text x="362" y="52" font-size="10" fill="#9BA8BA">6p  8n</text>
+    <!-- Same label -->
+    <text x="250" y="155" text-anchor="middle" font-size="11" fill="#5b6472">← same atomic number (6) · different mass numbers →</text>
+  </svg>
+
+  <h3>Two ways to write an isotope</h3>
+  <p>Chemists have two notations. Either works — you need to recognize both:</p>
+  <ul>
+    <li><strong>Hyphen notation:</strong> element name + dash + mass number → <span class="num">carbon-14</span>, <span class="num">uranium-235</span></li>
+    <li><strong>Nuclear symbol notation:</strong> mass number as superscript upper-left, atomic number as subscript lower-left of the symbol</li>
+  </ul>
+
+  <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" style="max-width:200px;display:block;margin:16px 0;font-family:IBM Plex Mono,monospace;">
+    <text x="40" y="50" font-size="20" fill="#A8791E" font-weight="700">14</text>
+    <text x="68" y="88" font-size="64" fill="#16233B" font-weight="700" font-family="Spectral,serif">C</text>
+    <text x="40" y="92" font-size="20" fill="#33606B">6</text>
+    <line x1="110" y1="42" x2="155" y2="28" stroke="#A8791E" stroke-width="1.5"/>
+    <text x="158" y="30" font-size="11" fill="#A8791E">mass number</text>
+    <line x1="110" y1="88" x2="155" y2="100" stroke="#33606B" stroke-width="1.5"/>
+    <text x="158" y="104" font-size="11" fill="#33606B">atomic number</text>
+  </svg>
+
+  <details>
+    <summary>Real-world application: radiocarbon dating</summary>
+    <p>Carbon-14 is a radioactive isotope that forms naturally in the upper atmosphere and gets absorbed by all living things. When an organism dies, it stops taking in new carbon, and the carbon-14 already inside begins to decay at a precise, known rate (its half-life is 5,730 years). By measuring how much carbon-14 remains in an artifact — a fossil bone, a piece of ancient cloth — archaeologists can calculate when that organism died. This is how the age of items like the Dead Sea Scrolls and ancient Egyptian mummies was confirmed.</p>
+  </details>
+
+  <details>
+    <summary>Real-world application: radioactive isotopes in medicine</summary>
+    <p>Unstable (radioactive) isotopes emit detectable energy as they decay. Nuclear medicine uses this to image the inside of the body. For example, technetium-99m is the most widely used medical radioisotope — it's injected into a patient, travels to specific organs, and emits gamma rays that a scanner detects to produce images of organ function. It's used in millions of diagnostic scans every year for cancer detection, heart disease, and bone conditions. X-ray scanners at airports use a similar principle: different elements and isotopes absorb radiation in predictable amounts, letting technicians identify hidden materials by how much energy they absorb.</p>
+  </details>
+</section>
+
+<!-- AVERAGE ATOMIC MASS -->
+<section id="avg-mass">
+  <p class="eyebrow">Average atomic mass</p>
+  <h2>Why atomic mass is always a decimal</h2>
+  <p>The atomic mass on the periodic table is never a clean whole number (with rare exceptions) because it's the <strong class="lead-word">weighted average</strong> of all naturally occurring isotopes. More abundant isotopes pull the average closer to their mass; rarer ones have less influence.</p>
+
+  <div class="formula">avg atomic mass = Σ (percent abundance × isotope mass)</div>
+
+  <h3>Worked example — Carbon</h3>
+  <p>Carbon has three natural isotopes. The two most significant:</p>
+
+  <div class="isotope-bar-wrap">
+    <div class="isotope-bar-label">Natural abundance of carbon isotopes</div>
+    <div class="isotope-bar">
+      <div class="isotope-seg" style="width:98.9%;background:#1E3550;">C-12 (98.9%)</div>
+      <div class="isotope-seg" style="width:1.1%;background:#33606B;" title="C-13: 1.1%"></div>
+    </div>
+    <div class="isotope-bar-label" style="margin-top:6px;">C-12 = 98.9% &nbsp;|&nbsp; C-13 = 1.1% &nbsp;|&nbsp; C-14 = trace</div>
+  </div>
+
+  <div class="callout">
+    <p class="k">Step-by-step calculation</p>
+    <p>
+      (12 u × 0.989) + (13 u × 0.011) + (14 u × ~0.000)<br>
+      = 11.868 + 0.143 + ~0<br>
+      = <strong>12.011 u</strong> ← matches the periodic table
+    </p>
+  </div>
+
+  <h3>Practice — Chlorine</h3>
+  <p>Chlorine has two main isotopes: chlorine-35 (75.77% abundant) and chlorine-37 (24.23% abundant). Using the formula:</p>
+  <div class="callout callout-teal">
+    <p class="k">Try it yourself first, then check</p>
+    <p>(35 × 0.7577) + (37 × 0.2423) = 26.52 + 8.96 = <strong>35.48 u</strong> — check the periodic table for Cl and you'll find 35.45 u (slight rounding from textbook vs. precise values).</p>
+  </div>
+
+  <details>
+    <summary>Why do we use a weighted average instead of a simple average?</summary>
+    <p>A simple average of chlorine's two isotopes would be (35 + 37) ÷ 2 = 36. But chlorine-35 is three times more abundant than chlorine-37, so the average should be pulled much closer to 35. A weighted average accounts for how often each isotope actually appears in nature — which is what matters for chemistry. When you buy a bottle of chemicals, the atoms inside follow natural abundance ratios, not a 50/50 split.</p>
+  </details>
+</section>
+
+<!-- REAL WORLD BAND -->
+<div class="band band-red" style="margin:0 -24px;">
+  <div class="wrap-in">
+    <p class="eyebrow">In the news — 2026</p>
+    <h2>How isotopes are catching smugglers and forgers</h2>
+    <p>Last week's density problem was about catching fake gold bars. This week's unit explains <em>why</em> isotope analysis goes even further. Every material on Earth has a characteristic isotopic fingerprint — the exact ratio of its naturally occurring isotopes. Forensic scientists now use mass spectrometry to read those fingerprints. Counterfeit gold can be caught not just by density, but by the ratio of gold isotopes (Au-197 is the only stable isotope — if anything else shows up, it's not pure gold). The same technique identified the origin of the polonium used to poison Russian dissident Alexander Litvinenko in 2006.</p>
+  </div>
+</div>
+
+<!-- PERIODIC TRENDS BRIDGE -->
+<section id="trends">
+  <p class="eyebrow">Looking ahead</p>
+  <h2>The table predicts behavior — periodic trends</h2>
+  <p>The real power of the periodic table is that position predicts properties. These patterns are called <strong class="lead-word">periodic trends</strong> — you'll study them in detail next week, but here's the preview:</p>
+
+  <table>
+    <caption>Major periodic trends (full unit coming next week)</caption>
+    <thead><tr><th>Trend</th><th>Across a period (left → right)</th><th>Down a group (top → bottom)</th></tr></thead>
+    <tbody>
+      <tr><td>Atomic radius</td><td>Decreases</td><td>Increases</td></tr>
+      <tr><td>Ionization energy</td><td>Increases</td><td>Decreases</td></tr>
+      <tr><td>Electronegativity</td><td>Increases</td><td>Decreases</td></tr>
+      <tr><td>Reactivity (metals)</td><td>Decreases</td><td>Increases</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-green">
+    <p class="k">Connection: electron config explains all of these</p>
+    <p>Every trend above is explained by one thing: how strongly the nucleus attracts its outermost electrons, and how shielded those electrons are by inner shells. The further out the valence electrons are (more shells = bigger atom), the easier they are to pull away. This is electron configuration in action — last week wasn't review, it was foundation.</p>
+  </div>
+</section>
+
+<!-- GLOSSARY -->
+<section id="glossary">
+  <p class="eyebrow">Key terms</p>
+  <h2>Glossary</h2>
+  <dl class="glossary">
+    <dt>Atomic mass unit (u)</dt>
+    <dd>A unit of mass defined as exactly 1/12 the mass of a carbon-12 atom. Used to express masses of atoms and subatomic particles.</dd>
+    <dt>Atomic mass</dt>
+    <dd>The weighted average mass of all naturally occurring isotopes of an element, measured in atomic mass units (u).</dd>
+    <dt>Atomic number (Z)</dt>
+    <dd>The number of protons in the nucleus of one atom of an element. Defines the element — every atom with 79 protons is gold, no exceptions.</dd>
+    <dt>Average atomic mass</dt>
+    <dd>The average mass of all isotopes of an element, weighted by each isotope's percent abundance in nature.</dd>
+    <dt>Chemical symbol</dt>
+    <dd>A one- or two-letter abbreviation for an element, often derived from its Latin name (Au = aurum = gold).</dd>
+    <dt>Family / Group</dt>
+    <dd>A vertical column on the periodic table, numbered 1–18. Elements in the same group share the same number of valence electrons and have similar chemical properties.</dd>
+    <dt>Isotope</dt>
+    <dd>Atoms of the same element that have the same number of protons but different numbers of neutrons, giving them different mass numbers.</dd>
+    <dt>Mass number (A)</dt>
+    <dd>The total number of protons and neutrons in the nucleus of a specific isotope. Always a whole number; not found directly on the periodic table.</dd>
+    <dt>Metalloid</dt>
+    <dd>An element with properties intermediate between metals and nonmetals. Silicon and germanium are metalloids — the backbone of semiconductor electronics.</dd>
+    <dt>Period</dt>
+    <dd>A horizontal row on the periodic table, numbered 1–7. All elements in a period have the same number of electron shells.</dd>
+    <dt>Valence electrons</dt>
+    <dd>The electrons in an atom's outermost shell. These electrons determine how an element reacts chemically and explain why elements in the same group behave similarly.</dd>
+    <dt>Weighted average</dt>
+    <dd>An average that accounts for the relative frequency (abundance) of each value. In chemistry: Σ(isotope mass × percent abundance) = average atomic mass.</dd>
+  </dl>
+</section>
+
+</div><!-- end .wrap -->
+
+<footer>
+  <p>YSC Academy · Chemistry · Week 3 · Periodic Table &amp; Isotopes · Content draws on CK-12 Chemistry for High School. Images via Wikimedia Commons (CC-BY / public domain).</p>
+</footer>
+
+<script>
+function calcParticles() {
+  const z = parseInt(document.getElementById('c-z').value);
+  const a = parseInt(document.getElementById('c-a').value);
+  const result = document.getElementById('calc-result');
+  if (isNaN(z) || isNaN(a) || z < 1 || a < 1) {
+    result.style.display = 'block';
+    result.innerHTML = 'Please enter valid numbers for both fields.';
+    return;
+  }
+  if (a < z) {
+    result.style.display = 'block';
+    result.innerHTML = 'Mass number must be ≥ atomic number.';
+    return;
+  }
+  const neutrons = a - z;
+  result.style.display = 'block';
+  result.innerHTML =
+    `Protons: ${z}` + '<br>' +
+    `Electrons (neutral atom): ${z}` + '<br>' +
+    `Neutrons: ${a} − ${z} = <strong>${neutrons}</strong>`;
+}
+</script>
+
+</body>
+</html>
