@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atoms &amp; Elements Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Spectral:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16233B; --ink-soft:#44516A;
+    --paper:#F3F4EF; --paper-line:#DADCD1;
+    --brass:#A8791E; --brass-dark:#7C5A16;
+    --teal:#33606B; --red:#A23B33; --cream:#FBFAF6; --green:#2E6B45;
+    --violet:#5B4B8A;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    background-image:linear-gradient(var(--paper-line) 1px,transparent 1px),linear-gradient(90deg,var(--paper-line) 1px,transparent 1px);
+    background-size:28px 28px;
+    font-family:'Inter',system-ui,sans-serif; line-height:1.6;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px 80px;}
+  .mono,.num{font-family:'IBM Plex Mono',ui-monospace,monospace;}
+
+  header.hero{
+    background:var(--ink); color:var(--cream); padding:52px 20px 40px;
+    background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+    background-size:24px 24px;
+  }
+  .hero-inner{max-width:860px;margin:0 auto;}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#D9C489;margin:0 0 16px;}
+  h1.title{font-family:'Spectral',serif;font-weight:600;font-size:clamp(32px,6vw,46px);line-height:1.1;margin:0 0 14px;}
+  .lede{font-size:17px;max-width:58ch;color:#C9CFDC;margin:0 0 24px;}
+  nav.toc{display:flex;flex-wrap:wrap;gap:8px;}
+  nav.toc a{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#D9C489;text-decoration:none;border:1px solid rgba(217,196,137,.35);padding:5px 11px;}
+  nav.toc a:hover{background:rgba(217,196,137,.12);}
+
+  section{padding:48px 0;border-bottom:1px solid var(--paper-line);}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--teal);margin:0 0 8px;}
+  h2{font-family:'Spectral',serif;font-weight:600;font-size:30px;line-height:1.2;margin:0 0 16px;}
+  h3{font-family:'Spectral',serif;font-weight:600;font-size:20px;margin:28px 0 10px;}
+  p{max-width:68ch;margin:0 0 14px;}
+  .lead-word{color:var(--brass-dark);font-weight:600;}
+
+  .card{background:var(--cream);border:1px solid var(--paper-line);padding:18px 20px;margin:18px 0;}
+  .callout{background:var(--cream);border-left:4px solid var(--brass);padding:14px 18px;margin:18px 0;}
+  .callout.teal{border-color:var(--teal);} .callout.red{border-color:var(--red);}
+  .callout b.lbl{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--brass-dark);font-weight:500;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em;}
+  .callout.teal b.lbl{color:var(--teal);} .callout.red b.lbl{color:var(--red);}
+
+  .table-scroll{overflow-x:auto;margin:16px 0;}
+  table{border-collapse:collapse;width:100%;background:var(--cream);font-size:14.5px;}
+  caption{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft);padding:0 0 6px;}
+  th,td{border:1px solid var(--paper-line);padding:8px 10px;text-align:left;vertical-align:top;}
+  th{background:var(--ink);color:var(--cream);font-weight:600;font-size:13.5px;}
+  tr:nth-child(even) td{background:#F6F5EE;}
+
+  /* vocab chips */
+  .vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:16px 0;}
+  .vocab div{background:var(--cream);border:1px solid var(--paper-line);border-top:3px solid var(--teal);padding:10px 12px;font-size:14px;}
+  .vocab b{display:block;font-family:'Spectral',serif;font-size:17px;}
+
+  /* interactive panels */
+  .lab{background:var(--cream);border:1px solid var(--paper-line);padding:16px;margin:20px 0;}
+  .lab-title{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--teal);margin:0 0 10px;text-transform:uppercase;letter-spacing:.04em;}
+  .lab svg,.lab canvas{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--paper-line);}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px;font-size:14px;}
+  button.btn{font:500 13.5px 'Inter',sans-serif;background:var(--ink);color:var(--cream);border:0;padding:8px 13px;cursor:pointer;}
+  button.btn.alt{background:transparent;color:var(--ink);border:1px solid var(--ink);}
+  button.btn.on{background:var(--brass);}
+  button.btn:hover{opacity:.9;}
+  .readout{font-family:'IBM Plex Mono',monospace;font-size:13.5px;background:#fff;border:1px dashed var(--paper-line);padding:10px 12px;margin-top:10px;min-height:44px;}
+  input[type=range]{accent-color:var(--brass);width:160px;}
+  label.ctl{display:flex;align-items:center;gap:8px;}
+
+  /* quiz */
+  .quiz{margin:22px 0;}
+  .quiz h4{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--brass-dark);text-transform:uppercase;letter-spacing:.04em;margin:0 0 8px;}
+  .q{background:var(--cream);border:1px solid var(--paper-line);padding:14px 16px;margin:10px 0;}
+  .q p.stem{font-weight:500;margin:0 0 10px;}
+  .q .opts{display:grid;gap:6px;}
+  .q button.opt{text-align:left;font:14.5px 'Inter',sans-serif;background:#fff;border:1px solid var(--paper-line);padding:8px 10px;cursor:pointer;color:var(--ink);}
+  .q button.opt:hover{border-color:var(--ink);}
+  .q button.opt.right{background:#E3F0E6;border-color:var(--green);}
+  .q button.opt.wrong{background:#F6E2DF;border-color:var(--red);}
+  .q .why{display:none;font-size:14px;margin-top:10px;padding:8px 10px;border-left:3px solid var(--teal);background:#fff;}
+  .q.done .why{display:block;}
+  .q table{margin:6px 0 10px;width:auto;}
+
+  details.sr{background:var(--cream);border:1px solid var(--paper-line);padding:12px 16px;margin:10px 0;}
+  details.sr summary{cursor:pointer;font-weight:600;}
+  details.sr .ans{margin-top:10px;font-size:14.5px;}
+
+  /* flashcards */
+  .fc-bar{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0;}
+  .fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;}
+  .fc{perspective:900px;height:150px;cursor:pointer;}
+  .fc-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;}
+  .fc.flip .fc-inner{transform:rotateY(180deg);}
+  .fc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;border:1px solid var(--paper-line);}
+  .fc-front{background:var(--ink);color:var(--cream);font-family:'Spectral',serif;font-size:19px;}
+  .fc-back{background:var(--cream);transform:rotateY(180deg);font-size:13.5px;}
+  .fc-front small{position:absolute;bottom:8px;left:0;right:0;font:11px 'IBM Plex Mono',monospace;color:#D9C489;}
+
+  /* periodic table */
+  .pt{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:2px;min-width:520px;}
+  @media (max-width:700px){.pt .el b{font-size:11px;} .pt .el .z{font-size:7.5px;}}
+  .pt .el{aspect-ratio:1/1.1;font-size:10px;border:1px solid rgba(0,0,0,.08);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;line-height:1.05;padding:1px;transition:transform .15s,opacity .2s;}
+  .pt .el:hover{transform:scale(1.18);z-index:2;outline:2px solid var(--ink);}
+  .pt .el b{font-size:13px;}
+  .pt .el .z{font-size:8.5px;opacity:.75;}
+  .pt .gap{visibility:hidden;}
+  .pt .el.dim{opacity:.18;}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;margin-top:10px;}
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .legend i{width:13px;height:13px;display:inline-block;border:1px solid rgba(0,0,0,.15);}
+
+  .timeline{border-left:3px solid var(--brass);margin:18px 0 18px 6px;padding-left:18px;}
+  .timeline .t{position:relative;margin-bottom:16px;}
+  .timeline .t::before{content:"";position:absolute;left:-26px;top:6px;width:13px;height:13px;background:var(--paper);border:3px solid var(--brass);border-radius:50%;}
+  .timeline .yr{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--teal);}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:640px){.two{grid-template-columns:1fr;} h2{font-size:25px;}}
+  @media (prefers-reduced-motion:reduce){.fc-inner{transition:none;} html{scroll-behavior:auto;}}
+  footer{font-size:13px;color:var(--ink-soft);text-align:center;padding:30px 0;}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <p class="tag">Chemistry · Unit 2 · Test Review</p>
+    <h1 class="title">Atoms &amp; Elements Review</h1>
+    <p class="lede">Everything on the unit test in one place: key vocabulary, the evidence behind each atomic model, light and energy levels, the periodic table, and periodic trends. Try each animation, then check yourself with the quick quizzes.</p>
+    <nav class="toc">
+      <a href="#science">1 · Nature of Science</a>
+      <a href="#models">2 · Atomic Models</a>
+      <a href="#particles">3 · Particles &amp; Ions</a>
+      <a href="#waves">4 · Waves &amp; EM</a>
+      <a href="#energy">5 · Energy Levels</a>
+      <a href="#quantum">6 · Quantum Model</a>
+      <a href="#table">7 · Periodic Table</a>
+      <a href="#trends">8 · Trends</a>
+      <a href="#society">9 · Science &amp; Society</a>
+      <a href="#flash">Flashcards</a>
+      <a href="#final">Mixed Practice</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section id="howto">
+  <p class="eyebrow">Before you start</p>
+  <h2>How to use this review</h2>
+  <div class="callout teal"><b class="lbl">Study plan</b>
+    <ol style="margin:0;padding-left:20px">
+      <li>Read each section's <strong>vocabulary cards</strong> first. Most test questions hinge on knowing one key term.</li>
+      <li>Play with the <strong>animations</strong>. Each one shows a process the test asks you to explain.</li>
+      <li>Answer the <strong>quick checks</strong>. Click an answer to see whether you're right and why.</li>
+      <li>Finish with the <a href="#flash">flashcards</a> and the <a href="#final">mixed practice</a> round.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- 1 NATURE OF SCIENCE -->
+<section id="science">
+  <p class="eyebrow">Section 1 · How scientific knowledge grows</p>
+  <h2>The nature of science</h2>
+  <p>Scientific knowledge is not a list of permanent facts. It is the <span class="lead-word">best explanation so far</span>, and it gets stronger every time new, independent evidence supports it. Our model of the atom has been revised at least five times, and each revision came from a new experiment.</p>
+  <div class="vocab">
+    <div><b>Durable</b>Knowledge that has held up to testing over a long time. It is trusted, but it can still be revised if strong new evidence appears.</div>
+    <div><b>Robust</b>Knowledge supported by many independent lines of evidence and different methods, all pointing to the same conclusion.</div>
+    <div><b>Empirical evidence</b>Data collected through observation and experiment, not opinion or authority.</div>
+    <div><b>Replication</b>Other scientists repeat an experiment and get the same results.</div>
+    <div><b>Peer review</b>Experts check a study's methods and conclusions before it is published.</div>
+    <div><b>Scientific model</b>A representation used to explain something too small, large, or complex to observe directly.</div>
+  </div>
+  <div class="table-scroll"><table>
+    <caption>What strengthens vs. weakens a scientific claim</caption>
+    <tr><th>Makes knowledge stronger</th><th>Does NOT make knowledge stronger</th></tr>
+    <tr><td>Independent scientists repeat the experiment and get the same result</td><td>A famous or powerful person agrees with it</td></tr>
+    <tr><td>New, different kinds of evidence point to the same conclusion</td><td>Many people share it online</td></tr>
+    <tr><td>The study passes peer review</td><td>It has never been tested but "sounds right"</td></tr>
+    <tr><td>The claim makes predictions that turn out to be correct</td><td>Data that disagree are ignored or hidden</td></tr>
+  </table></div>
+  <div class="callout"><b class="lbl">Watch out</b>"Durable" does <em>not</em> mean "can never change." Durable and robust knowledge stays open to revision when strong new evidence appears.</div>
+  <div class="quiz" data-set="science"></div>
+</section>
+
+<!-- 2 ATOMIC MODELS -->
+<section id="models">
+  <p class="eyebrow">Section 2 · Evidence → model</p>
+  <h2>How the atomic model changed</h2>
+  <p>On the test, you'll be asked which <strong>evidence</strong> supports which scientist's idea. For each scientist, learn three things: the experiment, what was observed, and what was concluded.</p>
+  <div class="timeline">
+    <div class="t"><div class="yr">1803 · John Dalton</div><strong>Solid sphere model.</strong> Elements combine in fixed whole-number ratios, so matter must be made of tiny, indivisible atoms.</div>
+    <div class="t"><div class="yr">1897 · J.J. Thomson</div><strong>Plum pudding model.</strong> Cathode rays bent toward a positive plate, and this happened no matter which metal he used. So <em>every</em> atom contains small negative particles: electrons.</div>
+    <div class="t"><div class="yr">1911 · Ernest Rutherford</div><strong>Nuclear model.</strong> Most alpha particles passed straight through gold foil, but a few bounced back sharply. So an atom is mostly empty space with a <em>tiny, dense, positive nucleus</em>.</div>
+    <div class="t"><div class="yr">1913 · Niels Bohr</div><strong>Planetary (energy level) model.</strong> Heated hydrogen gives off only certain colors of light (a line spectrum). So electrons can only have specific energies: <em>fixed energy levels</em>.</div>
+    <div class="t"><div class="yr">1932 · James Chadwick</div><strong>Neutron discovered.</strong> Nuclei had more mass than their protons could explain, and a neutral radiation was found that could knock protons loose. So the nucleus also holds <em>neutral particles</em>: neutrons.</div>
+    <div class="t"><div class="yr">1920s · Schrödinger &amp; Heisenberg</div><strong>Quantum mechanical (electron cloud) model.</strong> An electron's exact path can't be known, only the <em>probability</em> of where it is.</div>
+  </div>
+
+  <div class="lab">
+    <p class="lab-title">Animation · Thomson's cathode ray tube</p>
+    <svg id="crt" viewBox="0 0 600 220" role="img" aria-label="Cathode ray tube with a beam that bends toward the positive plate when the plates are charged"></svg>
+    <div class="controls">
+      <button class="btn" id="crtToggle">Charge the plates</button>
+      <span>The beam bends toward the <b style="color:var(--red)">+</b> plate, so the particles in it are <b>negative</b>.</span>
+    </div>
+  </div>
+
+  <div class="lab">
+    <p class="lab-title">Animation · Rutherford's gold foil experiment</p>
+    <canvas id="foil" width="640" height="300" aria-label="Alpha particles fired at gold foil"></canvas>
+    <div class="controls">
+      <button class="btn on" id="foilReal">Actual result (nuclear atom)</button>
+      <button class="btn alt" id="foilPud">Expected result (plum pudding)</button>
+      <button class="btn alt" id="foilReset">Reset counts</button>
+    </div>
+    <div class="readout" id="foilOut">Straight through: 0 · Small deflection: 0 · Bounced back: 0</div>
+  </div>
+
+  <div class="table-scroll"><table>
+    <caption>Evidence matching (a favorite test format)</caption>
+    <tr><th>If the question says…</th><th>It's evidence for…</th></tr>
+    <tr><td>A beam bends toward a positive plate / is deflected by a magnet</td><td>Thomson: electrons exist in all atoms</td></tr>
+    <tr><td>Most particles pass straight through, a few rebound</td><td>Rutherford: small, dense, positive nucleus</td></tr>
+    <tr><td>Each element emits only specific colors (bright-line spectrum)</td><td>Bohr: electrons are in fixed energy levels</td></tr>
+    <tr><td>The nucleus is heavier than its protons alone can explain</td><td>Chadwick: neutrons</td></tr>
+    <tr><td>Electron location described only as a probability</td><td>Quantum mechanical / electron cloud model</td></tr>
+  </table></div>
+  <div class="quiz" data-set="models"></div>
+</section>
+
+<!-- 3 PARTICLES & IONS -->
+<section id="particles">
+  <p class="eyebrow">Section 3 · Inside the atom</p>
+  <h2>Subatomic particles &amp; ions</h2>
+  <div class="table-scroll"><table>
+    <caption>The three subatomic particles</caption>
+    <tr><th>Particle</th><th>Charge</th><th>Location</th><th>Relative mass</th><th>Key fact</th></tr>
+    <tr><td>Proton (p⁺)</td><td>+1</td><td>Nucleus</td><td class="num">1</td><td>The number of protons (atomic number) identifies the element</td></tr>
+    <tr><td>Neutron (n⁰)</td><td>0</td><td>Nucleus</td><td class="num">≈ 1 (1.001)</td><td>Adds mass; changing it makes an isotope</td></tr>
+    <tr><td>Electron (e⁻)</td><td>−1</td><td>Outside the nucleus (electron cloud)</td><td class="num">≈ 0.0005 (1/1836)</td><td>Gaining or losing electrons makes an ion</td></tr>
+  </table></div>
+  <div class="callout teal"><b class="lbl">Mystery-particle tables</b>If a question labels particles with letters, decode them. <strong>Negative</strong> or a tiny mass (about 0.0005) means electron, found <em>outside</em> the nucleus. <strong>Positive</strong> or <strong>no charge</strong> with a mass near 1 means proton or neutron, found <em>in</em> the nucleus.</div>
+  <div class="vocab">
+    <div><b>Ion</b>An atom with a net charge because it gained or lost electrons.</div>
+    <div><b>Cation</b>A positive ion. It has <em>lost</em> electrons, so protons outnumber electrons.</div>
+    <div><b>Anion</b>A negative ion. It has <em>gained</em> electrons, so electrons outnumber protons.</div>
+    <div><b>Net charge</b>(# protons) − (# electrons).</div>
+  </div>
+  <div class="lab">
+    <p class="lab-title">Animation · Ion builder: attract or repel?</p>
+    <svg id="ionSvg" viewBox="0 0 600 200" role="img" aria-label="An ion moves toward or away from a charged rod"></svg>
+    <div class="controls">
+      <span>Protons <button class="btn alt" data-ion="p-">−</button> <b id="pCount" class="num">3</b> <button class="btn alt" data-ion="p+">+</button></span>
+      <span>Electrons <button class="btn alt" data-ion="e-">−</button> <b id="eCount" class="num">2</b> <button class="btn alt" data-ion="e+">+</button></span>
+      <button class="btn" id="rodToggle">Rod: negative</button>
+    </div>
+    <div class="readout" id="ionOut"></div>
+  </div>
+  <div class="callout"><b class="lbl">Rule</b>Opposite charges <strong>attract</strong>. Like charges <strong>repel</strong>. First find the net charge, then compare it to the charged object.</div>
+  <div class="quiz" data-set="particles"></div>
+</section>
+
+<!-- 4 WAVES -->
+<section id="waves">
+  <p class="eyebrow">Section 4 · Light as a wave</p>
+  <h2>Waves &amp; the electromagnetic spectrum</h2>
+  <div class="lab">
+    <p class="lab-title">Diagram · Parts of a wave</p>
+    <svg id="waveParts" viewBox="0 0 600 230" role="img" aria-label="Wave with crest, trough, amplitude, and wavelength labeled"></svg>
+  </div>
+  <div class="vocab">
+    <div><b>Crest</b>The highest point of a wave.</div>
+    <div><b>Trough</b>The lowest point of a wave.</div>
+    <div><b>Amplitude</b>The height from the center (rest) line to a crest or trough.</div>
+    <div><b>Wavelength (λ)</b>The distance from one crest to the next (or trough to trough).</div>
+    <div><b>Frequency (f)</b>How many waves pass a point each second, in hertz (Hz).</div>
+    <div><b>Electromagnetic spectrum</b>The full range of light waves, from radio waves to gamma rays.</div>
+  </div>
+  <div class="lab">
+    <p class="lab-title">Animation · Change the wavelength</p>
+    <svg id="waveLive" viewBox="0 0 600 160" role="img" aria-label="Animated wave"></svg>
+    <div class="controls">
+      <label class="ctl">Wavelength <input type="range" id="lamSlider" min="40" max="300" value="150"></label>
+      <label class="ctl">Amplitude <input type="range" id="ampSlider" min="10" max="60" value="40"></label>
+    </div>
+    <div class="readout" id="waveOut"></div>
+  </div>
+  <div class="callout"><b class="lbl">Key relationship</b>Shorter wavelength → higher frequency → <strong>higher energy</strong>. Longer wavelength → lower frequency → <strong>lower energy</strong>. (c = λf and E = hf)</div>
+  <div class="lab">
+    <p class="lab-title">Diagram · The electromagnetic spectrum</p>
+    <svg id="emSvg" viewBox="0 0 640 150" role="img" aria-label="Electromagnetic spectrum from radio to gamma"></svg>
+  </div>
+  <div class="table-scroll"><table>
+    <caption>Using the EM spectrum: match the job to the wave</caption>
+    <tr><th>Wave type</th><th>Energy</th><th>Real-world job</th><th>Clue words on a test</th></tr>
+    <tr><td>Radio waves</td><td>Lowest</td><td>Radio, TV, walkie-talkies, phones; MRI scans</td><td>"low-energy signal," "communicate over a distance," soft-tissue scan</td></tr>
+    <tr><td>Microwaves</td><td>Low</td><td>Cooking, radar, cell and satellite signals</td><td>"radar," "heat food"</td></tr>
+    <tr><td>Infrared</td><td>Low–medium</td><td>Thermal cameras, night vision, TV remotes</td><td>"detect heat," "warm objects," "without going inside"</td></tr>
+    <tr><td>Visible light</td><td>Medium</td><td>Seeing, photography</td><td>"colors," "ROYGBIV"</td></tr>
+    <tr><td>Ultraviolet</td><td>Medium–high</td><td>Sterilizing, black lights; causes sunburn</td><td>"disinfect," "sunburn"</td></tr>
+    <tr><td>X-rays</td><td>High</td><td>Imaging bones and teeth, airport security</td><td>"broken bone," "see inside"</td></tr>
+    <tr><td>Gamma rays</td><td>Highest</td><td>Killing cancer cells, sterilizing food</td><td>"radiation therapy," "most dangerous"</td></tr>
+  </table></div>
+  <div class="quiz" data-set="waves"></div>
+</section>
+
+<!-- 5 ENERGY LEVELS -->
+<section id="energy">
+  <p class="eyebrow">Section 5 · Electrons &amp; light</p>
+  <h2>Energy levels, photons &amp; emission</h2>
+  <div class="vocab">
+    <div><b>Ground state</b>The lowest energy level an electron (or atom) can have. Its most stable state.</div>
+    <div><b>Excited state</b>Any energy level higher than the ground state, reached after absorbing energy.</div>
+    <div><b>Quantum</b>The smallest exact amount of energy an electron can gain or lose. Energy comes in packets, not a smooth flow.</div>
+    <div><b>Photon</b>A particle (packet) of light that carries one quantum of energy.</div>
+    <div><b>Emission spectrum</b>The unique set of colors an element gives off. It works like an element's fingerprint.</div>
+    <div><b>Absorption</b>An electron takes in energy and jumps <em>up</em> to a higher level.</div>
+  </div>
+  <div class="lab">
+    <p class="lab-title">Animation · Jump up, fall down</p>
+    <svg id="bohr" viewBox="0 0 600 300" role="img" aria-label="Bohr atom showing an electron absorbing energy and emitting a photon"></svg>
+    <div class="controls">
+      <span>Move electron to:</span>
+      <button class="btn alt" data-n="1">n = 1</button>
+      <button class="btn alt" data-n="2">n = 2</button>
+      <button class="btn alt" data-n="3">n = 3</button>
+      <button class="btn alt" data-n="4">n = 4</button>
+    </div>
+    <div class="readout" id="bohrOut">The electron starts in the ground state (n = 1). Pick a higher level to excite it.</div>
+  </div>
+  <div class="two">
+    <div class="callout teal"><b class="lbl">Moving UP (low → high)</b>The electron <strong>absorbs</strong> energy. The atom is now in an <strong>excited state</strong>.</div>
+    <div class="callout red"><b class="lbl">Moving DOWN (high → low)</b>The electron <strong>releases</strong> energy as a <strong>photon</strong> of light. The bigger the drop, the higher the photon's energy.</div>
+  </div>
+  <div class="quiz" data-set="energy"></div>
+</section>
+
+<!-- 6 QUANTUM MODEL -->
+<section id="quantum">
+  <p class="eyebrow">Section 6 · The modern atom</p>
+  <h2>Electron clouds, orbitals &amp; valence electrons</h2>
+  <p>Bohr drew electrons on neat circular paths. The <span class="lead-word">quantum mechanical model</span> replaced those paths with <strong>electron clouds</strong>: regions where an electron is likely to be found. The denser the cloud, the more likely the electron is there.</p>
+  <div class="vocab">
+    <div><b>Electron cloud</b>The fuzzy region around a nucleus showing where electrons are most likely to be found.</div>
+    <div><b>Orbital</b>A 3-D region in an atom where there is a high probability of finding an electron. Each orbital holds at most 2 electrons.</div>
+    <div><b>Principal quantum number (n)</b>The number (1, 2, 3, …) for an electron's main energy level. Higher n means farther from the nucleus and higher energy.</div>
+    <div><b>Sublevel</b>A shape type of orbital within an energy level: s, p, d, or f.</div>
+    <div><b>Valence electrons</b>The electrons in the outermost energy level. They control bonding and reactivity.</div>
+    <div><b>Octet rule</b>Atoms are most stable with 8 valence electrons (a full outer shell). For the first shell, full means 2.</div>
+  </div>
+  <div class="lab">
+    <p class="lab-title">Animation · Electron cloud vs. Bohr orbit</p>
+    <canvas id="cloud" width="600" height="300" aria-label="Electron probability cloud"></canvas>
+    <div class="controls">
+      <button class="btn on" data-cloud="s">s orbital (sphere)</button>
+      <button class="btn alt" data-cloud="p">p orbital (dumbbell)</button>
+      <button class="btn alt" data-cloud="bohr">Bohr orbit (old model)</button>
+    </div>
+    <div class="readout" id="cloudOut"></div>
+  </div>
+  <div class="table-scroll"><table>
+    <caption>Sublevels at a glance</caption>
+    <tr><th>Sublevel</th><th>Shape</th><th># of orbitals</th><th>Max electrons</th></tr>
+    <tr><td>s</td><td>Sphere</td><td class="num">1</td><td class="num">2</td></tr>
+    <tr><td>p</td><td>Dumbbell</td><td class="num">3</td><td class="num">6</td></tr>
+    <tr><td>d</td><td>Cloverleaf</td><td class="num">5</td><td class="num">10</td></tr>
+    <tr><td>f</td><td>Complex</td><td class="num">7</td><td class="num">14</td></tr>
+  </table></div>
+
+  <h3>Valence electrons &amp; stability</h3>
+  <p>To compare stability from an electron count, fill shells in the order <span class="num">2, 8, 8</span> (the simplified pattern for the first 20 elements). Then count the electrons in the <strong>last</strong> shell.</p>
+  <div class="lab">
+    <p class="lab-title">Animation · Shell builder</p>
+    <svg id="shell" viewBox="0 0 600 300" role="img" aria-label="Bohr shell diagram with electrons"></svg>
+    <div class="controls">
+      <label class="ctl">Electrons <input type="range" id="shellSlider" min="1" max="20" value="11"></label>
+      <b class="num" id="shellN">11</b>
+    </div>
+    <div class="readout" id="shellOut"></div>
+  </div>
+  <div class="callout"><b class="lbl">Test strategy</b>Full outer shell (2 for helium, 8 for the others) means <strong>stable / unreactive</strong>. One or two electrons away from full, or only 1–2 valence electrons, means <strong>unstable / reactive</strong>.</div>
+
+  <h3>Short-response practice</h3>
+  <p>Write your answer on paper first, then open the model answer to check.</p>
+  <details class="sr"><summary>Explain how the quantum mechanical model describes electrons differently than Bohr's model.</summary>
+    <div class="ans">Bohr placed electrons in <strong>fixed circular orbits</strong> at set distances. The quantum mechanical model (Schrödinger) says we can't know an electron's exact path. Instead it describes an <strong>electron cloud</strong>: a region of <strong>probability</strong> where the electron is likely to be. Orbitals are the regions within that cloud, and each holds up to 2 electrons.</div></details>
+  <details class="sr"><summary>Describe what an orbital is and how many electrons it can hold.</summary>
+    <div class="ans">An orbital is a <strong>three-dimensional region</strong> around the nucleus where there is a <strong>high probability</strong> of finding an electron. Each orbital holds a maximum of <strong>two electrons</strong> with opposite spins. Orbitals come in shapes such as s (sphere) and p (dumbbell).</div></details>
+  <details class="sr"><summary>What does the principal quantum number tell you about an electron?</summary>
+    <div class="ans">The principal quantum number (<strong>n</strong>) is a whole number (1, 2, 3, …) that tells which <strong>main energy level</strong> an electron is in. As n increases, the electron is <strong>farther from the nucleus</strong>, has <strong>more energy</strong>, and the energy level can hold more electrons.</div></details>
+  <div class="quiz" data-set="quantum"></div>
+</section>
+
+<!-- 7 PERIODIC TABLE -->
+<section id="table">
+  <p class="eyebrow">Section 7 · Reading the map</p>
+  <h2>The periodic table: regions &amp; families</h2>
+  <p>An element's <strong>position</strong> predicts its <strong>properties</strong>. Metals are on the left and center, nonmetals on the upper right, and metalloids along the staircase line between them.</p>
+  <div class="lab">
+    <p class="lab-title">Interactive · Explore the periodic table</p>
+    <div class="controls" style="margin:0 0 10px">
+      <button class="btn on" data-ptmode="cat">Metal / nonmetal / metalloid</button>
+      <button class="btn alt" data-ptmode="fam">Families</button>
+      <button class="btn alt" data-ptmode="state">State at room temp</button>    </div>
+    <div class="table-scroll"><div class="pt" id="pt"></div></div>
+    <div class="legend" id="ptLegend"></div>
+    <div class="readout" id="ptOut">Click any element to see its details.</div>
+  </div>
+  <div class="table-scroll"><table>
+    <caption>Metals vs. metalloids vs. nonmetals</caption>
+    <tr><th>Property</th><th>Metals</th><th>Metalloids</th><th>Nonmetals</th></tr>
+    <tr><td>Luster</td><td>Shiny</td><td>Can be shiny</td><td>Dull</td></tr>
+    <tr><td>Conducts heat &amp; electricity</td><td>Good conductors</td><td>Semiconductors (sometimes)</td><td>Poor conductors (insulators)</td></tr>
+    <tr><td>Malleable / ductile</td><td>Yes: hammered into sheets, drawn into wires</td><td>No, brittle</td><td>No, brittle if solid</td></tr>
+    <tr><td>State at room temp</td><td>Solid (except mercury, a liquid)</td><td>Solid</td><td>Many gases; some solids; bromine is a liquid</td></tr>
+    <tr><td>Location</td><td>Left &amp; center</td><td>Staircase line</td><td>Upper right</td></tr>
+  </table></div>
+  <div class="table-scroll"><table>
+    <caption>Families to know</caption>
+    <tr><th>Family (group)</th><th>Valence e⁻</th><th>Properties</th><th>Found alone (uncombined) in nature?</th></tr>
+    <tr><td>Alkali metals (1)</td><td class="num">1</td><td>Soft, shiny, low density; <strong>most reactive metals</strong>; react violently with water</td><td><strong>No.</strong> They lose their 1 valence electron so easily that they are always found in compounds.</td></tr>
+    <tr><td>Alkaline earth metals (2)</td><td class="num">2</td><td>Harder and denser than group 1; reactive but less so</td><td><strong>No.</strong> They readily lose 2 electrons and are found in compounds (e.g., limestone, CaCO₃).</td></tr>
+    <tr><td>Transition metals (3–12)</td><td>varies</td><td>Hard, shiny, good conductors; often form colored compounds</td><td>Some (gold, copper, silver) can be found uncombined.</td></tr>
+    <tr><td>Halogens (17)</td><td class="num">7</td><td><strong>Most reactive nonmetals</strong>; include a gas (F, Cl), a liquid (Br), and a solid (I)</td><td><strong>No.</strong> They grab 1 electron to complete an octet.</td></tr>
+    <tr><td>Noble gases (18)</td><td class="num">8 (He = 2)</td><td>Colorless, odorless gases; almost <strong>never react</strong></td><td><strong>Yes.</strong> Their outer shell is already full, so they exist as single atoms.</td></tr>
+    <tr><td>Lanthanides &amp; actinides</td><td>varies</td><td>The two bottom rows. Actinides are <strong>all radioactive</strong>; most are made in labs.</td><td>Only a few actinides (uranium, thorium) occur naturally.</td></tr>
+  </table></div>
+  <h3>Short-response practice</h3>
+  <details class="sr"><summary>Why are halogens never found as single, uncombined atoms in nature?</summary>
+    <div class="ans">Halogens (group 17) have <strong>7 valence electrons</strong>, one short of a stable octet. Gaining one electron fills their outer shell, so they are <strong>highly reactive</strong>. They quickly bond with other atoms, or pair up as molecules like Cl₂. Because of this they are found in compounds such as NaCl, not as lone atoms.</div></details>
+  <details class="sr"><summary>Use valence electrons to compare the reactivity of group 2 and group 18 elements.</summary>
+    <div class="ans">Group 2 (alkaline earth metals) have <strong>2 valence electrons</strong>, which they lose fairly easily to reach a stable configuration. That makes them reactive and found only in compounds. Group 18 (noble gases) already have a <strong>full outer shell</strong> (8, or 2 for helium). They have no need to gain or lose electrons, so they are unreactive and exist alone in nature.</div></details>
+  <div class="quiz" data-set="table"></div>
+</section>
+
+<!-- 8 TRENDS -->
+<section id="trends">
+  <p class="eyebrow">Section 8 · Patterns that repeat</p>
+  <h2>Periodic trends</h2>
+  <div class="vocab">
+    <div><b>Atomic radius</b>The size of an atom: the distance from the nucleus to the outer electrons.</div>
+    <div><b>Ionization energy</b>The energy needed to remove an electron from an atom.</div>
+    <div><b>Electronegativity</b>How strongly an atom pulls on electrons in a chemical bond.</div>
+    <div><b>Shielding</b>Inner electrons block the outer electrons from the nucleus's pull.</div>
+    <div><b>Nuclear charge</b>The positive pull of the protons. More protons means a stronger pull.</div>
+    <div><b>Metallic character</b>How easily an atom loses electrons and behaves like a metal.</div>
+  </div>
+  <div class="table-scroll"><table>
+    <caption>Trend summary: memorize this table</caption>
+    <tr><th>Property</th><th>Across a period (left → right)</th><th>Down a group (top → bottom)</th><th>Why</th></tr>
+    <tr><td>Atomic radius</td><td>Decreases ↓</td><td>Increases ↑</td><td>Across: more protons pull the same shell in tighter. Down: more shells are added.</td></tr>
+    <tr><td>Ionization energy</td><td>Increases ↑</td><td>Decreases ↓</td><td>Across: electrons are held tighter. Down: outer electrons are farther away and more shielded.</td></tr>
+    <tr><td>Electronegativity</td><td>Increases ↑</td><td>Decreases ↓</td><td>Same reasons as ionization energy (fluorine is the highest).</td></tr>
+    <tr><td>Metallic character</td><td>Decreases ↓</td><td>Increases ↑</td><td>Down: electrons are lost more easily.</td></tr>
+  </table></div>
+  <div class="lab">
+    <p class="lab-title">Graph · Atomic radius vs. atomic number (H–Ca)</p>
+    <svg id="radChart" viewBox="0 0 640 300" role="img" aria-label="Line graph of atomic radius for elements 1 to 20"></svg>
+  </div>
+  <div class="lab">
+    <p class="lab-title">Graph · First ionization energy vs. atomic number (H–Ca)</p>
+    <svg id="ieChart" viewBox="0 0 640 300" role="img" aria-label="Line graph of first ionization energy for elements 1 to 20"></svg>
+  </div>
+  <div class="callout teal"><b class="lbl">Read the graphs</b>The two graphs are near mirror images. Peaks in radius (Li, Na, K: alkali metals) line up with dips in ionization energy, because big atoms let go of electrons easily. Peaks in ionization energy (He, Ne, Ar: noble gases) line up with the smallest atoms in each row.</div>
+
+  <h3>Atoms vs. their ions</h3>
+  <div class="lab">
+    <p class="lab-title">Animation · How ion formation changes size</p>
+    <svg id="ionSize" viewBox="0 0 600 220" role="img" aria-label="Atom and ion size comparison"></svg>
+    <div class="controls">
+      <button class="btn on" data-pair="0">Li → Li⁺</button>
+      <button class="btn alt" data-pair="1">Mg → Mg²⁺</button>
+      <button class="btn alt" data-pair="2">O → O²⁻</button>
+      <button class="btn alt" data-pair="3">S → S²⁻</button>
+      <button class="btn alt" id="ionPlay">▶ Replay</button>
+    </div>
+    <div class="readout" id="ionSizeOut"></div>
+  </div>
+  <div class="two">
+    <div class="callout"><b class="lbl">Cations are smaller</b>A metal atom loses electrons, and often its whole outer shell. The remaining electrons are pulled in tighter, so the <strong>positive ion is smaller</strong> than its atom.</div>
+    <div class="callout"><b class="lbl">Anions are larger</b>A nonmetal gains electrons. The extra electrons repel each other and the same protons must hold more electrons, so the <strong>negative ion is larger</strong> than its atom.</div>
+  </div>
+  <div class="quiz" data-set="trends"></div>
+</section>
+
+<!-- 9 SOCIETY -->
+<section id="society">
+  <p class="eyebrow">Section 9 · Science, ethics &amp; sources</p>
+  <h2>Science and society</h2>
+  <p>Discoveries about the atom can be used to help people or to harm them. Several scientists tried to steer <em>how</em> their work was used.</p>
+  <div class="table-scroll"><table>
+    <caption>Scientists and the use of their discoveries</caption>
+    <tr><th>Scientist(s)</th><th>Discovery</th><th>How they tried to influence its use</th></tr>
+    <tr><td>Marie &amp; Pierre Curie</td><td>Radioactivity; the elements polonium and radium</td><td>Chose <strong>not to patent</strong> their method for isolating radium, so researchers and doctors everywhere could use it freely (e.g., to treat cancer).</td></tr>
+    <tr><td>Otto Hahn, Fritz Strassmann &amp; Lise Meitner</td><td>Nuclear fission: a large nucleus splitting into smaller ones (1938)</td><td>Meitner <strong>declined to take part in military projects</strong>. Hahn later <strong>signed public statements</strong> with other scientists urging that the discovery be used only for <strong>peaceful purposes</strong>.</td></tr>
+    <tr><td>Albert Einstein</td><td>E = mc² (a small amount of mass equals a huge amount of energy)</td><td>Wrote to the U.S. president warning of the discovery's possible military use. He later <strong>regretted</strong> his role and spent his final years <strong>speaking out for peace</strong> and international cooperation.</td></tr>
+  </table></div>
+  <div class="table-scroll"><table>
+    <caption>Is it a reliable scientific source or study?</caption>
+    <tr><th>✔ Reliable signs</th><th>✘ Warning signs</th></tr>
+    <tr><td>Peer-reviewed by other experts</td><td>No author or no expert credentials</td></tr>
+    <tr><td>Cites data and other sources</td><td>Opinions or emotional language with no data</td></tr>
+    <tr><td>Large sample size; variables controlled</td><td>Tiny sample, or no control group</td></tr>
+    <tr><td>Results replicated by others</td><td>Results never repeated</td></tr>
+    <tr><td>Funding and conflicts of interest disclosed</td><td>Paid for by someone who profits from one result</td></tr>
+    <tr><td>Current and from a .edu, .gov, or science journal</td><td>Outdated, anonymous, or selling a product</td></tr>
+  </table></div>
+  <div class="quiz" data-set="society"></div>
+</section>
+
+<!-- FLASHCARDS -->
+<section id="flash">
+  <p class="eyebrow">Vocabulary drill</p>
+  <h2>Flashcards</h2>
+  <p>Click a card to flip it. Filter by topic, shuffle, or switch to "definition first" to quiz yourself the harder way.</p>
+  <div class="fc-bar" id="fcBar"></div>
+  <div class="fc-grid" id="fcGrid"></div>
+</section>
+
+<!-- FINAL -->
+<section id="final">
+  <p class="eyebrow">Put it all together</p>
+  <h2>Mixed practice round</h2>
+  <p>Ten random questions from every section. Click <strong>New round</strong> for a fresh set.</p>
+  <div class="controls" style="margin-bottom:8px"><button class="btn" id="newRound">New round</button><span class="readout" id="score" style="margin:0">Score: 0 / 0</span></div>
+  <div id="finalQuiz"></div>
+</section>
+
+<footer>Atoms &amp; Elements · Unit 2 Review · Chemistry</footer>
+</div>
+<script>
+// Quiz data: each item = [stem, [choices], correctIndex, explanation, optionalTableHTML]
+const QUIZ = {
+science: [
+  ["A scientific explanation has been tested by many researchers over decades and still holds up. Which word best describes this knowledge?",
+   ["Durable", "Fixed forever", "Unproven", "Opinion-based"], 0,
+   "Durable knowledge has lasted through repeated testing over time, but it can still be revised if strong new evidence appears."],
+  ["Which would do the MOST to strengthen a new scientific claim?",
+   ["A well-known celebrity supports it", "Several independent labs repeat the experiment and get matching results", "The claim is shared widely online", "The scientist who made the claim feels very confident"], 1,
+   "Replication by independent scientists is one of the strongest ways to build confidence in a claim."],
+  ["Scientific knowledge that is supported by many different kinds of evidence from different methods is called…",
+   ["Robust", "Temporary", "Hypothetical", "Biased"], 0,
+   "Robust knowledge is backed by multiple independent lines of evidence."]
+],
+models: [
+  ["Which observation led scientists to conclude that an atom's positive charge is packed into a tiny center?",
+   ["Cathode rays bent toward a positive plate", "A few alpha particles bounced almost straight back from a thin metal foil", "Heated gases gave off only certain colors", "Elements always combine in whole-number ratios"], 1,
+   "Rutherford's gold foil result: if a few particles rebound, they must have hit something small, dense, and positive, which is the nucleus."],
+  ["Thomson concluded that ALL atoms contain small negative particles. Which evidence supports this?",
+   ["Beams from electrodes made of many different metals all bent toward a positive plate", "Most particles passed straight through gold foil", "Each element produces a unique set of spectral lines", "The nucleus is heavier than its protons"], 0,
+   "The same negative particle appeared no matter which metal was used, so it must be part of every atom."],
+  ["Which evidence best supports the idea that electrons can only occupy specific energy levels?",
+   ["Atoms are mostly empty space", "An element gives off only certain colors of light instead of a full rainbow", "Cathode rays are deflected by magnets", "Atoms combine in fixed ratios"], 1,
+   "Bohr: a bright-line spectrum means electrons only release specific amounts of energy, so the energy levels are fixed."],
+  ["Which observation suggests that the nucleus contains neutral particles?",
+   ["The nucleus has more mass than its protons alone can account for", "Electrons are attracted to positive plates", "Most of the atom is empty space", "Light is emitted when electrons fall"], 0,
+   "The extra mass had to come from particles with no charge: Chadwick's neutrons."]
+],
+particles: [
+  ["The table shows three unknown particles. Which particle(s) would be found in the nucleus?",
+   ["J only", "L only", "J and K", "K and L"], 2,
+   "Positive (protons) and neutral (neutrons) particles are in the nucleus. The negative particle (electron) is outside it.",
+   "<table><tr><th>Particle</th><th>Charge</th></tr><tr><td>J</td><td>+</td></tr><tr><td>K</td><td>0</td></tr><tr><td>L</td><td>−</td></tr></table>"],
+  ["Based on the relative masses, which particle is most likely found OUTSIDE the nucleus?",
+   ["M", "N", "O", "All three"], 0,
+   "A relative mass of about 0.0005 is an electron, which is found in the electron cloud.",
+   "<table><tr><th>Particle</th><th>Relative mass</th></tr><tr><td>M</td><td>0.00055</td></tr><tr><td>N</td><td>1.00</td></tr><tr><td>O</td><td>1.001</td></tr></table>"],
+  ["An ion has 8 protons and 10 electrons. A POSITIVELY charged rod is brought near it. What happens?",
+   ["It is repelled because it is positive", "It is attracted because its net charge is negative", "Nothing, because it is neutral", "It is repelled because it is negative"], 1,
+   "Net charge = 8 − 10 = −2. Negative and positive attract."],
+  ["An ion has 11 protons and 10 electrons. A POSITIVELY charged rod is brought near it. What happens?",
+   ["It is attracted because opposite charges attract", "It is repelled because both are positive", "Nothing happens", "It gains a proton"], 1,
+   "Net charge = 11 − 10 = +1. Like charges repel."]
+],
+waves: [
+  ["The distance from one crest to the next crest is the…",
+   ["Amplitude", "Frequency", "Wavelength", "Trough"], 2, "Wavelength (λ) is measured crest to crest or trough to trough."],
+  ["The height of a wave measured from its resting (center) line up to the crest is the…",
+   ["Wavelength", "Amplitude", "Frequency", "Trough"], 1, "Amplitude is measured from the center line to the crest or trough."],
+  ["Firefighters need to locate people inside a smoke-filled building by their body heat. Which type of wave should their camera detect?",
+   ["Ultraviolet", "Infrared", "Gamma rays", "Radio waves"], 1, "Warm objects give off infrared. Thermal cameras detect it."],
+  ["A dentist wants to look for a cavity hidden inside a tooth. Which type of wave is used?",
+   ["X-rays", "Microwaves", "Visible light", "Radio waves"], 0, "X-rays pass through soft tissue but are absorbed by dense materials like teeth and bone."],
+  ["Two hikers want to talk using walkie-talkies, which send low-energy signals. Which waves do walkie-talkies use?",
+   ["Gamma rays", "X-rays", "Radio waves", "Ultraviolet"], 2, "Radio waves have the lowest energy and are used for communication."],
+  ["As the wavelength of light gets SHORTER, what happens to its frequency and energy?",
+   ["Both decrease", "Both increase", "Frequency increases, energy decreases", "Neither changes"], 1, "Shorter λ means higher frequency means higher energy."]
+],
+energy: [
+  ["An electron drops from energy level n = 4 to n = 2. What most likely happens?",
+   ["It absorbs a photon", "It releases energy as a photon of light", "It leaves the atom", "The atom gains a proton"], 1, "Moving down releases energy equal to the gap between levels, as a photon."],
+  ["An electron absorbs energy from a flame and jumps to a higher level. The atom is now in the…",
+   ["Ground state", "Excited state", "Ionic state", "Neutral state"], 1, "Any level above the ground state is an excited state."],
+  ["What is the term for the lowest possible energy state of an electron?",
+   ["Excited state", "Quantum", "Ground state", "Orbital"], 2, "The ground state is the lowest-energy, most stable state."],
+  ["The smallest fixed amount of energy that an electron can gain or lose is called a…",
+   ["Quantum", "Wavelength", "Neutron", "Spectrum"], 0, "Energy is quantized. A photon carries one quantum of light energy."]
+],
+quantum: [
+  ["A three-dimensional region around the nucleus where an electron is most likely found, holding up to 2 electrons, is a(n)…",
+   ["Nucleus", "Orbital", "Period", "Isotope"], 1, "That is the definition of an orbital."],
+  ["The principal quantum number (n) tells you an electron's…",
+   ["Charge", "Main energy level and relative distance from the nucleus", "Number of neutrons", "Group number"], 1, "Higher n means a higher energy level, farther from the nucleus."],
+  ["Neutral atom X has 18 electrons and neutral atom Y has 17. Which statement is correct?",
+   ["Both are stable", "X is more stable: it has a full outer shell of 8; Y has 7", "Y is more stable because it has fewer electrons", "Neither has valence electrons"], 1,
+   "2, 8, 8 means a full outer shell for X. 2, 8, 7 means Y needs one more electron, so it is reactive."],
+  ["Neutral atom A has 2 electrons and neutral atom B has 3. Compare their stability.",
+   ["A is stable (full first shell); B is reactive with 1 valence electron", "B is more stable", "Both are equally reactive", "Both have 8 valence electrons"], 0,
+   "The first shell is full at 2. B is 2, 1, with one valence electron."],
+  ["Neutral atoms with 12 and 19 electrons are compared. Which is true?",
+   ["Both are stable noble-gas atoms", "Both are reactive: 2 and 1 valence electrons", "Only the 12-electron atom is stable", "Only the 19-electron atom is stable"], 1,
+   "12: 2, 8, 2. 19: 2, 8, 8, 1. Neither outer shell is full."]
+],
+table: [
+  ["An unknown element is shiny, solid, and can be hammered into thin sheets. Where is it most likely located?",
+   ["Upper right (nonmetals)", "Left side and center (metals)", "Group 18", "Along the staircase only"], 1, "Luster and malleability are metal properties."],
+  ["An element is dull, brittle, and does not conduct electricity. Where is it most likely located?",
+   ["Group 1", "Transition metals", "Upper right (nonmetals)", "Group 2"], 2, "Those are nonmetal properties."],
+  ["Which elements show some properties of metals and some of nonmetals?",
+   ["Alkali metals", "Noble gases", "Metalloids along the staircase line", "Transition metals"], 2, "Metalloids such as silicon have mixed properties and are semiconductors."],
+  ["Which group contains elements that are gases, a liquid, AND a solid at room temperature?",
+   ["Group 1", "Group 2", "Group 17 (halogens)", "Group 18"], 2, "F and Cl are gases, Br is a liquid, and I is a solid."],
+  ["Which bottom-row series of the periodic table is made up entirely of radioactive elements?",
+   ["Lanthanides", "Actinides", "Alkaline earth metals", "Halogens"], 1, "Every actinide is radioactive."],
+  ["Which family exists in nature as single, unbonded atoms?",
+   ["Alkali metals", "Halogens", "Noble gases", "Alkaline earth metals"], 2, "With a full outer shell, noble gases have no need to bond."]
+],
+trends: [
+  ["Moving from left to right across period 3, atomic radius…",
+   ["Increases", "Decreases", "Stays the same", "Doubles"], 1, "More protons pull the same energy level in tighter."],
+  ["Which property INCREASES moving down a group?",
+   ["Ionization energy", "Electronegativity", "Atomic radius", "Number of valence electrons"], 2, "Each step down adds an energy level, so atoms get bigger."],
+  ["Which property DECREASES moving down a group?",
+   ["Atomic radius", "Ionization energy", "Number of energy levels", "Metallic character"], 1, "Outer electrons are farther away and more shielded, so they are easier to remove."],
+  ["Which correctly compares the radii of K and K⁺?",
+   ["K⁺ is larger because it is charged", "K⁺ is smaller because it lost its outermost electron and energy level", "They are the same size", "K⁺ is larger because it gained an electron"], 1, "Cations are smaller than their atoms."],
+  ["Which correctly compares the radii of O and O²⁻?",
+   ["O²⁻ is larger because the added electrons repel each other", "O²⁻ is smaller because it is negative", "They are equal", "O is larger because it has more protons"], 0, "Anions are larger than their atoms."],
+  ["Which property increases moving left to right across a period?",
+   ["Atomic radius", "Metallic character", "Electronegativity", "Number of energy levels"], 2, "Electronegativity increases across a period, and fluorine is the highest."]
+],
+society: [
+  ["Marie and Pierre Curie chose not to patent their process for isolating radium. What was their goal?",
+   ["To keep it secret", "To let scientists and doctors everywhere use it freely", "To sell it at a higher price", "To stop all research on it"], 1, "They wanted their discovery to benefit science and medicine."],
+  ["After the discovery of nuclear fission, how did Lise Meitner try to influence its use?",
+   ["She led efforts to sell it", "She declined to take part in military projects", "She hid the discovery", "She patented it"], 1, "Meitner refused to apply her work to military purposes."],
+  ["How did Albert Einstein later try to influence the use of discoveries that grew from E = mc²?",
+   ["He spoke out for peace and international cooperation", "He kept quiet", "He sold the equation", "He destroyed his notes"], 0, "Einstein regretted his earlier role and became an advocate for peace."],
+  ["Which is a sign of a RELIABLE scientific source?",
+   ["It has no author listed", "It is peer-reviewed and cites its data", "It is paid for by a company selling the product", "It uses strong emotional language"], 1, "Peer review and cited data are hallmarks of reliability."],
+  ["Which is a characteristic of a reliable scientific study?",
+   ["A small sample with no control group", "Results that no one has repeated", "A large sample, controlled variables, and results others can replicate", "Conclusions decided before collecting data"], 2, "Good design plus replication makes a study reliable."]
+]
+};
+// Flashcards: [term, definition, topic]
+const CARDS = [
+ ["Durable","Knowledge that holds up to testing over a long time but can still be revised.","Science"],
+ ["Robust","Knowledge supported by many independent lines of evidence.","Science"],
+ ["Replication","Repeating an experiment to see if the same results occur.","Science"],
+ ["Peer review","Experts evaluate a study before it is published.","Science"],
+ ["Scientific model","A representation that explains something hard to observe directly.","Science"],
+ ["Cathode ray","A beam of electrons. Its bending revealed the electron (Thomson).","Atom"],
+ ["Nucleus","Tiny, dense, positive center of the atom (Rutherford).","Atom"],
+ ["Proton","Positive particle in the nucleus. Its number identifies the element.","Atom"],
+ ["Neutron","Neutral particle in the nucleus, with about the same mass as a proton.","Atom"],
+ ["Electron","Negative particle outside the nucleus with very little mass.","Atom"],
+ ["Ion","An atom with a charge from gaining or losing electrons.","Atom"],
+ ["Cation","A positive ion, formed by losing electrons.","Atom"],
+ ["Anion","A negative ion, formed by gaining electrons.","Atom"],
+ ["Crest","The highest point of a wave.","Waves"],
+ ["Trough","The lowest point of a wave.","Waves"],
+ ["Amplitude","Height from a wave's center line to its crest.","Waves"],
+ ["Wavelength","Distance from one crest to the next.","Waves"],
+ ["Frequency","Number of waves passing a point per second (Hz).","Waves"],
+ ["EM spectrum","Range of light from radio waves (low energy) to gamma rays (high energy).","Waves"],
+ ["Ground state","The lowest energy state of an electron.","Energy"],
+ ["Excited state","Any energy level above the ground state.","Energy"],
+ ["Quantum","The smallest discrete amount of energy that can be gained or lost.","Energy"],
+ ["Photon","A particle of light carrying one quantum of energy.","Energy"],
+ ["Emission spectrum","The unique colors of light an element gives off.","Energy"],
+ ["Electron cloud","The region where electrons are likely to be found.","Quantum"],
+ ["Orbital","A 3-D region with a high probability of holding an electron. Max 2 e⁻.","Quantum"],
+ ["Principal quantum number","n: an electron's main energy level and distance from the nucleus.","Quantum"],
+ ["Valence electrons","Electrons in the outermost energy level.","Quantum"],
+ ["Octet rule","Atoms are most stable with 8 valence electrons.","Quantum"],
+ ["Period","A horizontal row: same number of energy levels.","Table"],
+ ["Group / family","A vertical column: same number of valence electrons.","Table"],
+ ["Metal","Shiny, malleable, conducts well, found left and center.","Table"],
+ ["Nonmetal","Dull, brittle, poor conductor, found upper right; many are gases.","Table"],
+ ["Metalloid","Has properties of both metals and nonmetals; found on the staircase.","Table"],
+ ["Alkali metals","Group 1: one valence electron, extremely reactive.","Table"],
+ ["Alkaline earth metals","Group 2: two valence electrons, reactive.","Table"],
+ ["Halogens","Group 17: seven valence electrons, very reactive nonmetals.","Table"],
+ ["Noble gases","Group 18: full outer shell, unreactive.","Table"],
+ ["Atomic radius","Size of an atom. Decreases across a period, increases down a group.","Trends"],
+ ["Ionization energy","Energy to remove an electron. Increases across a period, decreases down a group.","Trends"],
+ ["Electronegativity","Pull on electrons in a bond. Increases across a period, decreases down a group.","Trends"],
+ ["Shielding","Inner electrons block the nucleus's pull on outer electrons.","Trends"],
+ ["Reliable source","Peer-reviewed, cites data, written by experts, results replicated.","Society"]
+];
+
+// Periodic table: symbols in atomic-number order
+const SYM = ("H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr " +
+ "Rb Sr Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu " +
+ "Hf Ta W Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr " +
+ "Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og").split(" ");
+const NAMES = {1:"Hydrogen",2:"Helium",3:"Lithium",4:"Beryllium",5:"Boron",6:"Carbon",7:"Nitrogen",8:"Oxygen",9:"Fluorine",10:"Neon",
+ 11:"Sodium",12:"Magnesium",13:"Aluminum",14:"Silicon",15:"Phosphorus",16:"Sulfur",17:"Chlorine",18:"Argon",19:"Potassium",20:"Calcium",
+ 26:"Iron",29:"Copper",30:"Zinc",32:"Germanium",35:"Bromine",36:"Krypton",47:"Silver",53:"Iodine",54:"Xenon",79:"Gold",80:"Mercury",82:"Lead"};
+// ---------- helpers ----------
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const NS = "http://www.w3.org/2000/svg";
+const REDUCED = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+function svgEl(tag, attrs, parent){ const e=document.createElementNS(NS,tag); for(const k in attrs) e.setAttribute(k,attrs[k]); if(parent) parent.appendChild(e); return e; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function setActive(btns, active){ btns.forEach(b=>{ b.classList.toggle("on", b===active); b.classList.toggle("alt", b!==active); }); }
+
+// ---------- quizzes ----------
+function buildQuestion(item, num, onAnswer){
+  const [stem, choices, correct, why, tbl] = item;
+  const q = document.createElement("div"); q.className = "q";
+  q.innerHTML = `<p class="stem">${num}. ${stem}</p>${tbl||""}<div class="opts"></div><div class="why"></div>`;
+  const opts = q.querySelector(".opts");
+  choices.forEach((c,i)=>{
+    const b = document.createElement("button"); b.className="opt"; b.type="button";
+    b.textContent = String.fromCharCode(65+i) + ". " + c;
+    b.onclick = () => {
+      if(q.classList.contains("done")) return;
+      q.classList.add("done");
+      b.classList.add(i===correct ? "right" : "wrong");
+      opts.children[correct].classList.add("right");
+      q.querySelector(".why").innerHTML = (i===correct ? "<b>Correct.</b> " : "<b>Not quite.</b> ") + why;
+      if(onAnswer) onAnswer(i===correct);
+    };
+    opts.appendChild(b);
+  });
+  return q;
+}
+$$(".quiz").forEach(box=>{
+  const set = QUIZ[box.dataset.set]; if(!set) return;
+  box.innerHTML = "<h4>Quick check</h4>";
+  set.forEach((item,i)=>box.appendChild(buildQuestion(item,i+1)));
+});
+
+// mixed practice round
+let score=0, tried=0;
+function newRound(){
+  score=0; tried=0; $("#score").textContent="Score: 0 / 0";
+  const pool = Object.values(QUIZ).flat();
+  const box = $("#finalQuiz"); box.innerHTML="";
+  shuffle(pool).slice(0,10).forEach((item,i)=>box.appendChild(buildQuestion(item,i+1,ok=>{
+    tried++; if(ok) score++; $("#score").textContent=`Score: ${score} / ${tried}` + (tried===10 ? (score>=8?" · Ready!":" · Review the sections you missed") : "");
+  })));
+}
+$("#newRound").onclick = newRound; newRound();
+
+// ---------- flashcards ----------
+let fcTopic="All", defFirst=false, fcOrder=CARDS.slice();
+function drawCards(){
+  const g=$("#fcGrid"); g.innerHTML="";
+  fcOrder.filter(c=>fcTopic==="All"||c[2]===fcTopic).forEach(([t,d,top])=>{
+    const front = defFirst ? d : t, back = defFirst ? t : d;
+    const c=document.createElement("div"); c.className="fc"; c.tabIndex=0;
+    c.innerHTML=`<div class="fc-inner"><div class="fc-face fc-front" style="${defFirst?"font-size:14px;font-family:Inter,sans-serif":""}">${front}<small>${top}</small></div><div class="fc-face fc-back" style="${defFirst?"font-family:Spectral,serif;font-size:20px":""}">${back}</div></div>`;
+    c.onclick=()=>c.classList.toggle("flip");
+    c.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();c.classList.toggle("flip");} };
+    g.appendChild(c);
+  });
+}
+(function(){
+  const bar=$("#fcBar");
+  const topics=["All",...new Set(CARDS.map(c=>c[2]))];
+  const topicBtns=topics.map(t=>{ const b=document.createElement("button"); b.className="btn "+(t==="All"?"on":"alt"); b.textContent=t;
+    b.onclick=()=>{fcTopic=t; setActive(topicBtns,b); drawCards();}; bar.appendChild(b); return b; });
+  const sh=document.createElement("button"); sh.className="btn"; sh.textContent="Shuffle"; sh.style.marginLeft="auto";
+  sh.onclick=()=>{fcOrder=shuffle(CARDS); drawCards();}; bar.appendChild(sh);
+  const df=document.createElement("button"); df.className="btn alt"; df.textContent="Definition first";
+  df.onclick=()=>{defFirst=!defFirst; df.classList.toggle("on",defFirst); df.classList.toggle("alt",!defFirst); drawCards();}; bar.appendChild(df);
+  drawCards();
+})();
+
+// ---------- periodic table ----------
+const inSet = (z, arr) => arr.includes(z);
+const range = (a,b) => Array.from({length:b-a+1},(_,i)=>a+i);
+const FAM = {
+  alkali:[3,11,19,37,55,87], alkaline:[4,12,20,38,56,88],
+  transition:[...range(21,30),...range(39,48),...range(72,80),...range(104,112)],
+  halogen:[9,17,35,53,85,117], noble:[2,10,18,36,54,86,118],
+  lanthanide:range(57,71), actinide:range(89,103),
+  othermetal:[13,31,49,50,81,82,83,84,113,114,115,116],
+  metalloid:[5,14,32,33,51,52], nonmetal:[1,6,7,8,15,16,34]
+};
+const FAM_LABEL = {alkali:"Alkali metals",alkaline:"Alkaline earth metals",transition:"Transition metals",othermetal:"Other metals",
+  metalloid:"Metalloids",nonmetal:"Other nonmetals",halogen:"Halogens",noble:"Noble gases",lanthanide:"Lanthanides",actinide:"Actinides"};
+const FAM_COLOR = {alkali:"#E8A99A",alkaline:"#F0C99A",transition:"#E9DDB0",othermetal:"#D8D2C4",metalloid:"#A9CBB7",
+  nonmetal:"#B9D3DC",halogen:"#C7B8E0",noble:"#9FB8E6",lanthanide:"#E6C6D6",actinide:"#D9B0C4"};
+function family(z){ for(const k in FAM) if(inSet(z,FAM[k])) return k; return "othermetal"; }
+function broad(z){
+  if(z>=104) return "unknown";
+  const f=family(z);
+  if(f==="metalloid") return "metalloid";
+  if(["nonmetal","halogen","noble"].includes(f)) return "nonmetal";
+  return "metal";
+}
+const BROAD_COLOR={metal:"#E9D3A6",metalloid:"#A9CBB7",nonmetal:"#B9D3DC",unknown:"#E6E6E2"};
+const BROAD_LABEL={metal:"Metals",metalloid:"Metalloids",nonmetal:"Nonmetals",unknown:"Properties not yet known"};
+function state(z){ if(z>=104) return "unknown"; if([1,2,7,8,9,10,17,18,36,54,86].includes(z)) return "gas"; if([35,80].includes(z)) return "liquid"; return "solid"; }
+const STATE_COLOR={solid:"#D8D2C4",liquid:"#8FB8DE",gas:"#F1D58A",unknown:"#EEEEEA"};
+const STATE_LABEL={solid:"Solid",liquid:"Liquid",gas:"Gas",unknown:"Unknown"};
+function pos(z){
+  if(z===1) return [1,1]; if(z===2) return [1,18];
+  if(z<=4) return [2,z-2]; if(z<=10) return [2,z+8];
+  if(z<=12) return [3,z-10]; if(z<=18) return [3,z];
+  if(z<=36) return [4,z-18]; if(z<=54) return [5,z-36];
+  if(z<=56) return [6,z-54]; if(z<=71) return [9,z-54]; if(z<=86) return [6,z-68];
+  if(z<=88) return [7,z-86]; if(z<=103) return [10,z-86]; return [7,z-100];
+}
+function valence(z){
+  const [r,c]=pos(z); if(r>7) return null;
+  if(z===2) return 2; if(c===1) return 1; if(c===2) return 2; if(c>=13) return c-10; return null;
+}
+let ptMode="cat";
+function colorFor(z){
+  if(ptMode==="fam") return FAM_COLOR[family(z)];
+  if(ptMode==="state") return STATE_COLOR[state(z)];
+  return BROAD_COLOR[broad(z)];
+}
+function drawLegend(){
+  const map = ptMode==="fam" ? [FAM_LABEL,FAM_COLOR] : ptMode==="state" ? [STATE_LABEL,STATE_COLOR] : [BROAD_LABEL,BROAD_COLOR];
+  $("#ptLegend").innerHTML = Object.keys(map[0]).map(k=>`<span><i style="background:${map[1][k]}"></i>${map[0][k]}</span>`).join("");
+}
+function buildPT(){
+  const pt=$("#pt"); pt.innerHTML="";
+  pt.style.gridTemplateRows="repeat(10,auto)";
+  for(let z=1; z<=118; z++){
+    const [r,c]=pos(z), d=document.createElement("div");
+    d.className="el"; d.dataset.z=z; d.style.gridRow=r; d.style.gridColumn=c;
+    d.innerHTML=`<span class="z">${z}</span><b>${SYM[z-1]}</b>`;
+    d.onclick=()=>showEl(z); pt.appendChild(d);
+  }
+  [[6,"57–71"],[7,"89–103"]].forEach(([r,t])=>{ const d=document.createElement("div"); d.className="el"; d.style.gridRow=r; d.style.gridColumn=3; d.style.background="#F6F5EE"; d.innerHTML=`<span class="z">${t}</span>`; pt.appendChild(d); });
+  const sp=document.createElement("div"); sp.style.gridRow=8; sp.style.gridColumn="1 / span 18"; sp.style.height="8px"; pt.appendChild(sp);
+  paintPT();
+}
+function paintPT(){ $$("#pt .el[data-z]").forEach(d=>d.style.background=colorFor(+d.dataset.z)); drawLegend(); }
+function showEl(z){
+  const [r,c]=pos(z), v=valence(z), f=family(z);
+  const period = r>7 ? (r===9?6:7) : r;
+  const grp = r>7 ? "f-block" : c;
+  $("#ptOut").innerHTML = `<b>${SYM[z-1]}</b>${NAMES[z]?" · "+NAMES[z]:""} · atomic number ${z}<br>Period ${period} · Group ${grp} · ${FAM_LABEL[f]} · ${BROAD_LABEL[broad(z)]} · ${STATE_LABEL[state(z)]} at room temp` +
+    (v ? `<br>Valence electrons: ${v} → ${v===8||z===2 ? "full outer shell, very stable" : v<=3 ? "tends to LOSE electrons (forms + ions)" : v===4 ? "tends to SHARE electrons" : "tends to GAIN electrons (forms − ions)"}` : "");
+}
+$$("[data-ptmode]").forEach(b=>b.onclick=()=>{ ptMode=b.dataset.ptmode; setActive($$("[data-ptmode]"),b); paintPT(); });
+buildPT();
+// ---------- cathode ray tube ----------
+(function(){
+  const s=$("#crt");
+  svgEl("rect",{x:40,y:60,width:520,height:100,rx:50,fill:"#EEF3F4",stroke:"#33606B","stroke-width":2},s);
+  svgEl("rect",{x:60,y:95,width:14,height:30,fill:"#16233B"},s);
+  svgEl("text",{x:46,y:185,"font-size":12,fill:"#44516A","font-family":"IBM Plex Mono"},s).textContent="cathode (−)";
+  const top=svgEl("rect",{x:250,y:68,width:120,height:8,fill:"#999"},s);
+  const bot=svgEl("rect",{x:250,y:144,width:120,height:8,fill:"#999"},s);
+  const tl=svgEl("text",{x:378,y:77,"font-size":16,"font-weight":700,fill:"#999"},s);
+  const bl=svgEl("text",{x:378,y:155,"font-size":16,"font-weight":700,fill:"#999"},s);
+  svgEl("text",{x:250,y:40,"font-size":12,fill:"#44516A","font-family":"IBM Plex Mono"},s).textContent="charged plates";
+  svgEl("rect",{x:540,y:70,width:8,height:80,fill:"#33606B"},s);
+  const beam=svgEl("path",{d:"M74 110 L540 110",stroke:"#2E6B45","stroke-width":4,fill:"none","stroke-dasharray":"8 10"},s);
+  const spot=svgEl("circle",{cx:544,cy:110,r:7,fill:"#7CE0A0"},s);
+  let on=false, off=0;
+  function set(){
+    top.setAttribute("fill",on?"#A23B33":"#999"); bot.setAttribute("fill",on?"#16233B":"#999");
+    tl.textContent=on?"+":""; bl.textContent=on?"−":"";
+    tl.setAttribute("fill","#A23B33"); bl.setAttribute("fill","#16233B");
+    const endY = on?80:110;
+    beam.setAttribute("d",on?`M74 110 L250 110 Q330 110 540 ${endY}`:"M74 110 L540 110");
+    spot.setAttribute("cy",endY);
+    $("#crtToggle").textContent=on?"Turn plates off":"Charge the plates";
+  }
+  $("#crtToggle").onclick=()=>{on=!on;set();};
+  set();
+  (function tick(){ off=(off-1.5)%18; beam.setAttribute("stroke-dashoffset",off); if(!REDUCED) requestAnimationFrame(tick); })();
+})();
+
+// ---------- gold foil ----------
+(function(){
+  const cv=$("#foil"), ctx=cv.getContext("2d"), W=cv.width, H=cv.height, FX=330;
+  let real=true, parts=[], counts=[0,0,0];
+  const nuclei=[]; for(let y=18;y<H;y+=36) nuclei.push(y);
+  function spawn(){
+    const y=40+Math.random()*(H-80);
+    parts.push({x:60,y,vx:3.2,vy:0,hit:false});
+  }
+  function step(){
+    ctx.clearRect(0,0,W,H);
+    // source
+    ctx.fillStyle="#16233B"; ctx.fillRect(10,H/2-30,50,60);
+    ctx.fillStyle="#FBFAF6"; ctx.font="11px IBM Plex Mono"; ctx.fillText("α source",12,H/2+4);
+    // foil
+    ctx.fillStyle="#E5C45E"; ctx.fillRect(FX-3,10,6,H-20);
+    if(real){ ctx.fillStyle="#A23B33"; nuclei.forEach(y=>{ctx.beginPath();ctx.arc(FX,y,3,0,7);ctx.fill();}); }
+    else { ctx.fillStyle="rgba(162,59,51,.15)"; ctx.fillRect(FX-14,10,28,H-20); }
+    // detector ring
+    ctx.strokeStyle="#33606B"; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(FX,H/2,H/2-6,0,Math.PI*2); ctx.stroke();
+    if(Math.random()<.35) spawn();
+    ctx.fillStyle="#2E6B45";
+    parts.forEach(p=>{
+      if(!p.hit && p.x>=FX-2){
+        p.hit=true;
+        const r=Math.random();
+        if(real && r<.03){ p.vx=-2.8; p.vy=(Math.random()-.5)*2; counts[2]++; p.c="#A23B33"; }
+        else if(real && r<.12){ const a=(Math.random()<.5?-1:1)*(0.3+Math.random()*0.6); p.vx=3.2*Math.cos(a); p.vy=3.2*Math.sin(a); counts[1]++; p.c="#A8791E"; }
+        else { counts[0]++; }
+      }
+      p.x+=p.vx; p.y+=p.vy;
+      ctx.fillStyle=p.c||"#2E6B45"; ctx.beginPath(); ctx.arc(p.x,p.y,2.6,0,7); ctx.fill();
+    });
+    parts=parts.filter(p=>p.x>-5&&p.x<W+5&&p.y>-5&&p.y<H+5);
+    $("#foilOut").textContent=`Straight through: ${counts[0]} · Small deflection: ${counts[1]} · Bounced back: ${counts[2]}` +
+      (real?"  →  a tiny, dense, positive nucleus":"  →  no rebounds expected if charge were spread out");
+    requestAnimationFrame(step);
+  }
+  const bR=$("#foilReal"), bP=$("#foilPud");
+  bR.onclick=()=>{real=true;counts=[0,0,0];setActive([bR,bP],bR);};
+  bP.onclick=()=>{real=false;counts=[0,0,0];setActive([bR,bP],bP);};
+  $("#foilReset").onclick=()=>counts=[0,0,0];
+  step();
+})();
+
+// ---------- ion builder ----------
+(function(){
+  const s=$("#ionSvg"); let p=3,e=2,rodNeg=true, x=360;
+  const rod=svgEl("rect",{x:40,y:40,width:40,height:120,rx:6},s);
+  const rodTxt=svgEl("text",{x:60,y:108,"text-anchor":"middle","font-size":28,"font-weight":700,fill:"#fff"},s);
+  const g=svgEl("g",{},s);
+  const ball=svgEl("circle",{cx:0,cy:100,r:42,stroke:"#16233B","stroke-width":2},g);
+  const lbl=svgEl("text",{x:0,y:96,"text-anchor":"middle","font-size":14,"font-family":"IBM Plex Mono",fill:"#16233B"},g);
+  const lbl2=svgEl("text",{x:0,y:116,"text-anchor":"middle","font-size":16,"font-weight":700,fill:"#16233B"},g);
+  const arrow=svgEl("text",{x:0,y:40,"text-anchor":"middle","font-size":14,"font-family":"IBM Plex Mono"},g);
+  function draw(){
+    const net=p-e;
+    rod.setAttribute("fill",rodNeg?"#16233B":"#A23B33"); rodTxt.textContent=rodNeg?"−":"+";
+    $("#rodToggle").textContent="Rod: "+(rodNeg?"negative":"positive");
+    $("#pCount").textContent=p; $("#eCount").textContent=e;
+    ball.setAttribute("fill", net>0?"#F3D3CF":net<0?"#D2DCEF":"#EEE");
+    lbl.textContent=`${p} p⁺ / ${e} e⁻`; lbl2.textContent= net===0?"neutral": (net>0?"+":"−")+Math.abs(net);
+    let target=360, msg;
+    if(net===0){ msg="Net charge 0: a neutral atom, so no strong attraction or repulsion."; arrow.textContent=""; }
+    else{
+      const attract = (net>0)===rodNeg;
+      target = attract?200:500;
+      arrow.textContent = attract?"← attracted":"repelled →"; arrow.setAttribute("fill",attract?"#2E6B45":"#A23B33");
+      msg=`Net charge = ${p} − ${e} = ${net>0?"+":""}${net}. The ion is ${net>0?"positive (a cation)":"negative (an anion)"} and the rod is ${rodNeg?"negative":"positive"}, so they ${attract?"ATTRACT (opposite charges)":"REPEL (like charges)"}.`;
+    }
+    $("#ionOut").textContent=msg;
+    const go=()=>{ x+= (target-x)*0.12; g.setAttribute("transform",`translate(${x},0)`); if(Math.abs(target-x)>0.5) requestAnimationFrame(go); };
+    go();
+  }
+  $$("[data-ion]").forEach(b=>b.onclick=()=>{
+    const k=b.dataset.ion;
+    if(k==="p+"&&p<20)p++; if(k==="p-"&&p>1)p--; if(k==="e+"&&e<20)e++; if(k==="e-"&&e>0)e--;
+    draw();
+  });
+  $("#rodToggle").onclick=()=>{rodNeg=!rodNeg;draw();};
+  draw();
+})();
+
+// ---------- wave parts diagram ----------
+(function(){
+  const s=$("#waveParts"), mid=115, A=60, L=240;
+  let d=""; for(let x=20;x<=580;x+=2){ const y=mid-A*Math.sin((x-20)/L*2*Math.PI); d+=(x===20?"M":"L")+x+" "+y.toFixed(1)+" "; }
+  svgEl("line",{x1:20,y1:mid,x2:580,y2:mid,stroke:"#999","stroke-dasharray":"4 4"},s);
+  svgEl("path",{d,stroke:"#33606B","stroke-width":3,fill:"none"},s);
+  const t=(x,y,txt,c)=>{const e=svgEl("text",{x,y,"font-size":13,"font-family":"IBM Plex Mono",fill:c||"#16233B","text-anchor":"middle"},s); e.textContent=txt;};
+  svgEl("circle",{cx:80,cy:mid-A,r:5,fill:"#A8791E"},s); t(80,mid-A-12,"crest","#7C5A16");
+  svgEl("circle",{cx:200,cy:mid+A,r:5,fill:"#A23B33"},s); t(200,mid+A+22,"trough","#A23B33");
+  svgEl("line",{x1:320,y1:mid,x2:320,y2:mid-A,stroke:"#2E6B45","stroke-width":2},s);
+  t(372,mid-A/2,"amplitude","#2E6B45");
+  svgEl("line",{x1:80,y1:24,x2:320,y2:24,stroke:"#16233B","stroke-width":1.5},s);
+  svgEl("line",{x1:80,y1:18,x2:80,y2:30,stroke:"#16233B"},s); svgEl("line",{x1:320,y1:18,x2:320,y2:30,stroke:"#16233B"},s);
+  t(200,16,"wavelength (λ): crest to crest");
+  t(530,mid-6,"rest line","#777");
+})();
+
+// ---------- live wave ----------
+(function(){
+  const s=$("#waveLive"), path=svgEl("path",{stroke:"#5B4B8A","stroke-width":3,fill:"none"},s);
+  svgEl("line",{x1:0,y1:80,x2:600,y2:80,stroke:"#ccc","stroke-dasharray":"4 4"},s);
+  let ph=0;
+  function frame(){
+    const L=+$("#lamSlider").value, A=+$("#ampSlider").value;
+    let d=""; for(let x=0;x<=600;x+=3){ d+=(x?"L":"M")+x+" "+(80-A*Math.sin((x/L)*2*Math.PI-ph)).toFixed(1)+" "; }
+    path.setAttribute("d",d);
+    const hue = 280 - (L-40)/(260)*280; path.setAttribute("stroke",`hsl(${hue},55%,42%)`);
+    const rel = (150/L);
+    $("#waveOut").textContent=`Wavelength: ${L} units · Frequency: ${rel.toFixed(2)}× · Energy: ${rel>1.3?"HIGHER":rel<0.8?"LOWER":"medium"}. Shorter wavelength means more waves pass each second.`;
+    ph += REDUCED?0:0.06*(150/L)*2;
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// ---------- EM spectrum ----------
+(function(){
+  const s=$("#emSvg"); const bands=["Radio","Micro-wave","Infrared","Visible","UV","X-ray","Gamma"];
+  const cols=["#C9D6DE","#B9CBD8","#E3A07A","url(#vis)","#B7A6E0","#8E86C8","#5B4B8A"];
+  const defs=svgEl("defs",{},s); const lg=svgEl("linearGradient",{id:"vis"},defs);
+  ["#E04040","#F09030","#E8D040","#50B050","#4070D0","#7040B0"].forEach((c,i)=>svgEl("stop",{offset:(i/5*100)+"%","stop-color":c},lg));
+  const w=84;
+  bands.forEach((b,i)=>{ svgEl("rect",{x:20+i*w,y:40,width:w-2,height:44,fill:cols[i]},s);
+    const t=svgEl("text",{x:20+i*w+w/2-1,y:67,"text-anchor":"middle","font-size":12,"font-family":"Inter","font-weight":600,fill:i>=5?"#fff":"#16233B"},s); t.textContent=b; });
+  // wave sketch: long to short
+  let ph=0, pts=""; for(let x=20;x<=608;x+=1.5){ const f=0.02+((x-20)/588)**2.2*0.9; ph+=f*1.5; pts+=(x===20?"M":"L")+x+" "+(20+9*Math.sin(ph)).toFixed(1)+" "; }
+  svgEl("path",{d:pts,stroke:"#16233B","stroke-width":1.5,fill:"none"},s);
+  const ar=(x1,x2,y,txt,anchor)=>{ svgEl("line",{x1,y1:y,x2,y2:y,stroke:"#44516A","stroke-width":1.5,"marker-end":"url(#ah)"},s);
+    const t=svgEl("text",{x:(x1+x2)/2,y:y+18,"text-anchor":"middle","font-size":12,"font-family":"IBM Plex Mono",fill:"#44516A"},s); t.textContent=txt; };
+  const m=svgEl("marker",{id:"ah",markerWidth:8,markerHeight:8,refX:6,refY:4,orient:"auto"},defs); svgEl("path",{d:"M0 0 L8 4 L0 8 z",fill:"#44516A"},m);
+  ar(30,610,104,"increasing frequency & energy →");
+  const t=svgEl("text",{x:320,y:142,"text-anchor":"middle","font-size":12,"font-family":"IBM Plex Mono",fill:"#44516A"},s); t.textContent="← longer wavelength · · · shorter wavelength →";
+})();
+// ---------- Bohr energy levels ----------
+(function(){
+  const s=$("#bohr"), CX=150, CY=150, R=[0,34,62,92,124];
+  const LY=n=>270-220*((1-1/(n*n))/(15/16));
+  for(let n=1;n<=4;n++){
+    svgEl("circle",{cx:CX,cy:CY,r:R[n],fill:"none",stroke:"#C9CFDC","stroke-width":1.5},s);
+    svgEl("text",{x:CX,y:CY-R[n]+13,"text-anchor":"middle","font-size":10.5,"font-family":"IBM Plex Mono",fill:"#44516A"},s).textContent="n="+n;
+  }
+  svgEl("circle",{cx:CX,cy:CY,r:11,fill:"#A23B33"},s);
+  // ladder
+  svgEl("text",{x:340,y:24,"font-size":12,"font-family":"IBM Plex Mono",fill:"#33606B"},s).textContent="ENERGY ↑";
+  const rungs=[];
+  for(let n=1;n<=4;n++){ rungs[n]=svgEl("line",{x1:340,x2:490,y1:LY(n),y2:LY(n),stroke:"#16233B","stroke-width":2},s);
+    svgEl("text",{x:496,y:LY(n)+(n===4?-2:n===3?10:4),"font-size":11,"font-family":"IBM Plex Mono",fill:"#44516A"},s).textContent="n="+n+(n===1?" ground":""); }
+  const jump=svgEl("line",{x1:430,x2:430,y1:LY(1),y2:LY(1),stroke:"#A8791E","stroke-width":3},s);
+  const marker=svgEl("circle",{cx:410,cy:LY(1),r:6,fill:"#33606B"},s);
+  const e=svgEl("circle",{r:7,fill:"#33606B"},s);
+  const photon=svgEl("g",{opacity:0},s);
+  const pPath=svgEl("path",{fill:"none","stroke-width":3},photon);
+  const pTxt=svgEl("text",{"font-size":11,"font-family":"IBM Plex Mono"},photon);
+  let n=1, r=R[1], target=R[1], ang=0, ph=null;
+  const COLOR={"2-1":["#7A5EC8","ultraviolet"],"3-1":["#7A5EC8","ultraviolet"],"4-1":["#7A5EC8","ultraviolet"],
+               "3-2":["#E04040","red · 656 nm"],"4-2":["#2FA4B0","blue-green · 486 nm"],"4-3":["#B0503A","infrared"]};
+  function wavy(len){ let d="M0 0 "; for(let x=0;x<=len;x+=2) d+="L"+x+" "+(5*Math.sin(x/3)).toFixed(1)+" "; return d; }
+  pPath.setAttribute("d",wavy(46));
+  function go(to){
+    if(to===n) return;
+    const hi=Math.max(to,n), lo=Math.min(to,n), [col,name]=COLOR[hi+"-"+lo];
+    const up = to>n;
+    jump.setAttribute("y1",LY(n)); jump.setAttribute("y2",LY(to)); jump.setAttribute("stroke",col);
+    marker.setAttribute("cy",LY(to));
+    pPath.setAttribute("stroke",col); pTxt.setAttribute("fill",col); pTxt.textContent=name;
+    ph={t:0, up, a:ang};
+    $("#bohrOut").innerHTML = up
+      ? `n=${n} → n=${to}: the electron <b>ABSORBS</b> a photon (${name}) and jumps up. The atom is now in an <b>excited state</b>.`
+      : `n=${n} → n=${to}: the electron <b>RELEASES</b> a photon (${name}). Its energy equals the gap between the levels.${to===1?" The electron is back in the <b>ground state</b>.":""}`;
+    if(up){ setTimeout(()=>{target=R[to];},REDUCED?0:600); } else target=R[to];
+    n=to;
+  }
+  $$("[data-n]").forEach(b=>b.onclick=()=>go(+b.dataset.n));
+  (function tick(){
+    r+=(target-r)*0.08; ang+=REDUCED?0:0.025*(60/r);
+    const ex=CX+r*Math.cos(ang), ey=CY+r*Math.sin(ang);
+    e.setAttribute("cx",ex); e.setAttribute("cy",ey);
+    if(ph){
+      ph.t+= REDUCED?1:0.012;
+      const dist = ph.up ? 260*(1-Math.min(ph.t/0.5,1)) : 30+240*ph.t;
+      const px=CX+dist*Math.cos(ph.a)+ (ph.up?0:0), py=CY+dist*Math.sin(ph.a);
+      const deg=ph.a*180/Math.PI;
+      photon.setAttribute("transform",`translate(${px},${py}) rotate(${deg})`);
+      pTxt.setAttribute("x",0); pTxt.setAttribute("y",-10);
+      photon.setAttribute("opacity", ph.up ? (ph.t<0.5?1:0) : Math.max(0,1-ph.t));
+      if(ph.t>=1) ph=null;
+    }
+    requestAnimationFrame(tick);
+  })();
+})();
+
+// ---------- electron cloud ----------
+(function(){
+  const cv=$("#cloud"), ctx=cv.getContext("2d"), W=cv.width, H=cv.height;
+  let mode="s", pts=[], ang=0;
+  const gauss=()=>{let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);};
+  function sample(){
+    if(mode==="s"){ // radial ~ r^2 e^-2r
+      const r=-0.5*Math.log(Math.random()*Math.random()*Math.random());
+      const th=Math.random()*2*Math.PI, c=2*Math.random()-1;
+      return [r*Math.sqrt(1-c*c)*Math.cos(th), r*c];
+    }
+    while(true){ // 2p: |z|^2 e^-r
+      const x=gauss()*2.2, y=gauss()*2.2, z=gauss()*3;
+      const rr=Math.hypot(x,y,z), w=(z*z)*Math.exp(-rr)/1.2;
+      if(Math.random()<w) return [x*0.55, z*0.55];
+    }
+  }
+  function reset(){ pts=[]; for(let i=0;i<1600;i++) pts.push(sample()); }
+  const TXT={s:"s orbital: a sphere. Dots are denser where the electron is more likely to be. There is no exact path, only probability.",
+             p:"p orbital: a dumbbell with two lobes. Each energy level from n=2 up has three of these (x, y, z).",
+             bohr:"Bohr's older model: the electron travels a fixed circular path. Useful for counting energy levels, but electrons don't really follow paths like this."};
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    const S=mode==="s"?75:62;
+    if(mode==="bohr"){
+      ctx.strokeStyle="#33606B"; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(W/2,H/2,100,0,7); ctx.stroke();
+      ang+=REDUCED?0:0.03; ctx.fillStyle="#33606B"; ctx.beginPath(); ctx.arc(W/2+100*Math.cos(ang),H/2+100*Math.sin(ang),8,0,7); ctx.fill();
+    } else {
+      if(!REDUCED) for(let i=0;i<40;i++) pts[Math.floor(Math.random()*pts.length)]=sample();
+      ctx.fillStyle="rgba(51,96,107,.55)";
+      pts.forEach(([x,y])=>{ ctx.fillRect(W/2+x*S, H/2-y*S, 2, 2); });
+    }
+    ctx.fillStyle="#A23B33"; ctx.beginPath(); ctx.arc(W/2,H/2,6,0,7); ctx.fill();
+    requestAnimationFrame(frame);
+  }
+  $$("[data-cloud]").forEach(b=>b.onclick=()=>{ mode=b.dataset.cloud; setActive($$("[data-cloud]"),b); if(mode!=="bohr") reset(); $("#cloudOut").textContent=TXT[mode]; });
+  reset(); $("#cloudOut").textContent=TXT.s; frame();
+})();
+
+// ---------- shell builder ----------
+(function(){
+  const s=$("#shell"), CX=180, CY=150, RS=[42,74,106,138], CAP=[2,8,8,2];
+  RS.forEach(r=>svgEl("circle",{cx:CX,cy:CY,r,fill:"none",stroke:"#C9CFDC","stroke-width":1.5},s));
+  const nuc=svgEl("circle",{cx:CX,cy:CY,r:20,fill:"#A23B33"},s);
+  const nucT=svgEl("text",{x:CX,y:CY+5,"text-anchor":"middle","font-size":13,"font-weight":700,fill:"#fff"},s);
+  const eg=svgEl("g",{},s);
+  const info=svgEl("text",{x:360,y:60,"font-size":15,"font-family":"Spectral","font-weight":600,fill:"#16233B"},s);
+  const info3=svgEl("text",{x:360,y:112,"font-size":13,"font-family":"IBM Plex Mono",fill:"#7C5A16"},s);
+  const info2=svgEl("text",{x:360,y:90,"font-size":13,"font-family":"IBM Plex Mono",fill:"#44516A"},s);
+  const badge=svgEl("rect",{x:360,y:130,width:210,height:34,rx:4},s);
+  const badgeT=svgEl("text",{x:465,y:152,"text-anchor":"middle","font-size":13,"font-weight":600,fill:"#fff"},s);
+  let dots=[], t=0;
+  function build(){
+    const Z=+$("#shellSlider").value; $("#shellN").textContent=Z;
+    eg.innerHTML=""; dots=[]; let left=Z; const fill=[];
+    CAP.forEach((c,i)=>{ const k=Math.min(c,left); fill.push(k); left-=k; });
+    const used=fill.filter(x=>x>0), last=used.length-1, val=used[last];
+    fill.forEach((k,i)=>{ for(let j=0;j<k;j++){ const d=svgEl("circle",{r:6,fill:i===last?"#A8791E":"#33606B",stroke:"#fff","stroke-width":1.5},eg); dots.push({d,r:RS[i],a:j/k*2*Math.PI,sp:0.012/(i+1)}); } });
+    nucT.textContent=Z+"+";
+    const full = (last===0 && val===2) || (last>0 && val===8);
+    info.textContent=`${NAMES[Z]} (${SYM[Z-1]}) · ${Z} electrons`;
+    info2.textContent=`Shells: ${used.join(", ")}`; info3.textContent=`Valence electrons: ${val}`;
+    badge.setAttribute("fill", full?"#2E6B45":"#A23B33");
+    badgeT.textContent= full?"Full outer shell → STABLE":"Not full → REACTIVE";
+    const why = full ? "The outer shell is full, so this atom has no tendency to gain or lose electrons (a noble gas)."
+      : val<=3 ? `It is easier to lose ${val} electron${val>1?"s":""} than to gain ${8-val}, so it forms a + ion.`
+      : val>=5 ? `It is easier to gain ${8-val} electron${8-val>1?"s":""} than to lose ${val}, so it forms a − ion.`
+      : "With 4 valence electrons it tends to share electrons.";
+    $("#shellOut").textContent = `Gold dots = valence electrons. ${why}`;
+  }
+  (function spin(){ t++; dots.forEach(o=>{ const a=o.a+(REDUCED?0:t*o.sp); o.d.setAttribute("cx",CX+o.r*Math.cos(a)); o.d.setAttribute("cy",CY+o.r*Math.sin(a)); }); requestAnimationFrame(spin); })();
+  $("#shellSlider").oninput=build; build();
+})();
+
+// ---------- trend graphs ----------
+const RADIUS=[53,31,167,112,87,67,56,48,42,38,190,145,118,111,98,88,79,71,243,194];
+const IE=[1312,2372,520,900,801,1086,1402,1314,1681,2081,496,738,578,787,1012,1000,1251,1521,419,590];
+function lineChart(sel,data,yMax,yStep,unit,color,hiIdx){
+  const s=$(sel), L=56, R=620, T=20, B=250;
+  const X=i=>L+(i)*(R-L)/(data.length-1), Y=v=>B-v/yMax*(B-T);
+  for(let v=0;v<=yMax;v+=yStep){ svgEl("line",{x1:L,x2:R,y1:Y(v),y2:Y(v),stroke:"#E6E6E0"},s);
+    svgEl("text",{x:L-6,y:Y(v)+4,"text-anchor":"end","font-size":10.5,"font-family":"IBM Plex Mono",fill:"#44516A"},s).textContent=v; }
+  svgEl("text",{x:14,y:(T+B)/2,"font-size":11,"font-family":"IBM Plex Mono",fill:"#44516A",transform:`rotate(-90 14 ${(T+B)/2})`,"text-anchor":"middle"},s).textContent=unit;
+  [2,10,18].forEach(z=>svgEl("line",{x1:X(z-1)+ (R-L)/(data.length-1)/2,x2:X(z-1)+(R-L)/(data.length-1)/2,y1:T,y2:B,stroke:"#C9CFDC","stroke-dasharray":"3 4"},s));
+  const d=data.map((v,i)=>(i?"L":"M")+X(i)+" "+Y(v)).join(" ");
+  const path=svgEl("path",{d,fill:"none",stroke:color,"stroke-width":2.5},s);
+  data.forEach((v,i)=>{
+    const hi=hiIdx.includes(i+1);
+    const c=svgEl("circle",{cx:X(i),cy:Y(v),r:hi?5.5:4,fill:hi?"#A8791E":color},s);
+    svgEl("title",{},c).textContent=`${SYM[i]}: ${v} ${unit}`;
+    svgEl("text",{x:X(i),y:B+16,"text-anchor":"middle","font-size":10.5,"font-family":"IBM Plex Mono",fill:hi?"#7C5A16":"#44516A","font-weight":hi?700:400},s).textContent=SYM[i];
+  });
+  svgEl("text",{x:(L+R)/2,y:B+40,"text-anchor":"middle","font-size":11,"font-family":"IBM Plex Mono",fill:"#44516A"},s).textContent="element (atomic number 1 → 20) · dashed lines = end of each period";
+  const len=path.getTotalLength(); path.style.strokeDasharray=len; path.style.strokeDashoffset=REDUCED?0:len;
+  const io=new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ path.style.transition="stroke-dashoffset 2.2s ease"; path.style.strokeDashoffset=0; io.disconnect(); } }),{threshold:.3});
+  io.observe(s);
+}
+lineChart("#radChart",RADIUS,250,50,"radius (pm)","#33606B",[3,11,19]);
+lineChart("#ieChart",IE,2500,500,"kJ/mol","#A23B33",[2,10,18]);
+
+// ---------- ion size ----------
+(function(){
+  const s=$("#ionSize");
+  const PAIRS=[{a:"Li",i:"Li⁺",ra:152,ri:76,ch:-1,why:"Lithium loses its single outer electron, and with it the whole 2nd energy level. The ion is much smaller."},
+               {a:"Mg",i:"Mg²⁺",ra:160,ri:72,ch:-2,why:"Magnesium loses 2 electrons and its entire 3rd energy level. Fewer shells means a much smaller ion."},
+               {a:"O",i:"O²⁻",ra:73,ri:140,ch:2,why:"Oxygen gains 2 electrons. The same 8 protons now hold 10 electrons, which repel each other, so the ion swells."},
+               {a:"S",i:"S²⁻",ra:103,ri:184,ch:2,why:"Sulfur gains 2 electrons. More electron–electron repulsion with the same nuclear charge makes a larger ion."}];
+  const K=0.42, Y=105;
+  const atom=svgEl("circle",{cx:150,cy:Y,fill:"#B9D3DC",stroke:"#33606B","stroke-width":2},s);
+  const ion=svgEl("circle",{cx:440,cy:Y,stroke:"#16233B","stroke-width":2},s);
+  const at=svgEl("text",{x:150,y:Y+6,"text-anchor":"middle","font-size":18,"font-weight":700,fill:"#16233B"},s);
+  const it=svgEl("text",{x:440,y:Y+6,"text-anchor":"middle","font-size":18,"font-weight":700,fill:"#16233B"},s);
+  const ar=svgEl("text",{x:295,y:Y+5,"text-anchor":"middle","font-size":13,"font-family":"IBM Plex Mono",fill:"#44516A"},s);
+  const ap=svgEl("text",{x:150,y:208,"text-anchor":"middle","font-size":12,"font-family":"IBM Plex Mono",fill:"#44516A"},s);
+  const ip=svgEl("text",{x:440,y:208,"text-anchor":"middle","font-size":12,"font-family":"IBM Plex Mono",fill:"#44516A"},s);
+  const eDots=[]; for(let k=0;k<2;k++) eDots.push(svgEl("circle",{r:6,fill:"#A8791E",opacity:0},s));
+  let cur=0, anim=null;
+  function play(){
+    const P=PAIRS[cur]; cancelAnimationFrame(anim);
+    atom.setAttribute("r",P.ra*K); at.textContent=P.a; it.textContent=P.i; ap.textContent=`atom: ${P.ra} pm`; ip.textContent=`ion: ${P.ri} pm`;
+    ion.setAttribute("fill",P.ch<0?"#F3D3CF":"#D2DCEF");
+    ar.textContent=P.ch<0?`loses ${-P.ch} e⁻ →`:`gains ${P.ch} e⁻ →`;
+    $("#ionSizeOut").textContent=`${P.i} is ${P.ri<P.ra?"SMALLER":"LARGER"} than ${P.a}. ${P.why}`;
+    const n=Math.abs(P.ch); let t=REDUCED?1:0;
+    (function step(){
+      t=Math.min(1,t+0.012); const e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+      ion.setAttribute("r",(P.ra+(P.ri-P.ra)*e)*K);
+      eDots.forEach((d,k)=>{
+        if(k>=n){d.setAttribute("opacity",0);return;}
+        const ang=-0.6+k*1.2;
+        const far=110, near=(P.ra*K);
+        const dist = P.ch<0 ? near+(far-near)*e : far-(far-near)*e;
+        d.setAttribute("cx",440+dist*Math.cos(ang)); d.setAttribute("cy",Y+dist*Math.sin(ang));
+        d.setAttribute("opacity", P.ch<0 ? 1-e : 1);
+      });
+      if(t<1) anim=requestAnimationFrame(step);
+    })();
+  }
+  $$("[data-pair]").forEach(b=>b.onclick=()=>{cur=+b.dataset.pair; setActive($$("[data-pair]"),b); play();});
+  $("#ionPlay").onclick=play;
+  const io=new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ play(); io.disconnect(); } }),{threshold:.4});
+  io.observe(s);
+  play();
+})();
+</script>
+</body></html>
