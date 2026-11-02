@@ -97,6 +97,7 @@
   .q label{display:block;font-weight:500;margin:0 0 8px;}
   .q label .n{font-family:'IBM Plex Mono',monospace;color:var(--teal);margin-right:6px;}
   .q.unit{border-left:4px solid var(--brass);}
+  .q label .pts{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--brass-dark);white-space:nowrap;}
   .q.unit label .n::after{content:" · Unit 2";color:var(--brass-dark);}
   textarea{display:block;width:100%;min-height:72px;font:15px/1.5 'Inter',sans-serif;padding:9px 11px;border:1px solid var(--paper-line);background:#fff;color:var(--ink);resize:vertical;}
   textarea.long{min-height:130px;}
@@ -219,7 +220,7 @@
   <section id="questions">
     <p class="eyebrow">Step 4 · Respond</p>
     <h2>Your responses</h2>
-    <p>Answer in complete sentences. Answer the "before" questions before you start watching, the "while you watch" questions as the video plays, and the "after" questions once it's over.</p>
+    <p><b>Total: 25 points.</b> Point values are in parentheses after each question. Answer in complete sentences. Answer the "before" questions before you start watching, the "while you watch" questions as the video plays, and the "after" questions once it's over.</p>
     <div id="qList"></div>
   </section>
 
@@ -257,6 +258,7 @@ const REVIEW = "https://yscabarney.github.io/Chem_ADV_Notes/atoms-elements-revie
 /* youtube: video id + official chapter times (seconds) from each video's own description */
 const OPTIONS = {
   universe: {
+    points: [1,0.5,0.5, 1,2,1,2,1,1,1, 4,4,1,5],
     title: 'Our Universe, Episode 4: "Elemental" (Netflix)',
     connectTitle: "Why “Elemental” belongs in Unit 2",
     connectLead: "In our unit you learned that the number of protons decides which element an atom is. This episode shows where those protons came from: hydrogen and helium formed after the Big Bang, and stars fused small nuclei into bigger ones to build heavier elements. Every element in your body was made that way, and scientists know what stars are made of by reading their light.",
@@ -291,6 +293,7 @@ const OPTIONS = {
   },
 
   lead: {
+    points: [0.5,1,0.5, 1,1,1,1,1,1,1,1,1,1, 4,4,5],
     title: 'Veritasium: "The Man Who Accidentally Killed the Most People in History"',
     connectTitle: "Why this video belongs in Unit 2",
     connectLead: "Clair Patterson found the age of the Earth by counting atoms. Uranium has 92 protons and lead has 82. As uranium's nucleus decays, it loses protons and becomes a different element, lead. That is our unit's idea that protons identify an element, used as a clock. The video also shows what happens when a company's money gets mixed up with science.",
@@ -336,6 +339,7 @@ const OPTIONS = {
   },
 
   quantum: {
+    points: [0.5,1,0.5, 1,1,1,1,1,1,1,1,1,1, 4,4,5],
     title: 'NOVA: "Decoding the Universe: Quantum" (PBS)',
     connectTitle: "Why “Quantum” belongs in Unit 2",
     connectLead: "Our unit ended with the modern atom: electrons in clouds and energy levels, absorbing and giving off photons of exact energies. This documentary shows that same quantum behavior at work. Atomic clocks keep time by counting the exact frequency of light that makes a cesium or strontium electron jump energy levels, and that is how your phone's GPS knows where you are.",
@@ -381,6 +385,7 @@ const OPTIONS = {
   },
 
   bbc: {
+    points: [1,1, 1,1,1,1,1,1,1,1,1,1, 4,4,5],
     title: 'BBC Earth Science: "The Extraordinary Stories Behind the Elements"',
     connectTitle: "Why this documentary belongs in Unit 2",
     connectLead: "In our unit you learned that an element's place on the periodic table predicts how it behaves. This documentary tells the stories of five elements. Helium is a noble gas that won't react. Nitrogen and phosphorus share a column (group 15). Gold is a famously unreactive metal. Hydrogen is the simplest atom of all. Watch for how each element's place on the table explains its story.",
@@ -443,11 +448,14 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":
 const fmt = s => Math.floor(s/60) + ":" + String(s%60).padStart(2,"0");
 const ytSrc = (id, start, play) => `https://www.youtube-nocookie.com/embed/${id}?rel=0&start=${start||0}${play ? "&autoplay=1" : ""}`;
 
+const ptsLabel = p => `(${p} ${p === 1 ? "pt" : "pts"})`;
+
 function questionsFor(id){
   const out = []; let n = 0;
   OPTIONS[id].parts.forEach(([part, qs]) => qs.forEach(q => {
     const o = typeof q === "string" ? {q} : q;
-    out.push(Object.assign({part, n:++n, key:id+"-"+n}, o));
+    n++;
+    out.push(Object.assign({part, n, key:id+"-"+n, pts:OPTIONS[id].points[n-1]}, o));
   }));
   return out;
 }
@@ -489,7 +497,7 @@ function render(){
   let html = "", lastPart = "";
   questionsFor(id).forEach(q => {
     if(q.part !== lastPart){ html += `<p class="part">${esc(q.part)}</p>`; lastPart = q.part; }
-    html += `<div class="q${q.unit ? " unit" : ""}"><label for="${q.key}"><span class="n">Q${q.n}</span>${esc(q.q)}</label>
+    html += `<div class="q${q.unit ? " unit" : ""}"><label for="${q.key}"><span class="n">Q${q.n}</span>${esc(q.q)} <span class="pts">${ptsLabel(q.pts)}</span></label>
       <textarea id="${q.key}" data-key="${q.key}"${q.long ? ' class="long"' : ""}>${esc(state.answers[q.key] || "")}</textarea></div>`;
   });
   $("#qList").innerHTML = html;
@@ -511,12 +519,13 @@ function exportText(){
     "ELEMENTS ON SCREEN · Unit 2 choice assignment",
     "Name: " + (state.name || "(no name)"),
     "Choice: " + o.title,
+    "Total: 25 points",
     ""
   ];
   let lastPart = "";
   questionsFor(state.pick).forEach(q => {
     if(q.part !== lastPart){ lines.push("", "== " + q.part.toUpperCase() + " =="); lastPart = q.part; }
-    lines.push("", `Q${q.n}${q.unit ? " (Unit 2)" : ""}. ${q.q}`, "Answer: " + ((state.answers[q.key] || "").trim() || "(blank)"));
+    lines.push("", `Q${q.n}${q.unit ? " (Unit 2)" : ""}. ${q.q} ${ptsLabel(q.pts)}`, "Answer: " + ((state.answers[q.key] || "").trim() || "(blank)"));
   });
   return lines.join("\n");
 }
