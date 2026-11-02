@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elements on Screen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Spectral:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16233B; --ink-soft:#44516A;
+    --paper:#F3F4EF; --paper-line:#DADCD1;
+    --brass:#A8791E; --brass-dark:#7C5A16;
+    --teal:#33606B; --red:#A23B33; --cream:#FBFAF6; --green:#2E6B45;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    background-image:linear-gradient(var(--paper-line) 1px,transparent 1px),linear-gradient(90deg,var(--paper-line) 1px,transparent 1px);
+    background-size:28px 28px;
+    font-family:'Inter',system-ui,sans-serif; line-height:1.6;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:0 16px 80px;}
+
+  header.hero{
+    background:var(--ink); color:var(--cream); padding:48px 16px 36px;
+    background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+    background-size:24px 24px;
+  }
+  .hero-inner{max-width:860px;margin:0 auto;}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#D9C489;margin:0 0 16px;}
+  h1.title{font-family:'Spectral',serif;font-weight:600;font-size:clamp(32px,6vw,46px);line-height:1.1;margin:0 0 14px;}
+  .lede{font-size:17px;max-width:60ch;color:#C9CFDC;margin:0;}
+  .lede a{color:#D9C489;}
+
+  section{padding:40px 0;border-bottom:1px solid var(--paper-line);}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--teal);margin:0 0 8px;text-transform:uppercase;letter-spacing:.04em;}
+  h2{font-family:'Spectral',serif;font-weight:600;font-size:30px;line-height:1.2;margin:0 0 14px;}
+  h3{font-family:'Spectral',serif;font-weight:600;font-size:21px;margin:30px 0 10px;}
+  p{max-width:68ch;margin:0 0 14px;}
+  a{color:var(--teal);}
+
+  .callout{background:var(--cream);border-left:4px solid var(--brass);padding:14px 18px;margin:18px 0;}
+  .callout.teal{border-color:var(--teal);}
+  .callout b.lbl{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--brass-dark);font-weight:500;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em;}
+  .callout.teal b.lbl{color:var(--teal);}
+  .callout ul{margin:6px 0 0;padding-left:20px;}
+  .callout li{margin:4px 0;}
+
+  label.name{display:block;font-weight:600;margin:6px 0 6px;}
+  input[type=text]{font:16px 'Inter',sans-serif;padding:9px 11px;border:1px solid var(--paper-line);background:#fff;width:100%;max-width:360px;color:var(--ink);}
+
+  /* choice cards */
+  .choices{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0 6px;}
+  @media (max-width:760px){.choices{grid-template-columns:1fr;}}
+  .choice{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;background:var(--cream);border:1px solid var(--paper-line);border-top:4px solid var(--teal);padding:16px;}
+  .choice:hover{border-color:var(--ink);border-top-color:var(--teal);}
+  .choice:focus-visible{outline:3px solid var(--brass);outline-offset:2px;}
+  .choice[aria-pressed="true"]{background:#fff;border-color:var(--ink);border-top-color:var(--brass);box-shadow:0 2px 0 var(--ink);}
+  .choice .kind{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--teal);text-transform:uppercase;letter-spacing:.04em;}
+  .choice b{font-family:'Spectral',serif;font-size:19px;line-height:1.25;margin:4px 0 6px;}
+  .choice span.desc{font-size:14px;color:var(--ink-soft);flex:1;}
+  .choice .len{font-family:'IBM Plex Mono',monospace;font-size:12px;margin-top:10px;color:var(--brass-dark);}
+  .choice[aria-pressed="true"] .len::after{content:"  ✓ your pick";color:var(--green);}
+
+  /* where to find */
+  .find{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;}
+  @media (max-width:640px){.find{grid-template-columns:1fr;}}
+  .find div{background:var(--cream);border:1px solid var(--paper-line);padding:12px 14px;font-size:14.5px;}
+  .find b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--teal);font-weight:500;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
+  a.go{display:inline-block;margin-top:8px;font:500 14px 'Inter',sans-serif;background:var(--ink);color:var(--cream);padding:8px 13px;text-decoration:none;}
+  a.go:hover{opacity:.9;}
+  .video{position:relative;aspect-ratio:16/9;background:#000;margin:14px 0 6px;}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  /* timestamps */
+  table{border-collapse:collapse;width:100%;background:var(--cream);font-size:14.5px;}
+  th,td{border:1px solid var(--paper-line);padding:7px 10px;text-align:left;vertical-align:top;}
+  th{background:var(--ink);color:var(--cream);font-weight:600;font-size:13.5px;}
+  td.t{white-space:nowrap;width:1%;}
+  button.ts{font:500 13px 'IBM Plex Mono',monospace;background:#fff;border:1px solid var(--teal);color:var(--teal);padding:3px 8px;cursor:pointer;}
+  button.ts:hover{background:var(--teal);color:#fff;}
+  td .qref{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--brass-dark);white-space:nowrap;}
+  .note{font-size:13.5px;color:var(--ink-soft);}
+
+  /* connection grid */
+  .links{display:grid;gap:10px;margin:14px 0;}
+  .links a{display:block;background:var(--cream);border:1px solid var(--paper-line);border-left:4px solid var(--teal);padding:10px 14px;text-decoration:none;color:var(--ink);}
+  .links a:hover{border-color:var(--ink);border-left-color:var(--teal);}
+  .links a b{font-family:'Spectral',serif;font-size:17px;display:block;}
+  .links a span{font-size:14px;color:var(--ink-soft);}
+
+  /* questions */
+  .part{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--brass-dark);text-transform:uppercase;letter-spacing:.04em;margin:22px 0 4px;}
+  .q{background:var(--cream);border:1px solid var(--paper-line);padding:14px 16px;margin:10px 0;}
+  .q label{display:block;font-weight:500;margin:0 0 8px;}
+  .q label .n{font-family:'IBM Plex Mono',monospace;color:var(--teal);margin-right:6px;}
+  .q.unit{border-left:4px solid var(--brass);}
+  .q.unit label .n::after{content:" · Unit 2";color:var(--brass-dark);}
+  textarea{display:block;width:100%;min-height:72px;font:15px/1.5 'Inter',sans-serif;padding:9px 11px;border:1px solid var(--paper-line);background:#fff;color:var(--ink);resize:vertical;}
+  textarea.long{min-height:130px;}
+  textarea:focus,input[type=text]:focus{outline:2px solid var(--teal);outline-offset:0;border-color:var(--teal);}
+
+  /* submit bar */
+  .bar{position:sticky;bottom:0;background:var(--ink);color:var(--cream);padding:10px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;z-index:5;}
+  .bar .prog{font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .meter{display:inline-block;width:120px;height:8px;background:rgba(255,255,255,.18);vertical-align:middle;margin-left:8px;}
+  .meter i{display:block;height:100%;background:#D9C489;width:0;transition:width .2s;}
+  button.btn{font:500 13.5px 'Inter',sans-serif;background:var(--cream);color:var(--ink);border:0;padding:8px 13px;cursor:pointer;}
+  button.btn.alt{background:transparent;color:var(--cream);border:1px solid rgba(251,250,246,.5);}
+  button.btn:hover{opacity:.9;}
+  .status{font-size:13px;color:#D9C489;min-height:1em;}
+  .status.bad{color:#F2B8B0;}
+  .callout.warn{border-color:var(--red);} .callout.warn b.lbl{color:var(--red);}
+  .callout.warn a.go{margin:6px 0 4px;}
+  .mono{font-family:'IBM Plex Mono',monospace;font-size:.92em;}
+  ol.steps{max-width:68ch;padding-left:22px;} ol.steps li{margin:4px 0;}
+  button.btn.big{background:var(--ink);color:var(--cream);font-size:15px;padding:11px 18px;}
+  #exportBox{min-height:220px;font-family:'IBM Plex Mono',monospace;font-size:13px;background:var(--cream);}
+  .hidden{display:none;}
+  footer{font-size:13px;color:var(--ink-soft);text-align:center;padding:30px 0;}
+
+  @media (max-width:600px){
+    .bar{padding:8px 12px;gap:6px;}
+    .bar > span:last-child{display:flex;gap:6px;width:100%;}
+    .bar button.btn{flex:1;padding:7px 6px;font-size:12.5px;}
+    .meter{width:80px;}
+    .status:empty{display:none;}
+    h2{font-size:25px;}
+  }
+  @media print{
+    body{background:#fff;} header.hero{background:#fff;color:var(--ink);padding:0 0 10px;}
+    .lede{color:var(--ink);} .bar,.choices,.find,.video,#pickSection .callout,.links,footer{display:none !important;}
+    section{padding:14px 0;} textarea{border:1px solid #999;min-height:0;height:auto;}
+    .q{break-inside:avoid;}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+</style>
+
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="tag">UNIT 2 · ATOMS &amp; ELEMENTS · CHOICE ASSIGNMENT</p>
+    <h1 class="title">Elements on Screen</h1>
+    <p class="lede">Choose one of four documentaries, on Netflix or free on YouTube. Each one tells the real story behind ideas from our <a href="https://yscabarney.github.io/Chem_ADV_Notes/atoms-elements-review.html" target="_blank" rel="noopener">Atoms &amp; Elements unit</a>. Watch it, then answer the questions on this page.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section id="pickSection">
+  <div class="callout warn hidden" id="frameNote">
+    <b class="lbl">Working inside Canvas?</b>
+    This page works best in its own tab. <a class="go" href="#" id="ownTab" target="_blank" rel="noopener">Open in a new tab ↗</a><br>
+    <span class="note">Choose one place and stay there. Answers typed here won't show up in the new tab, and answers typed in the new tab won't show up here.</span>
+  </div>
+  <div class="callout warn hidden" id="noSave">
+    <b class="lbl">Your answers can't be saved in this browser</b>
+    This browser is blocking storage, maybe because of a private window or strict privacy settings. You can still do the assignment. Just finish it in one sitting and turn it in (Step 5) before you close the page.
+  </div>
+  <p class="eyebrow">Step 1 · Pick one</p>
+  <h2>Which one do you want to watch?</h2>
+  <label class="name" for="studentName">Your name</label>
+  <input type="text" id="studentName" autocomplete="name" placeholder="First and last name">
+
+  <div class="choices" role="group" aria-label="Choose a documentary">
+    <button class="choice" type="button" data-pick="universe" aria-pressed="false">
+      <span class="kind">Netflix · Our Universe, Ep. 4</span>
+      <b>Elemental</b>
+      <span class="desc">Morgan Freeman traces the atoms inside a green sea turtle back to the Big Bang and the first stars.</span>
+      <span class="len">43 min · TV-PG</span>
+    </button>
+    <button class="choice" type="button" data-pick="lead" aria-pressed="false">
+      <span class="kind">YouTube · Veritasium</span>
+      <b>The Man Who Accidentally Killed the Most People in History</b>
+      <span class="desc">One chemist put lead in gasoline. Another used uranium and lead atoms to find the age of the Earth, then fought to get the lead out.</span>
+      <span class="len">25 min · free</span>
+    </button>
+    <button class="choice" type="button" data-pick="quantum" aria-pressed="false">
+      <span class="kind">YouTube · NOVA (PBS)</span>
+      <b>Decoding the Universe: Quantum</b>
+      <span class="desc">Inside the weird world of electrons and photons, and how it powers atomic clocks, GPS and quantum computers.</span>
+      <span class="len">54 min · free</span>
+    </button>
+    <button class="choice" type="button" data-pick="bbc" aria-pressed="false">
+      <span class="kind">YouTube · BBC Earth Science</span>
+      <b>The Extraordinary Stories Behind the Elements</b>
+      <span class="desc">Five elements, five stories: gold, hydrogen, helium, nitrogen and phosphorus, and how each one changed history.</span>
+      <span class="len">50 min · free</span>
+    </button>
+  </div>
+
+  <div class="callout teal">
+    <b class="lbl">How this works</b>
+    <ul>
+      <li>Your answers save in this browser as you type. Come back on the same computer and the same browser, and they'll still be here. They do not follow you to a different device.</li>
+      <li>Questions marked <b>Unit 2</b> ask you to connect the documentary to what we learned in class.</li>
+      <li>When you're done, follow <b>Step 5</b> at the bottom: copy your answers and paste them into the Canvas assignment.</li>
+    </ul>
+  </div>
+</section>
+
+<div id="work" class="hidden">
+  <section id="connect">
+    <p class="eyebrow">Step 2 · The connection</p>
+    <h2 id="connectTitle"></h2>
+    <p id="connectLead"></p>
+    <div class="links" id="connectLinks"></div>
+  </section>
+
+  <section id="where">
+    <p class="eyebrow">Step 3 · Watch</p>
+    <h2 id="whereTitle"></h2>
+    <div id="whereBody"></div>
+  </section>
+
+  <section id="questions">
+    <p class="eyebrow">Step 4 · Respond</p>
+    <h2>Your responses</h2>
+    <p>Answer in complete sentences. Answer the "before" questions before you start watching, the "while you watch" questions as the video plays, and the "after" questions once it's over.</p>
+    <div id="qList"></div>
+  </section>
+
+  <section id="turnin">
+    <p class="eyebrow">Step 5 · Turn it in</p>
+    <h2>Submit on Canvas</h2>
+    <ol class="steps">
+      <li>Click <b>Copy my answers</b> below.</li>
+      <li>In Canvas, open the <b>Elements on Screen</b> assignment and click <b>Start Assignment</b> (or <b>New Attempt</b>).</li>
+      <li>Click inside the <b>Text Entry</b> box and paste: <span class="mono">Ctrl+V</span> (or <span class="mono">Cmd+V</span> on a Mac).</li>
+      <li>Check that your name and all your answers came through, then click <b>Submit Assignment</b>.</li>
+    </ol>
+    <p><button class="btn big" type="button" id="copyBig">Copy my answers</button> <span class="note" id="copyMsg" role="status"></span></p>
+    <p class="note">If the button doesn't work: click inside the box below, press <span class="mono">Ctrl+A</span> (<span class="mono">Cmd+A</span>) to select everything, then <span class="mono">Ctrl+C</span> (<span class="mono">Cmd+C</span>) to copy. The box updates as you type.</p>
+    <textarea id="exportBox" readonly aria-label="All of your answers, ready to copy"></textarea>
+  </section>
+</div>
+
+<footer>Elements on Screen · Unit 2 choice assignment · <a href="https://yscabarney.github.io/Chem_ADV_Notes/atoms-elements-review.html" target="_blank" rel="noopener">Back to the unit review</a></footer>
+</div>
+
+<div class="bar hidden" id="bar">
+  <span class="prog"><span id="progText">0 of 0 answered</span><span class="meter"><i id="meter"></i></span></span>
+  <span class="status" id="status" role="status"></span>
+  <span>
+    <button class="btn" type="button" id="dlBtn">Download answers</button>
+    <button class="btn alt" type="button" id="copyBtn">Copy answers</button>
+    <button class="btn alt" type="button" id="printBtn">Print / PDF</button>
+  </span>
+</div>
+
+<script>
+const REVIEW = "https://yscabarney.github.io/Chem_ADV_Notes/atoms-elements-review.html";
+
+/* youtube: video id + official chapter times (seconds) from each video's own description */
+const OPTIONS = {
+  universe: {
+    title: 'Our Universe, Episode 4: "Elemental" (Netflix)',
+    connectTitle: "Why “Elemental” belongs in Unit 2",
+    connectLead: "In our unit you learned that the number of protons decides which element an atom is. This episode shows where those protons came from: hydrogen and helium formed after the Big Bang, and stars fused small nuclei into bigger ones to build heavier elements. Every element in your body was made that way, and scientists know what stars are made of by reading their light.",
+    links: [
+      ["#particles", "Subatomic particles & ions", "Protons identify the element. Fusing nuclei adds protons and makes a new element."],
+      ["#energy", "Energy levels, photons & emission", "Emission spectra are how scientists know which elements are in stars."],
+      ["#table", "The periodic table: regions & families", "Hydrogen and helium come first on the table and were made first in the universe."]
+    ],
+    netflix: "https://www.netflix.com/title/81243961",
+    parts: [
+      ["Before you watch", [
+        "Find hydrogen, helium, carbon, oxygen and iron on the periodic table. Write each one's symbol and atomic number.",
+        "Make a guess: where did the atoms in your body (like the calcium in your bones) originally come from?",
+        "An atom's identity depends on its number of protons. How could a star turn a small element into a bigger one?"
+      ]],
+      ["While you watch", [
+        "According to the episode, which elements formed first, soon after the Big Bang?",
+        "How do stars make heavier elements? Describe the process in your own words.",
+        "What happens to a big star at the end of its life, and how does that spread elements through space?",
+        "Name three elements the episode connects to living things, and what each one does.",
+        "What is the green sea turtle searching for, and why does it need it?",
+        "How does the episode connect the sea turtle's story to the stars?",
+        "Write down one fact from the episode that surprised you."
+      ]],
+      ["After you watch", [
+        {unit:true, q:"When two helium nuclei (2 protons each) fuse, the new nucleus has how many protons? Which element is that? Explain why fusion creates a new element instead of a bigger helium atom."},
+        {unit:true, q:"Nobody has ever visited a star. Using what you learned about energy levels and emission spectra, explain how scientists know which elements stars contain."},
+        "Was your guess about where your atoms came from correct? Explain what the episode means when it says the elements in living things came from stars.",
+        {long:true, q:"Claim, evidence, reasoning: Is it accurate to say that you are made of \"star stuff\"? Make a claim, give two pieces of evidence from the episode, and explain your reasoning in 3 to 5 sentences."}
+      ]]
+    ]
+  },
+
+  lead: {
+    title: 'Veritasium: "The Man Who Accidentally Killed the Most People in History"',
+    connectTitle: "Why this video belongs in Unit 2",
+    connectLead: "Clair Patterson found the age of the Earth by counting atoms. Uranium has 92 protons and lead has 82. As uranium's nucleus decays, it loses protons and becomes a different element, lead. That is our unit's idea that protons identify an element, used as a clock. The video also shows what happens when a company's money gets mixed up with science.",
+    links: [
+      ["#particles", "Subatomic particles & ions", "Protons identify the element. Isotopes differ in neutrons. Uranium decays into lead."],
+      ["#science", "The nature of science", "Contaminated data, independent measurements and replication decide who is right."],
+      ["#society", "Science and society", "Our reliable-sources checklist: what happens when a company pays for the science?"]
+    ],
+    yt: "IV3dnLzthDA",
+    chapters: [
+      [0,    "Intro", ""],
+      [173,  "Engine knocking", "4"],
+      [427,  "Tetraethyl lead", "5–6"],
+      [594,  "Lead poisoning", "7"],
+      [758,  "Measuring the age of the Earth", "8–9"],
+      [897,  "Lead in the environment", "10–12"],
+      [1349, "Conclusion", "13"]
+    ],
+    parts: [
+      ["Before you watch", [
+        "Find lead on the periodic table. Write its symbol and atomic number. Why do you think its symbol doesn't match its English name?",
+        "An isotope is a version of an element with a different number of neutrons. If uranium slowly turns into lead, what has to change inside the atom's nucleus?",
+        "Make a guess: how old is the Earth?"
+      ]],
+      ["While you watch", [
+        "Engine knocking (2:53): What problem were car engineers trying to solve?",
+        "Tetraethyl lead (7:07): What did Thomas Midgley add to gasoline to fix the problem?",
+        "Tetraethyl lead: What happened to some of the workers who made the additive, and how did the company respond?",
+        "Lead poisoning (9:54): How does lead harm the human body, especially in children?",
+        "Age of the Earth (12:38): Clair Patterson used atoms of which two elements to measure the age of the Earth?",
+        "Age of the Earth: What age did Patterson calculate?",
+        "Lead in the environment (14:57): Why did Patterson keep finding too much lead in his samples, and what did he do about it?",
+        "Lead in the environment: What did Patterson find when he compared old and recent layers of ice or ocean water?",
+        "Lead in the environment: What eventually happened to leaded gasoline?",
+        "Conclusion (22:29): The video says one scientist caused two environmental disasters. What was Midgley's second invention, and what did it damage?"
+      ]],
+      ["After you watch", [
+        {unit:true, q:"Uranium has 92 protons and lead has 82. Using what you learned about subatomic particles, explain why uranium turning into lead means it became a different element, not just a different isotope of uranium."},
+        {unit:true, q:"Our unit's reliable-sources checklist warns about studies paid for by a company selling the product. Use that checklist to compare the claims of the leaded-gasoline industry with Clair Patterson's work."},
+        {long:true, q:"Claim, evidence, reasoning: Was Thomas Midgley responsible for the harm his inventions caused, even though he didn't intend it? Make a claim, give one piece of evidence from the video, and explain your reasoning in 3 to 5 sentences."}
+      ]]
+    ]
+  },
+
+  quantum: {
+    title: 'NOVA: "Decoding the Universe: Quantum" (PBS)',
+    connectTitle: "Why “Quantum” belongs in Unit 2",
+    connectLead: "Our unit ended with the modern atom: electrons in clouds and energy levels, absorbing and giving off photons of exact energies. This documentary shows that same quantum behavior at work. Atomic clocks keep time by counting the exact frequency of light that makes a cesium or strontium electron jump energy levels, and that is how your phone's GPS knows where you are.",
+    links: [
+      ["#energy", "Energy levels, photons & emission", "Electrons jump between energy levels by absorbing or giving off exact photons. Atomic clocks count them."],
+      ["#quantum", "Electron clouds, orbitals & valence electrons", "The quantum mechanical model: probability, electron clouds and orbitals."],
+      ["#waves", "Waves & the electromagnetic spectrum", "Frequency and wavelength: cesium clocks use microwaves and strontium clocks use visible light."],
+      ["#models", "How the atomic model changed", "How evidence pushed scientists from Bohr's orbits to the quantum model."]
+    ],
+    yt: "t06aTX9jM34",
+    chapters: [
+      [0,    "Introduction", "4"],
+      [487,  "What is quantum mechanics?", "5–6"],
+      [955,  "Atomic clocks: the science of time", "7–10"],
+      [1601, "Detecting ripples in space-time", "11"],
+      [2257, "What is quantum entanglement?", "12–13"],
+      [3034, "Conclusion", ""]
+    ],
+    parts: [
+      ["Before you watch", [
+        "In our unit, what happens when an electron falls from a higher energy level to a lower one? What comes out?",
+        "Light acts like a wave and like a particle (a photon). Describe one piece of evidence for each.",
+        "Make a guess: how accurate do you think the best clocks in the world are?"
+      ]],
+      ["While you watch", [
+        "Introduction (0:00): Name one way tiny quantum particles behave differently from everyday objects.",
+        "What is quantum mechanics? (8:07): What is superposition? Give an example from the film.",
+        "What is quantum mechanics?: According to the film, what happens to a quantum particle when it is observed or measured?",
+        "Atomic clocks (15:55): Which element is used in standard atomic clocks?",
+        "Atomic clocks: What does an atomic clock actually count to keep time?",
+        "Atomic clocks: Why does GPS need extremely accurate clocks?",
+        "Atomic clocks: Newer, even more accurate clocks use a different element. Which one?",
+        "Ripples in space-time (26:41): What are gravitational waves, and how does LIGO detect them?",
+        "Quantum entanglement (37:37): What is entanglement, and why did Einstein call it \"spooky action at a distance\"?",
+        "Quantum entanglement: What is the difference between a regular bit and a qubit?"
+      ]],
+      ["After you watch", [
+        {unit:true, q:"Find cesium on the periodic table. What is its atomic number, which family is it in, and how many valence electrons does it have?"},
+        {unit:true, q:"Using energy levels and photons, explain why every cesium atom absorbs exactly the same frequency of light, and why that makes cesium a perfect timekeeper."},
+        {long:true, q:"Claim, evidence, reasoning: Which quantum idea from the film is hardest to believe, and what evidence convinced scientists it's true anyway? Make a claim, give evidence from the film, and explain your reasoning in 3 to 5 sentences."}
+      ]]
+    ]
+  },
+
+  bbc: {
+    title: 'BBC Earth Science: "The Extraordinary Stories Behind the Elements"',
+    connectTitle: "Why this documentary belongs in Unit 2",
+    connectLead: "In our unit you learned that an element's place on the periodic table predicts how it behaves. This documentary tells the stories of five elements. Helium is a noble gas that won't react. Nitrogen and phosphorus share a column (group 15). Gold is a famously unreactive metal. Hydrogen is the simplest atom of all. Watch for how each element's place on the table explains its story.",
+    links: [
+      ["#table", "The periodic table: regions & families", "Noble gases, the nitrogen family and transition metals like gold."],
+      ["#quantum", "Electron clouds, orbitals & valence electrons", "Valence electrons explain why helium never reacts and why hydrogen does."],
+      ["#trends", "Periodic trends", "Reactivity patterns across periods and down groups."],
+      ["#society", "Science and society", "How discoveries about elements can help or harm people."]
+    ],
+    yt: "OhZtpAuAD8Y",
+    chapters: [
+      [0,    "The story of gold", "3–4"],
+      [570,  "Hydrogen and energy", "5–6"],
+      [1077, "Helium's significance", "7–8"],
+      [1658, "Nitrogen's paradox", "9–10"],
+      [2290, "Phosphorus and food", "11–12"]
+    ],
+    parts: [
+      ["Before you watch", [
+        "Find gold, hydrogen, helium, nitrogen and phosphorus on the periodic table. Write each one's symbol and atomic number.",
+        "Make a prediction: which of these five elements do you think is most important to human life, and why?"
+      ]],
+      ["While you watch", [
+        "Gold (0:00): Why have people valued gold for so long? Name at least two of its properties.",
+        "Gold: Retell one story from the documentary about gold.",
+        "Hydrogen (9:30): How is hydrogen connected to energy?",
+        "Hydrogen: Describe one way hydrogen could be used as a fuel, and one problem with using it.",
+        "Helium (17:57): Why is helium significant? Describe one use from the documentary.",
+        "Helium: What does the documentary say about Earth's supply of helium?",
+        "Nitrogen (27:38): The chapter is called \"Nitrogen's paradox.\" How can nitrogen both help and harm people?",
+        "Nitrogen: Most of the air is nitrogen. Why can't plants just use it directly from the air?",
+        "Phosphorus (38:10): Why do living things, and the crops we eat, need phosphorus?",
+        "Phosphorus: What problem with phosphorus does the documentary warn about?"
+      ]],
+      ["After you watch", [
+        {unit:true, q:"Helium is a noble gas. Use valence electrons to explain why helium doesn't react, and why that makes it safer than hydrogen for balloons and airships."},
+        {unit:true, q:"Nitrogen and phosphorus are in the same group (group 15). How many valence electrons does each have? Why would elements in the same group behave in similar ways?"},
+        {long:true, q:"Claim, evidence, reasoning: Which of the five elements matters most for humanity's future? Make a claim, give evidence from the documentary, and explain your reasoning in 3 to 5 sentences."}
+      ]]
+    ]
+  }
+};
+
+/* storage: wrapped so the page still works when it is blocked (private windows, some iframes) */
+const KEY = "elements-on-screen-v2";
+const canStore = (() => { try{ localStorage.setItem(KEY + "-probe", "1"); const ok = localStorage.getItem(KEY + "-probe") === "1"; localStorage.removeItem(KEY + "-probe"); return ok; }catch(e){ return false; } })();
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY)) || {}; }catch(e){ return {}; } }
+function save(){
+  let ok = false;
+  try{ localStorage.setItem(KEY, JSON.stringify(state)); ok = localStorage.getItem(KEY) === JSON.stringify(state); }catch(e){}
+  const s = document.getElementById("status");
+  if(s){ s.textContent = ok ? "Saved ✓ " + new Date().toLocaleTimeString([], {hour:"numeric", minute:"2-digit"}) : "Not saved: turn in before closing"; s.classList.toggle("bad", !ok); }
+  return ok;
+}
+const state = Object.assign({name:"", pick:null, answers:{}}, load());
+if(state.pick && !OPTIONS[state.pick]) state.pick = null;
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt = s => Math.floor(s/60) + ":" + String(s%60).padStart(2,"0");
+const ytSrc = (id, start, play) => `https://www.youtube-nocookie.com/embed/${id}?rel=0&start=${start||0}${play ? "&autoplay=1" : ""}`;
+
+function questionsFor(id){
+  const out = []; let n = 0;
+  OPTIONS[id].parts.forEach(([part, qs]) => qs.forEach(q => {
+    const o = typeof q === "string" ? {q} : q;
+    out.push(Object.assign({part, n:++n, key:id+"-"+n}, o));
+  }));
+  return out;
+}
+
+function whereHTML(o){
+  if(o.netflix) return `
+    <div class="find">
+      <div><b>Watch on Netflix</b>Open <em>Our Universe</em> and choose <strong>Episode 4, “Elemental.”</strong> You'll need a Netflix account.<br><a class="go" href="${o.netflix}" target="_blank" rel="noopener">Open on Netflix ↗</a></div>
+      <div><b>Timestamps</b>Watch the whole episode (about 43 minutes). The episode switches between scenes in space and the sea turtle's journey, and the questions follow the order of the episode. Netflix doesn't show chapter markers, so no timestamps are needed.</div>
+    </div>`;
+  return `
+    <div class="video"><iframe id="player" src="${ytSrc(o.yt)}" title="${esc(o.title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+    <p class="note">If the video won't play here, <a href="https://www.youtube.com/watch?v=${o.yt}" target="_blank" rel="noopener">open it on YouTube ↗</a>.</p>
+    <h3>Timestamps</h3>
+    <p>These are the video's official chapters. Click a time to jump there. The questions for each chapter are listed beside it.</p>
+    <div style="overflow-x:auto"><table>
+      <thead><tr><th>Time</th><th>Chapter</th><th>Questions</th></tr></thead>
+      <tbody>${o.chapters.map(([s, name, qs]) =>
+        `<tr><td class="t"><button class="ts" type="button" data-t="${s}" aria-label="Play from ${fmt(s)}">${fmt(s)}</button></td><td>${esc(name)}</td><td>${qs ? `<span class="qref">Q ${qs}</span>` : ""}</td></tr>`).join("")}</tbody>
+    </table></div>`;
+}
+
+function render(){
+  document.querySelectorAll(".choice").forEach(b => b.setAttribute("aria-pressed", b.dataset.pick === state.pick));
+  const id = state.pick;
+  $("#work").classList.toggle("hidden", !id);
+  $("#bar").classList.toggle("hidden", !id);
+  if(!id) return;
+  const o = OPTIONS[id];
+
+  $("#connectTitle").textContent = o.connectTitle;
+  $("#connectLead").textContent = o.connectLead;
+  $("#connectLinks").innerHTML = o.links.map(([hash, t, d]) =>
+    `<a href="${REVIEW}${hash}" target="_blank" rel="noopener"><b>${esc(t)} ↗</b><span>${esc(d)}</span></a>`).join("");
+
+  $("#whereTitle").textContent = o.title;
+  $("#whereBody").innerHTML = whereHTML(o);
+
+  let html = "", lastPart = "";
+  questionsFor(id).forEach(q => {
+    if(q.part !== lastPart){ html += `<p class="part">${esc(q.part)}</p>`; lastPart = q.part; }
+    html += `<div class="q${q.unit ? " unit" : ""}"><label for="${q.key}"><span class="n">Q${q.n}</span>${esc(q.q)}</label>
+      <textarea id="${q.key}" data-key="${q.key}"${q.long ? ' class="long"' : ""}>${esc(state.answers[q.key] || "")}</textarea></div>`;
+  });
+  $("#qList").innerHTML = html;
+  progress();
+  refreshExport();
+}
+
+function progress(){
+  if(!state.pick) return;
+  const qs = questionsFor(state.pick);
+  const done = qs.filter(q => (state.answers[q.key] || "").trim()).length;
+  $("#progText").textContent = `${done} of ${qs.length} answered`;
+  $("#meter").style.width = (100 * done / qs.length) + "%";
+}
+
+function exportText(){
+  const o = OPTIONS[state.pick];
+  const lines = [
+    "ELEMENTS ON SCREEN · Unit 2 choice assignment",
+    "Name: " + (state.name || "(no name)"),
+    "Choice: " + o.title,
+    ""
+  ];
+  let lastPart = "";
+  questionsFor(state.pick).forEach(q => {
+    if(q.part !== lastPart){ lines.push("", "== " + q.part.toUpperCase() + " =="); lastPart = q.part; }
+    lines.push("", `Q${q.n}${q.unit ? " (Unit 2)" : ""}. ${q.q}`, "Answer: " + ((state.answers[q.key] || "").trim() || "(blank)"));
+  });
+  return lines.join("\n");
+}
+
+function refreshExport(){ if(state.pick) $("#exportBox").value = exportText(); }
+
+/* copy: clipboard API first; Canvas iframes often block it, so fall back to execCommand, then to selecting the box for the student */
+async function copyAnswers(){
+  const text = exportText(), msg = $("#copyMsg");
+  $("#exportBox").value = text;
+  try{ await navigator.clipboard.writeText(text); msg.textContent = "Copied ✓ Now paste it into the Canvas Text Entry box."; return; }catch(e){}
+  try{
+    const box = $("#exportBox"); box.focus(); box.select();
+    if(document.execCommand("copy")){ msg.textContent = "Copied ✓ Now paste it into the Canvas Text Entry box."; return; }
+  }catch(e){}
+  $("#exportBox").focus(); $("#exportBox").select();
+  msg.textContent = "Your browser blocked the button. Your answers are selected in the box below, so press Ctrl+C (Cmd+C) to copy.";
+}
+
+/* events */
+$("#studentName").value = state.name;
+$("#studentName").addEventListener("input", e => { state.name = e.target.value; save(); refreshExport(); });
+
+/* inside Canvas (an iframe): offer the page in its own tab */
+let framed = false; try{ framed = window.self !== window.top; }catch(e){ framed = true; }
+if(framed){ $("#frameNote").classList.remove("hidden"); $("#ownTab").href = location.href.split("#")[0]; }
+if(!canStore){
+  $("#noSave").classList.remove("hidden");
+  window.addEventListener("beforeunload", e => {
+    if(Object.values(state.answers).some(v => v.trim())){ e.preventDefault(); e.returnValue = ""; }
+  });
+}
+
+document.querySelectorAll(".choice").forEach(b => b.addEventListener("click", () => {
+  const id = b.dataset.pick;
+  if(state.pick && state.pick !== id){
+    const started = questionsFor(state.pick).some(q => (state.answers[q.key] || "").trim());
+    if(started && !confirm("Switch your pick? Your answers for the other one stay saved on this device, but you only turn in one.")) return;
+  }
+  state.pick = id; save(); render();
+  $("#connect").scrollIntoView({behavior:"smooth"});
+}));
+
+$("#qList").addEventListener("input", e => {
+  if(e.target.dataset.key){ state.answers[e.target.dataset.key] = e.target.value; save(); progress(); refreshExport(); }
+});
+
+$("#whereBody").addEventListener("click", e => {
+  const b = e.target.closest("button.ts"); if(!b) return;
+  $("#player").src = ytSrc(OPTIONS[state.pick].yt, +b.dataset.t, true);
+  $("#player").scrollIntoView({behavior:"smooth", block:"center"});
+});
+
+$("#dlBtn").addEventListener("click", () => {
+  try{
+    const blob = new Blob([exportText()], {type:"text/plain"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "Elements on Screen - " + (state.name.trim() || "answers") + ".txt";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  }catch(e){}
+});
+
+$("#copyBtn").addEventListener("click", () => { $("#turnin").scrollIntoView({behavior:"smooth"}); copyAnswers(); });
+$("#copyBig").addEventListener("click", copyAnswers);
+
+$("#printBtn").addEventListener("click", () => window.print());
+
+render();
+</script>
+</body>
+</html>
