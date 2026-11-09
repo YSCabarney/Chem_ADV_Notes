@@ -1513,24 +1513,9 @@ function buildLewis() {
   const col  = COLORS[sel] || '#4fc3f7';
   const sides = ['top','right','bottom','left'];
 
-  // Track which dots land where
-  // dots 1-4 go one per side; dots 5-8 pair with their side
+  // Build dots: sides 0-3 get one dot each for valence 1-4;
+  // sides that also have a pair (valence 5-8) shift the single and add a second.
   let dotHtml = '';
-  for (let i = 0; i < v; i++) {
-    const side = sides[i % 4];
-    const isPair = i >= 4;
-    if (isPair) {
-      // Replace first dot on this side with shifted version, add second
-      dotHtml += `<div style="${SIDE_SINGLE_SHIFTED[side].replace('COLOR', col)}"></div>`;
-      dotHtml += `<div style="${SIDE_PAIR[side].replace('COLOR', col)}"></div>`;
-    } else {
-      dotHtml += `<div style="${SIDE_SINGLE[side].replace('COLOR', col)}"></div>`;
-    }
-  }
-
-  // Fix: when dots 5-8 are present, their single-dot counterparts from round 1
-  // also need to be shifted. We'll regenerate all dots cleanly:
-  dotHtml = '';
   const sides_hasPair = [v >= 5, v >= 6, v >= 7, v >= 8];
   for (let i = 0; i < 4; i++) {
     if (i >= v) break; // this side has no dot at all
