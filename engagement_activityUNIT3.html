@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's In Your Sweat? — Chemistry Activity</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f1a;
+    --surface: #131926;
+    --surface2: #1a2235;
+    --border: #263045;
+    --accent: #38bdf8;
+    --gold: #fbbf24;
+    --green: #34d399;
+    --purple: #a78bfa;
+    --text: #e2e8f0;
+    --muted: #64748b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #0c1445 0%, #1e3a5f 55%, #0c1445 100%);
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(56,189,248,.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero .sub {
+    color: #94a3b8;
+    font-size: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .wrapper {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 48px 24px 72px;
+  }
+
+  .sec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: block;
+  }
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .card p { font-size: 15px; color: var(--text); }
+  .card p + p { margin-top: 12px; }
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  /* HOOK */
+  .hook {
+    background: linear-gradient(135deg, rgba(251,191,36,.07), rgba(56,189,248,.05));
+    border: 1px solid rgba(251,191,36,.22);
+    border-left: 3px solid var(--gold);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+  .hook p { font-size: 15px; color: var(--text); }
+  .hook p + p { margin-top: 12px; }
+  .hook strong { color: var(--gold); }
+
+  /* BIG QUESTION */
+  .big-q {
+    background: rgba(56,189,248,.07);
+    border: 1px solid rgba(56,189,248,.25);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 24px 0;
+    text-align: center;
+  }
+  .big-q .bq-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .big-q p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.5;
+  }
+
+  /* COMPOUNDS TABLE */
+  .compounds-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .compounds-table th {
+    padding: 10px 14px;
+    background: rgba(255,255,255,.04);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .compounds-table td {
+    padding: 13px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+  .compounds-table td:first-child {
+    font-family: 'DM Mono', monospace;
+    color: var(--accent);
+    white-space: nowrap;
+    font-size: 15px;
+  }
+  .compounds-table td:nth-child(2) { color: #fff; font-weight: 500; }
+  .compounds-table tr:last-child td { border-bottom: none; }
+
+  /* WHAT YOU KNOW BOX */
+  .know-box {
+    background: rgba(52,211,153,.06);
+    border: 1px solid rgba(52,211,153,.2);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+  .know-box .kb-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--green);
+    margin-bottom: 14px;
+    display: block;
+  }
+  .know-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+  .know-item:last-child { margin-bottom: 0; }
+  .know-dot {
+    width: 8px; height: 8px;
+    min-width: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    margin-top: 8px;
+  }
+  .know-item p { color: var(--text); }
+  .know-item strong { color: #fff; }
+
+  /* TASK BLOCK */
+  .task-block {
+    background: rgba(167,139,250,.07);
+    border: 1px solid rgba(167,139,250,.25);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 24px 0;
+  }
+  .task-block .tb-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--purple);
+    margin-bottom: 20px;
+    display: block;
+  }
+  .task {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 24px;
+    align-items: flex-start;
+  }
+  .task:last-child { margin-bottom: 0; }
+  .task-num {
+    min-width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--purple);
+    color: #0a0f1a;
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .task-num.bonus { background: var(--gold); }
+  .task-body h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .task-body p { font-size: 15px; color: var(--text); }
+  .task-body p + p { margin-top: 8px; }
+
+  /* DISCUSSION QUESTIONS */
+  .dq-block {
+    background: rgba(52,211,153,.06);
+    border: 1px solid rgba(52,211,153,.2);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 24px 0;
+  }
+  .dq-block .dq-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--green);
+    margin-bottom: 20px;
+    display: block;
+  }
+  .dq-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(52,211,153,.1);
+    align-items: flex-start;
+  }
+  .dq-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .dq-num {
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(52,211,153,.15);
+    border: 1px solid rgba(52,211,153,.3);
+    color: var(--green);
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .dq-item p { color: var(--text); font-size: 15px; line-height: 1.65; }
+
+  .footer {
+    text-align: center;
+    padding: 28px;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-eyebrow">Chemistry · Introduction Activity</span>
+  <h1>What's Really In <em>Your Sweat?</em></h1>
+  <p class="sub">Using what you already know about atoms and electrons to start asking bigger questions about how matter is put together</p>
+</div>
+
+<div class="wrapper">
+
+  <!-- HOOK -->
+  <div class="hook">
+    <p>You're in the 85th minute. The match is tied. Your legs feel like concrete, you're cramping, and your brain is starting to fog. Your coach sends in a sub — but not before handing you a bottle of Gatorade.</p>
+    <p>Here's the question: <strong>what is actually in that bottle, and why does it help?</strong></p>
+    <p>The answer has everything to do with atoms — which you already know something about. Today we're going to use what you know to start building toward a much bigger idea: how atoms connect to each other to form the substances that make up everything around you, including your own body.</p>
+  </div>
+
+  <!-- WHAT THEY ALREADY KNOW -->
+  <span class="sec-label">Your Starting Point</span>
+  <h2>What You Already Know</h2>
+
+  <div class="know-box">
+    <span class="kb-label">✅ Background You're Bringing Into This</span>
+    <div class="know-item">
+      <div class="know-dot"></div>
+      <p><strong>Atoms</strong> are made of protons, neutrons, and electrons. The number of protons determines what element it is.</p>
+    </div>
+    <div class="know-item">
+      <div class="know-dot"></div>
+      <p><strong>Electrons</strong> are arranged in energy levels (shells) around the nucleus. The outermost electrons are the most important for how an atom behaves.</p>
+    </div>
+    <div class="know-item">
+      <div class="know-dot"></div>
+      <p><strong>The periodic table</strong> is organized by those outer electrons — elements in the same column behave similarly because they have the same number of outer electrons.</p>
+    </div>
+    <div class="know-item">
+      <div class="know-dot"></div>
+      <p><strong>Electron configuration</strong> tells you exactly how electrons are distributed across an atom's energy levels.</p>
+    </div>
+  </div>
+
+  <!-- THE BIG QUESTION -->
+  <div class="big-q">
+    <span class="bq-label">The Question This Unit Will Answer</span>
+    <p>If atoms are the building blocks, how do they stick together to form the substances that actually exist in the world — water, salt, sugar, the air you breathe, the proteins in your muscles?</p>
+  </div>
+
+  <!-- COMPOUNDS TABLE -->
+  <span class="sec-label" style="margin-top:40px; display:block;">The Science</span>
+  <h2>What's Actually in Sweat &amp; Sports Drinks</h2>
+
+  <div class="card">
+    <p>Scientists have analyzed sweat from elite soccer players during high-intensity matches. Players can lose 2–3 liters of sweat per match — and what leaves with that fluid isn't just water. It's a mix of different substances, each one made of specific atoms arranged in a specific way.</p>
+    <p>Look at the table below. You'll notice that each substance has a <strong>chemical formula</strong> — a shorthand that tells you exactly which atoms are in it, and how many of each.</p>
+  </div>
+
+  <div class="card" style="padding: 0; overflow: hidden;">
+    <table class="compounds-table">
+      <tr>
+        <th>Formula</th>
+        <th>Substance</th>
+        <th>What it does in your body during a match</th>
+      </tr>
+      <tr>
+        <td>NaCl</td>
+        <td>Sodium chloride (table salt)</td>
+        <td>Maintains fluid balance; the main substance lost in sweat</td>
+      </tr>
+      <tr>
+        <td>KCl</td>
+        <td>Potassium chloride</td>
+        <td>Keeps muscles contracting and heart rhythm steady</td>
+      </tr>
+      <tr>
+        <td>MgSO₄</td>
+        <td>Magnesium sulfate</td>
+        <td>Prevents cramping; supports many chemical reactions in cells</td>
+      </tr>
+      <tr>
+        <td>C₆H₁₂O₆</td>
+        <td>Glucose (sugar)</td>
+        <td>Direct fuel for muscles and the brain</td>
+      </tr>
+      <tr>
+        <td>H₂O</td>
+        <td>Water</td>
+        <td>Carries everything; regulates body temperature</td>
+      </tr>
+      <tr>
+        <td>NaHCO₃</td>
+        <td>Sodium bicarbonate</td>
+        <td>Neutralizes acid buildup in muscles; delays that burning feeling in your legs</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- TASKS -->
+  <span class="sec-label" style="margin-top:40px; display:block;">Your Tasks</span>
+  <h2>Breakout Room — Work Through These Together</h2>
+
+  <div class="task-block">
+    <span class="tb-label">📋 Pick ONE substance from the table. Work through the questions below for that substance.</span>
+
+    <div class="task">
+      <div class="task-num">1</div>
+      <div class="task-body">
+        <h4>Read the formula. What atoms are in your substance, and how many of each?</h4>
+        <p>Use the chemical formula — each letter represents a different element, and the number after a letter tells you how many atoms of that element are present. If there's no number, it means 1.</p>
+        <p>Example: H₂O means 2 hydrogen atoms and 1 oxygen atom.</p>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-num">2</div>
+      <div class="task-body">
+        <h4>Look up your elements on the periodic table. What do you notice about them?</h4>
+        <p>Find each element in your formula on the periodic table. Note which group (column) each one is in. Are they metals, nonmetals, or a mix? Are they close together on the table or far apart? What does their position tell you about their outer electrons?</p>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-num">3</div>
+      <div class="task-body">
+        <h4>Here's the big mystery: these atoms don't just sit next to each other — they're held together somehow. What do you think is doing that?</h4>
+        <p>You know that atoms have electrons in their outer shells. You know that the periodic table is organized by those outer electrons. Based on that — what's your best guess for what's holding these atoms together in your substance? You don't need a right answer. Just reason it out with your group.</p>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-num">4</div>
+      <div class="task-body">
+        <h4>What would actually happen to a player if your substance completely disappeared from every sports drink on Earth right before a big match?</h4>
+        <p>Be as specific as you can. Use what you know from your own experience as a player — you've likely felt some of these effects before. This is the "so what" of chemistry: it always connects back to something real.</p>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-num bonus">★</div>
+      <div class="task-body">
+        <h4>Bonus — if your group has time:</h4>
+        <p>Look at all six substances in the table. Some have only two or three different atoms. Some, like glucose (C₆H₁₂O₆), have a lot. Why do you think some substances are simple and others are complex? What might that mean for how hard or easy they are for the body to use?</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DISCUSSION QUESTIONS -->
+  <span class="sec-label" style="margin-top:40px; display:block;">Report Back</span>
+  <h2>Discussion Questions</h2>
+
+  <div class="dq-block">
+    <span class="dq-label">💬 Be ready to share your group's thinking — there are no wrong answers here</span>
+
+    <div class="dq-item">
+      <div class="dq-num">1</div>
+      <p>Which substance did your group pick? Walk us through the atoms in its formula.</p>
+    </div>
+    <div class="dq-item">
+      <div class="dq-num">2</div>
+      <p>What did you notice about where your elements sit on the periodic table? Anything interesting?</p>
+    </div>
+    <div class="dq-item">
+      <div class="dq-num">3</div>
+      <p>What was your group's best guess for what holds those atoms together? What made you think that?</p>
+    </div>
+    <div class="dq-item">
+      <div class="dq-num">4</div>
+      <p>What would happen on the pitch without your substance? Walk us through it like you've actually felt it.</p>
+    </div>
+    <div class="dq-item">
+      <div class="dq-num">5</div>
+      <p>Big picture: before today, did you think about Gatorade as a chemistry problem? What's one thing that hits different now?</p>
+    </div>
+  </div>
+
+</div><!-- /wrapper -->
+
+<div class="footer">
+  <p>What's In Your Sweat? &nbsp;·&nbsp; Molecules &amp; Bonding Introduction &nbsp;·&nbsp; YSC Academy</p>
+</div>
+
+</body>
+</html>

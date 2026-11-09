@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Molecules & Bonding — Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1f2535;
+    --border: #2a3045;
+    --accent: #4fc3f7;
+    --accent2: #81d4fa;
+    --gold: #ffd54f;
+    --green: #69f0ae;
+    --red: #ef5350;
+    --purple: #ce93d8;
+    --text: #e8eaf6;
+    --muted: #90a4ae;
+    --ionic: #ff7043;
+    --covalent: #42a5f5;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* FIX: scroll-padding so sticky nav doesn't cover anchors */
+  html { scroll-padding-top: 52px; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0d1b2a 0%, #1a237e 50%, #0d1b2a 100%);
+    padding: 60px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(79,195,247,.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+  .hero p {
+    color: var(--muted);
+    max-width: 540px;
+    margin: 0 auto 24px;
+    font-size: 15px;
+  }
+  .atom-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .atom-badge {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 18px;
+    animation: float 3s ease-in-out infinite;
+  }
+  .atom-badge:nth-child(2) { animation-delay: .4s; }
+  .atom-badge:nth-child(3) { animation-delay: .8s; }
+  .atom-badge:nth-child(4) { animation-delay: 1.2s; }
+  .atom-badge:nth-child(5) { animation-delay: 1.6s; }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* ── NAV ── */
+  .nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 14px 16px;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color .2s, border-color .2s;
+  }
+  .nav a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── LAYOUT ── */
+  .wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 56px 0 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .review-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    background: rgba(255,213,79,.15);
+    color: var(--gold);
+    border: 1px solid rgba(255,213,79,.3);
+    padding: 2px 10px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+  .card p, .card li {
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .card p + p { margin-top: 10px; }
+  .card ul { padding-left: 20px; margin-top: 6px; }
+  .card ul li { margin-bottom: 6px; }
+
+  /* ── REAL WORLD CALLOUT ── */
+  .rw-callout {
+    background: linear-gradient(135deg, rgba(105,240,174,.07), rgba(79,195,247,.07));
+    border: 1px solid rgba(105,240,174,.25);
+    border-left: 3px solid var(--green);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .rw-callout .rw-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--green);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .rw-callout p { font-size: 15px; color: var(--text); }
+  .rw-callout p + p { margin-top: 8px; }
+  .rw-callout strong { color: var(--green); }
+
+  /* ── BOND COMPARE ── */
+  .bond-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+  @media (max-width: 540px) { .bond-grid { grid-template-columns: 1fr; } }
+  .bond-card {
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid;
+  }
+  .bond-card.ionic {
+    background: rgba(255,112,67,.07);
+    border-color: rgba(255,112,67,.3);
+  }
+  .bond-card.covalent {
+    background: rgba(66,165,245,.07);
+    border-color: rgba(66,165,245,.3);
+  }
+  .bond-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .bond-card.ionic h3 { color: var(--ionic); }
+  .bond-card.covalent h3 { color: var(--covalent); }
+  .bond-card ul { padding-left: 18px; }
+  .bond-card ul li { margin-bottom: 8px; font-size: 14px; color: var(--text); }
+
+  /* ── COMPARE TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .compare-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .compare-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-size: 15px;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table td:first-child { color: var(--muted); font-weight: 500; }
+  .compare-table td.ionic-cell { color: var(--ionic); font-weight: 500; }
+  .compare-table td.cov-cell { color: var(--covalent); font-weight: 500; }
+
+  /* ── SCAFFOLDING STEPS ── */
+  .scaffold {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+  .scaffold-header {
+    padding: 14px 20px;
+    background: rgba(255,255,255,.04);
+    border-bottom: 1px solid var(--border);
+  }
+  .scaffold-header span {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .step {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 32px; height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #0f1117;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-num.gold { background: var(--gold); }
+  .step-content { flex: 1; min-width: 0; }
+  .step-content h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .step-content p { font-size: 14px; color: var(--text); line-height: 1.65; }
+  .step-content p + p { margin-top: 6px; }
+  .example {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    background: rgba(79,195,247,.08);
+    border: 1px solid rgba(79,195,247,.2);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-top: 8px;
+    color: var(--accent2);
+    display: block;
+    word-break: break-word;
+    line-height: 1.6;
+  }
+
+  /* ── LEWIS DOT STATIC DEMOS ── */
+  .lewis-demo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 36px 28px;
+    background: var(--surface2);
+    border-radius: 12px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+  .lewis-atom {
+    text-align: center;
+  }
+  /* FIX: Use a larger box with explicit overflow visible so dots don't clip */
+  .lewis-atom .el-wrap {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+  }
+  .lewis-atom .el-sym {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+  }
+  /* Dots are absolutely positioned relative to .el-wrap */
+  .ldot {
+    width: 9px; height: 9px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: absolute;
+  }
+  /* Single positions — centered on each side */
+  .ldot.top    { top: 0;    left: 50%; transform: translateX(-50%); }
+  .ldot.right  { right: 0;  top: 50%;  transform: translateY(-50%); }
+  .ldot.bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
+  .ldot.left   { left: 0;   top: 50%;  transform: translateY(-50%); }
+  /* Pair positions — two dots side by side on each edge */
+  .ldot.top-a    { top: 0;    left: calc(50% - 8px); }
+  .ldot.top-b    { top: 0;    left: calc(50% + 2px); }
+  .ldot.right-a  { right: 0;  top: calc(50% - 8px); }
+  .ldot.right-b  { right: 0;  top: calc(50% + 2px); }
+  .ldot.bottom-a { bottom: 0; left: calc(50% - 8px); }
+  .ldot.bottom-b { bottom: 0; left: calc(50% + 2px); }
+  .ldot.left-a   { left: 0;   top: calc(50% - 8px); }
+  .ldot.left-b   { left: 0;   top: calc(50% + 2px); }
+
+  .lewis-atom .label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 14px;
+    display: block;
+    white-space: nowrap;
+  }
+
+  /* ── INTERACTIVE LEWIS BUILDER ── */
+  .lewis-builder {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+  .lewis-builder h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .lb-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .lb-select {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    flex: 1;
+    min-width: 160px;
+    appearance: auto;
+  }
+  .lb-btn {
+    background: var(--accent);
+    color: #0f1117;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: opacity .2s;
+    flex-shrink: 0;
+  }
+  .lb-btn:hover { opacity: .85; }
+  /* FIX: larger min-height so tall diagrams don't clip */
+  .lb-display {
+    min-height: 160px;
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 32px 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lb-result { text-align: center; }
+  /* FIX: larger symbol box, overflow visible */
+  .lb-sym-wrap {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    margin: 0 auto 20px;
+  }
+  .lb-sym-text {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+  }
+  .lb-info {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-top: 4px;
+  }
+
+  /* ── IONIC BOND ANIMATION ── */
+  .ionic-anim-wrap {
+    background: var(--surface2);
+    border-radius: 12px;
+    margin: 16px 0;
+    overflow: hidden;
+  }
+  .ionic-anim {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 48px 32px 52px; /* FIX: extra bottom padding for ion labels */
+    flex-wrap: wrap;
+    row-gap: 48px;
+  }
+  .ion-atom {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    position: relative;
+    /* FIX: transition both transform AND background */
+    transition: transform .5s ease, background .5s ease;
+  }
+  .ion-label {
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    white-space: nowrap;
+    color: var(--muted);
+    pointer-events: none;
+  }
+  .ion-arrow {
+    font-size: 1.5rem;
+    color: var(--gold);
+  }
+  .ion-result {
+    text-align: center;
+    opacity: 0;
+    /* FIX: transition set before it's needed */
+    transition: opacity .6s ease;
+  }
+  .ion-result.visible { opacity: 1; }
+  .ion-result-formula {
+    font-size: 1.2rem;
+    font-family: 'DM Mono', monospace;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .ion-result-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .ion-result-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .result-arrow {
+    font-size: 1.5rem;
+    color: var(--gold);
+    opacity: 0;
+    transition: opacity .4s ease;
+  }
+  .result-arrow.visible { opacity: 1; }
+  #ionic-anim-btn {
+    display: block;
+    width: 100%;
+    background: rgba(255,255,255,.04);
+    border: none;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    transition: color .2s, background .2s;
+    text-align: center;
+  }
+  #ionic-anim-btn:hover { color: var(--accent); background: rgba(79,195,247,.05); }
+
+  /* ── POLYATOMIC TABLE ── */
+  .poly-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .poly-table th {
+    background: rgba(255,255,255,.04);
+    color: var(--muted);
+    padding: 10px 16px;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .poly-table td {
+    padding: 11px 16px;
+    border-top: 1px solid var(--border);
+    color: var(--text);
+    font-size: 15px;
+    vertical-align: middle;
+  }
+  .poly-table td:first-child {
+    font-family: 'DM Mono', monospace;
+    color: var(--purple);
+    font-size: 15px;
+  }
+
+  /* ── BOND TYPE VISUAL ── */
+  .bond-visual {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 24px;
+    background: var(--surface2);
+    border-radius: 12px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .bond-type { text-align: center; }
+  .bond-type .bt-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1px;
+  }
+  .bond-type .bt-formula {
+    font-size: 1.8rem;
+    font-family: 'DM Mono', monospace;
+    font-weight: 700;
+  }
+  .bond-type .bt-name { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+  /* ── POLAR / NONPOLAR ── */
+  .polarity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  @media (max-width: 540px) { .polarity-grid { grid-template-columns: 1fr; } }
+  .polarity-card { border-radius: 10px; padding: 20px; border: 1px solid; }
+  .polarity-card.nonpolar { background: rgba(105,240,174,.06); border-color: rgba(105,240,174,.2); }
+  .polarity-card.polar { background: rgba(206,147,216,.06); border-color: rgba(206,147,216,.2); }
+  .polarity-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .polarity-card.nonpolar h4 { color: var(--green); }
+  .polarity-card.polar h4 { color: var(--purple); }
+  .polarity-card p { font-size: 14px; color: var(--text); line-height: 1.65; }
+  .polarity-card .mono { font-family: 'DM Mono', monospace; font-size: 1rem; margin-top: 10px; display: block; }
+
+  /* ── CONCEPT CONNECTIONS ── */
+  .connections {
+    background: linear-gradient(135deg, rgba(26,35,126,.4), rgba(13,27,42,.6));
+    border: 1px solid rgba(79,195,247,.2);
+    border-radius: 14px;
+    padding: 28px;
+    margin: 32px 0;
+  }
+  .connections h3 { font-size: 1.1rem; font-weight: 700; color: var(--accent); margin-bottom: 16px; }
+  .conn-item {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(79,195,247,.1);
+    align-items: flex-start;
+  }
+  .conn-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .conn-emoji { font-size: 1.3rem; min-width: 32px; padding-top: 2px; }
+  .conn-text { font-size: 14px; color: var(--text); line-height: 1.65; }
+  .conn-text strong { color: #fff; }
+
+  /* ── QUICK CHECK — FIX toggle layout ── */
+  .quiz-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+  .quiz-block .qb-header {
+    padding: 14px 20px;
+    background: rgba(255,255,255,.03);
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+  }
+  .quiz-q {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+  }
+  .quiz-q:last-child { border-bottom: none; }
+  /* FIX: Use flex row instead of float so toggle never overlaps text */
+  .quiz-q-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .q-toggle {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.07);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .25s, color .2s, background .2s;
+    flex-shrink: 0;
+    margin-top: 1px;
+    line-height: 1;
+  }
+  .quiz-q.open .q-toggle {
+    transform: rotate(45deg);
+    color: var(--green);
+    background: rgba(105,240,174,.1);
+    border-color: var(--green);
+  }
+  .q-text { font-size: 15px; color: var(--text); line-height: 1.6; flex: 1; }
+  .q-answer {
+    display: none;
+    margin-top: 12px;
+    margin-left: 38px; /* align under text, past the toggle */
+    padding: 14px 16px;
+    background: rgba(105,240,174,.07);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--text);
+    border-left: 2px solid var(--green);
+    line-height: 1.65;
+  }
+  .q-answer strong { color: var(--green); }
+  .quiz-q.open .q-answer { display: block; }
+  .quiz-q:hover .q-toggle { border-color: var(--muted); }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .footer span { color: var(--accent); }
+
+  sub { font-size: 0.75em; vertical-align: sub; }
+  sup { font-size: 0.75em; vertical-align: super; }
+
+  .term {
+    color: var(--accent2);
+    font-weight: 600;
+    border-bottom: 1px dashed rgba(129,212,250,.4);
+    cursor: default;
+  }
+  .term-ionic { color: var(--ionic); border-color: rgba(255,112,67,.4); }
+  .term-cov { color: var(--covalent); border-color: rgba(66,165,245,.4); }
+
+  .chem {
+    font-family: 'DM Mono', monospace;
+    font-size: 1em;
+    color: var(--accent2);
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════ HERO ══════════════════════════ -->
+<div class="hero">
+  <span class="hero-label">Chemistry · Unit Study Guide</span>
+  <h1>Molecules &amp; Chemical Bonding</h1>
+  <p>Valence electrons, ionic bonds, covalent bonds, Lewis dot diagrams, chemical formulas, and polarity — connected to the real world.</p>
+  <div class="atom-row">
+    <div class="atom-badge" style="background:rgba(255,112,67,.2);color:#ff7043;border:2px solid rgba(255,112,67,.4)">Na</div>
+    <div class="atom-badge" style="background:rgba(66,165,245,.2);color:#42a5f5;border:2px solid rgba(66,165,245,.4)">Cl</div>
+    <div class="atom-badge" style="background:rgba(105,240,174,.2);color:#69f0ae;border:2px solid rgba(105,240,174,.4)">O</div>
+    <div class="atom-badge" style="background:rgba(206,147,216,.2);color:#ce93d8;border:2px solid rgba(206,147,216,.4)">N</div>
+    <div class="atom-badge" style="background:rgba(255,213,79,.2);color:#ffd54f;border:2px solid rgba(255,213,79,.4)">C</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ NAV ══════════════════════════ -->
+<nav class="nav">
+  <a href="#valence">Valence Electrons</a>
+  <a href="#octet">Octet Rule</a>
+  <a href="#electron-config">Electron Config</a>
+  <a href="#lewis-atoms">Lewis Dot (Atoms)</a>
+  <a href="#ionic">Ionic Bonds</a>
+  <a href="#ionic-formula">Ionic Formulas</a>
+  <a href="#polyatomic">Polyatomic Ions</a>
+  <a href="#covalent">Covalent Bonds</a>
+  <a href="#lewis-mol">Lewis Dot (Molecules)</a>
+  <a href="#polarity">Polarity</a>
+  <a href="#compare">Bond Comparison</a>
+  <a href="#check">Quick Check</a>
+</nav>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════ 1. VALENCE ELECTRONS ══════════════════════════ -->
+<div class="section-header" id="valence">
+  <div class="section-icon" style="background:rgba(79,195,247,.15)">⚡</div>
+  <h2>Valence Electrons</h2>
+</div>
+
+<div class="card">
+  <h3>What are valence electrons?</h3>
+  <p>The <span class="term">valence electrons</span> are the electrons in an atom's outermost energy level (the highest occupied shell). They are the only electrons involved in chemical bonding — the core electrons deep inside the atom just sit there.</p>
+</div>
+
+<div class="rw-callout">
+  <span class="rw-label">⚽ Real World → Soccer</span>
+  <p>Think of an atom like a team. The core electrons are the bench — they never leave. The valence electrons are your <strong>starters</strong> — they're the ones that make plays, form connections, and determine how reactive your team (atom) is in a match (reaction).</p>
+</div>
+
+<div class="card">
+  <h3>How to find valence electrons</h3>
+  <ul>
+    <li>For <strong>main group elements</strong>, the number of valence electrons equals the <strong>group number</strong> (column) on the periodic table.</li>
+    <li>Group 1 → 1 valence electron, Group 2 → 2, Group 13 → 3, Group 14 → 4 ... Group 18 → 8</li>
+    <li>Valence electrons live in the <strong>s and p subshells</strong> of the outermost energy level.</li>
+    <li><strong>d and f subshell</strong> electrons are generally not counted as valence electrons for main group elements.</li>
+  </ul>
+</div>
+
+<div class="rw-callout">
+  <span class="rw-label">⚗️ Real World Connection</span>
+  <p>Your body runs on chemistry driven entirely by valence electrons. When your muscles contract on the pitch, <strong>calcium ions (Ca²⁺)</strong> — formed because calcium loses its 2 valence electrons — trigger the protein fibers in your muscles to slide past each other. No valence electrons, no sprint.</p>
+</div>
+
+<!-- ══════════════════════════ 2. OCTET RULE ══════════════════════════ -->
+<div class="section-header" id="octet">
+  <div class="section-icon" style="background:rgba(105,240,174,.15)">🔢</div>
+  <h2>The Octet Rule</h2>
+</div>
+
+<div class="card">
+  <h3>The rule</h3>
+  <p>Atoms of main group elements are most stable when they have <strong>8 valence electrons</strong> in their outermost shell — a full octet, like the noble gases. Atoms will gain, lose, or share electrons in order to reach this "happy eight." Two exceptions: <strong>hydrogen</strong> and <strong>helium</strong>, which are full with just 2.</p>
+</div>
+
+<div class="card">
+  <h3>Inert elements: already happy</h3>
+  <p>When an element <em>already</em> has 8 valence electrons (the noble gases: He, Ne, Ar, Kr ...), it is <span class="term">inert</span> — it doesn't need to react. Noble gases are the chemistry equivalent of an athlete who already has everything they need — they're not trading or sharing anything with anyone.</p>
+</div>
+
+<div class="card">
+  <h3>Strategies atoms use to reach 8</h3>
+  <ul>
+    <li><strong>Lose electrons</strong> (usually metals) → become a positively charged cation (+)</li>
+    <li><strong>Gain electrons</strong> (usually nonmetals) → become a negatively charged anion (−)</li>
+    <li><strong>Share electrons</strong> (usually nonmetal + nonmetal) → covalent bond</li>
+  </ul>
+</div>
+
+<!-- ══════════════════════════ 3. ELECTRON CONFIG (REVIEW) ══════════════════════════ -->
+<div class="section-header" id="electron-config">
+  <div class="section-icon" style="background:rgba(255,213,79,.15)">🔁</div>
+  <h2>Electron Configuration</h2>
+  <span class="review-pill">Review</span>
+</div>
+
+<div class="card">
+  <h3>Quick review — subshells and notation</h3>
+  <ul>
+    <li>Electrons fill subshells in order: <strong>1s → 2s → 2p → 3s → 3p → 4s → 3d ...</strong></li>
+    <li>s holds max 2 electrons, p holds max 6, d holds max 10</li>
+    <li>Write the energy level, then the subshell letter, then a superscript with the number of electrons.</li>
+  </ul>
+  <span class="example" style="margin-top:14px">Chlorine (Cl, 17e⁻): 1s²2s²2p⁶3s²3p⁵</span>
+</div>
+
+<div class="card">
+  <h3>Noble gas notation (shorthand)</h3>
+  <p>Because full electron configurations get long, chemists use the previous noble gas in brackets as a shortcut, then write only the remaining outer electrons.</p>
+  <span class="example" style="margin-top:12px">Cl full: 1s²2s²2p⁶3s²3p⁵ → Cl shorthand: [Ne] 3s²3p⁵</span>
+  <p style="margin-top:12px;">This is useful because <strong>the electrons after the bracket are the valence electrons</strong> — the ones that do the bonding.</p>
+</div>
+
+<div class="rw-callout">
+  <span class="rw-label">⚽ Connection to Soccer</span>
+  <p>Noble gas notation is like a scouting report shorthand. Instead of listing every game a player has ever played, you just write "[National Team level]" and then describe what's new and relevant. The bracket captures everything that's already established.</p>
+</div>
+
+<!-- ══════════════════════════ 4. LEWIS DOT — ATOMS ══════════════════════════ -->
+<div class="section-header" id="lewis-atoms">
+  <div class="section-icon" style="background:rgba(206,147,216,.15)">🔵</div>
+  <h2>Lewis Dot Notation — Single Atoms</h2>
+</div>
+
+<div class="card">
+  <h3>What it is</h3>
+  <p><span class="term">Lewis dot notation</span> is a quick visual way to show how many valence electrons an atom has. You write the element symbol, then place dots around it — one for each valence electron. The arrangement of dots tells you exactly how that atom will bond.</p>
+</div>
+
+<div class="scaffold">
+  <div class="scaffold-header">
+    <span>📋 HOW TO DRAW A LEWIS DOT DIAGRAM — Atoms</span>
+  </div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h4>Find the valence electrons</h4>
+      <p>Use the periodic table group number for main group elements. That number = the number of dots you'll place.</p>
+      <span class="example">Carbon (Group 14) → 4 valence electrons → 4 dots</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h4>Write the element symbol</h4>
+      <p>Put the chemical symbol in the center. This represents the nucleus plus all core electrons.</p>
+      <span class="example">Write: C</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h4>Place dots clockwise, one at a time first</h4>
+      <p>Start at the top. Go clockwise: top → right → bottom → left. Place <strong>one dot per side</strong> before you pair any up. Only pair dots (put 2 on a side) once every side has at least one.</p>
+      <span class="example">Li (1 dot): one dot on top · Be (2 dots): top + right · B (3 dots): top, right, bottom ...</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <h4>Continue placing / pairing until all dots are placed</h4>
+      <p>Dots 5–8 pair up with the existing single dots. A paired dot on a side = a lone pair. An unpaired dot = an open bonding site.</p>
+      <span class="example">Oxygen (6 dots): top-pair, right-pair, one bottom, one left → 2 unpaired = forms 2 bonds</span>
+    </div>
+  </div>
+</div>
+
+<!-- Static Lewis demo — uses new .ldot system, no clip issues -->
+<div class="lewis-demo">
+
+  <!-- Li: 1 dot — top only -->
+  <div class="lewis-atom">
+    <div class="el-wrap">
+      <span class="el-sym">Li</span>
+      <div class="ldot top"></div>
+    </div>
+    <span class="label">Lithium · 1 dot</span>
+  </div>
+
+  <!-- C: 4 dots — one per side -->
+  <div class="lewis-atom">
+    <div class="el-wrap">
+      <span class="el-sym">C</span>
+      <div class="ldot top"></div>
+      <div class="ldot right"></div>
+      <div class="ldot bottom"></div>
+      <div class="ldot left"></div>
+    </div>
+    <span class="label">Carbon · 4 dots</span>
+  </div>
+
+  <!-- O: 6 dots — top-pair, right-pair, bottom single, left single -->
+  <div class="lewis-atom">
+    <div class="el-wrap">
+      <span class="el-sym">O</span>
+      <div class="ldot top-a"></div>
+      <div class="ldot top-b"></div>
+      <div class="ldot right-a"></div>
+      <div class="ldot right-b"></div>
+      <div class="ldot bottom"></div>
+      <div class="ldot left"></div>
+    </div>
+    <span class="label">Oxygen · 6 dots</span>
+  </div>
+
+  <!-- Ne: 8 dots — all pairs -->
+  <div class="lewis-atom">
+    <div class="el-wrap">
+      <span class="el-sym" style="font-size:1.5rem">Ne</span>
+      <div class="ldot top-a"></div>
+      <div class="ldot top-b"></div>
+      <div class="ldot right-a"></div>
+      <div class="ldot right-b"></div>
+      <div class="ldot bottom-a"></div>
+      <div class="ldot bottom-b"></div>
+      <div class="ldot left-a"></div>
+      <div class="ldot left-b"></div>
+    </div>
+    <span class="label">Neon · 8 dots · full!</span>
+  </div>
+
+</div>
+
+<!-- Interactive Lewis Builder -->
+<div class="lewis-builder">
+  <h4>🔬 Interactive: Build a Lewis Dot Diagram</h4>
+  <div class="lb-controls">
+    <select class="lb-select" id="lb-element">
+      <option value="H">Hydrogen (H) — 1 valence e⁻</option>
+      <option value="Li">Lithium (Li) — 1 valence e⁻</option>
+      <option value="Be">Beryllium (Be) — 2 valence e⁻</option>
+      <option value="B">Boron (B) — 3 valence e⁻</option>
+      <option value="C">Carbon (C) — 4 valence e⁻</option>
+      <option value="N">Nitrogen (N) — 5 valence e⁻</option>
+      <option value="O" selected>Oxygen (O) — 6 valence e⁻</option>
+      <option value="F">Fluorine (F) — 7 valence e⁻</option>
+      <option value="Ne">Neon (Ne) — 8 valence e⁻ (full!)</option>
+      <option value="Na">Sodium (Na) — 1 valence e⁻</option>
+      <option value="Mg">Magnesium (Mg) — 2 valence e⁻</option>
+      <option value="Al">Aluminum (Al) — 3 valence e⁻</option>
+      <option value="Si">Silicon (Si) — 4 valence e⁻</option>
+      <option value="P">Phosphorus (P) — 5 valence e⁻</option>
+      <option value="S">Sulfur (S) — 6 valence e⁻</option>
+      <option value="Cl">Chlorine (Cl) — 7 valence e⁻</option>
+    </select>
+    <button class="lb-btn" onclick="buildLewis()">Draw It</button>
+  </div>
+  <div class="lb-display" id="lb-display">
+    <div class="lb-result" id="lb-result">
+      <div style="color:var(--muted); font-size:14px;">Select an element and click Draw It</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ 5. IONIC BONDS ══════════════════════════ -->
+<div class="section-header" id="ionic">
+  <div class="section-icon" style="background:rgba(255,112,67,.15)">➕➖</div>
+  <h2>Ionic Bonds</h2>
+</div>
+
+<div class="card">
+  <h3>The core idea</h3>
+  <p>An <span class="term term-ionic">ionic bond</span> forms when one atom <strong>transfers</strong> one or more electrons to another atom. The atom that loses electrons becomes a positively charged <strong>cation (+)</strong>. The atom that gains electrons becomes a negatively charged <strong>anion (−)</strong>. Opposite charges attract — that's the bond.</p>
+  <ul style="margin-top:12px">
+    <li><strong>Metals</strong> tend to lose electrons → form cations</li>
+    <li><strong>Nonmetals</strong> tend to gain electrons → form anions</li>
+    <li>General rule: <strong>metal + nonmetal → ionic bond</strong></li>
+  </ul>
+</div>
+
+<div class="rw-callout">
+  <span class="rw-label">⚽ Real World → Sports Science</span>
+  <p>When you sweat on the pitch, you lose <strong>electrolytes</strong> — sodium (Na⁺), potassium (K⁺), chloride (Cl⁻), magnesium (Mg²⁺). These are all ions held together in your sports drink by ionic bonds. That's why the drink tastes salty. Those ions are critical for nerve signals and muscle contractions. No ionic chemistry = no sprint, no shot, no tackle.</p>
+</div>
+
+<div class="rw-callout">
+  <span class="rw-label">⚗️ Ionic Bonds in Daily Life</span>
+  <p><strong>Table salt (NaCl)</strong> is the classic ionic compound. <strong>Calcium carbonate (CaCO₃)</strong> in antacids and chalk. <strong>Iron oxide (Fe₂O₃)</strong> — rust. <strong>Sodium fluoride (NaF)</strong> — toothpaste. Ionic compounds are everywhere because metals and nonmetals are extremely common partners.</p>
+</div>
+
+<!-- Ionic bond animation — fully rebuilt -->
+<div class="ionic-anim-wrap">
+  <div class="ionic-anim" id="ionic-anim">
+    <div style="text-align:center; position:relative;">
+      <div class="ion-atom" id="na-atom" style="background:rgba(255,112,67,.3);border:2px solid var(--ionic);">
+        Na
+        <span class="ion-label" id="na-label">1 valence e⁻</span>
+      </div>
+    </div>
+    <div class="ion-arrow" id="transfer-arrow">→</div>
+    <div style="text-align:center; position:relative;">
+      <div class="ion-atom" id="cl-atom" style="background:rgba(66,165,245,.3);border:2px solid var(--covalent);">
+        Cl
+        <span class="ion-label" id="cl-label">7 valence e⁻</span>
+      </div>
+    </div>
+    <div class="result-arrow" id="result-arrow">→</div>
+    <div class="ion-result" id="nacl-result">
+      <div class="ion-result-formula">Na⁺ &nbsp;+&nbsp; Cl⁻</div>
+      <div class="ion-result-name">NaCl</div>
+      <div class="ion-result-label">Table Salt</div>
+    </div>
+  </div>
+  <button id="ionic-anim-btn" onclick="playIonicAnim()">▶ Animate the Electron Transfer</button>
+</div>
+
+<div class="card">
+  <h3>Ions: a quick reference</h3>
+  <table class="compare-table">
+    <tr>
+      <th>Type</th>
+      <th>What happened?</th>
+      <th>Charge</th>
+      <th>Example</th>
+    </tr>
+    <tr>
+      <td>Cation (+)</td>
+      <td class="ionic-cell">Lost electrons → fewer e⁻ than protons</td>
+      <td>Positive</td>
+      <td class="chem">Na⁺, Ca²⁺, Al³⁺</td>
+    </tr>
+    <tr>
+      <td>Neutral Atom</td>
+      <td>Protons = electrons</td>
+      <td>Zero</td>
+      <td class="chem">Na, Ca, Al</td>
+    </tr>
+    <tr>
+      <td>Anion (−)</td>
+      <td class="cov-cell">Gained electrons → more e⁻ than protons</td>
+      <td>Negative</td>
+      <td class="chem">Cl⁻, O²⁻, N³⁻</td>
+    </tr>
+  </table>
+</div>
+
+<div class="card">
+  <h3>Electronegativity &amp; Ionization Energy</h3>
+  <ul>
+    <li><span class="term">Electronegativity</span>: how strongly an atom pulls electrons toward itself. High difference between atoms (≥ 1.7) → one atom wins the electron completely → ionic bond.</li>
+    <li><span class="term">Ionization energy</span>: how much energy it takes to remove an electron. Metals have low ionization energy (easy to remove) — that's why they give up electrons readily.</li>
+  </ul>
+</div>
+
+<!-- ══════════════════════════ 6. IONIC FORMULAS ══════════════════════════ -->
+<div class="section-header" id="ionic-formula">
+  <div class="section-icon" style="background:rgba(255,213,79,.15)">🧮</div>
+  <h2>Writing Ionic Formulas (Formula Units)</h2>
+</div>
+
+<div class="card">
+  <h3>What is a formula unit?</h3>
+  <p>A <span class="term">formula unit</span> is the simplest whole-number ratio of ions in an ionic compound. The goal: the net charge must equal <strong>zero</strong>.</p>
+</div>
+
+<div class="scaffold">
+  <div class="scaffold-header">
+    <span>📋 HOW TO WRITE AN IONIC FORMULA — 5 Steps</span>
+  </div>
+  <div class="step">
+    <div class="step-num gold">1</div>
+    <div class="step-content">
+      <h4>Identify the charge of each ion</h4>
+      <p>Use the periodic table group to determine how many electrons will be lost or gained. Metals lose electrons (positive charge), nonmetals gain electrons (negative charge).</p>
+      <span class="example">Ca is in Group 2 → loses 2e⁻ → Ca²⁺ &nbsp;|&nbsp; Br is in Group 17 → gains 1e⁻ → Br⁻</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num gold">2</div>
+    <div class="step-content">
+      <h4>Write cation first, then anion</h4>
+      <p>Cation (metal, +) always comes first. Anion (nonmetal, −) goes second.</p>
+      <span class="example">Ca²⁺ and Br⁻ → write as Ca²⁺ Br⁻</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num gold">3</div>
+    <div class="step-content">
+      <h4>"Cross the charges" — determine the ratio</h4>
+      <p>The number part of each ion's charge becomes the subscript of the other ion. This ensures the charges balance to zero.</p>
+      <span class="example">Ca²⁺ and Br⁻ → the 2 goes to Br, the 1 (silent) goes to Ca → CaBr₂</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num gold">4</div>
+    <div class="step-content">
+      <h4>Reduce to lowest whole-number ratio</h4>
+      <p>If both subscripts share a common factor, reduce them. This keeps the formula as simple as possible.</p>
+      <span class="example">Ba₂S₂ → both divisible by 2 → simplifies to BaS</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num gold">5</div>
+    <div class="step-content">
+      <h4>Check: net charge = zero</h4>
+      <p>Multiply each ion's charge by its subscript. Add them together — they must cancel to zero.</p>
+      <span class="example">Al₂O₃: Al = 3+ × 2 = 6+, O = 2− × 3 = 6− → 6+ + 6− = 0 ✓</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ 7. POLYATOMIC IONS ══════════════════════════ -->
+<div class="section-header" id="polyatomic">
+  <div class="section-icon" style="background:rgba(206,147,216,.15)">🔗</div>
+  <h2>Polyatomic Ions</h2>
+</div>
+
+<div class="card">
+  <h3>What are they?</h3>
+  <p>A <span class="term" style="color:var(--purple);border-color:rgba(206,147,216,.4)">polyatomic ion</span> is a group of atoms covalently bonded together that has an overall positive or negative charge — meaning it acts as a single ion. They can bond with single ions or other polyatomic ions to form ionic compounds.</p>
+</div>
+
+<div class="card">
+  <h3>Common polyatomic ions you need to know</h3>
+  <table class="poly-table">
+    <tr><th>Formula</th><th>Name</th><th>Real World</th></tr>
+    <tr><td>NH₄⁺</td><td>Ammonium</td><td>Fertilizers, smelling salts</td></tr>
+    <tr><td>CO₃²⁻</td><td>Carbonate</td><td>Limestone, chalk, coral reefs</td></tr>
+    <tr><td>HCO₃⁻</td><td>Bicarbonate</td><td>Baking soda, blood pH buffer</td></tr>
+    <tr><td>NO₂⁻</td><td>Nitrite</td><td>Food preservative in cured meats</td></tr>
+    <tr><td>NO₃⁻</td><td>Nitrate</td><td>Fertilizers, gunpowder</td></tr>
+    <tr><td>OH⁻</td><td>Hydroxide</td><td>Bases, cleaning products</td></tr>
+  </table>
+</div>
+
+<div class="rw-callout">
+  <span class="rw-label">⚽ Real World → Sports Nutrition</span>
+  <p>Your sports drink contains <strong>sodium bicarbonate (NaHCO₃)</strong> — literally baking soda — because HCO₃⁻ is a pH buffer. During intense exercise, lactic acid builds up in your muscles and causes that burning feeling. The bicarbonate ion neutralizes excess acid and extends your performance. Elite athletes have been known to take sodium bicarbonate before competition. That's a polyatomic ion working for you.</p>
+</div>
+
+<div class="card">
+  <h3>Parentheses in formulas — why?</h3>
+  <p>When a formula needs <strong>more than one</strong> polyatomic ion, put the ion in parentheses and add the subscript outside. The subscript outside multiplies <em>everything</em> inside the parentheses.</p>
+  <span class="example">Al₂(CO₃)₃ → Aluminum: 2 atoms, Carbon: 1×3 = 3, Oxygen: 3×3 = 9 total atoms</span>
+</div>
+
+<!-- ══════════════════════════ 8. COVALENT BONDS ══════════════════════════ -->
+<div class="section-header" id="covalent">
+  <div class="section-icon" style="background:rgba(66,165,245,.15)">🤝</div>
+  <h2>Covalent Bonds</h2>
+</div>
+
+<div class="card">
+  <h3>The core idea</h3>
+  <p>A <span class="term term-cov">covalent bond</span> forms when two atoms <strong>share</strong> electrons — neither one takes them completely. Both atoms' valence shells overlap, and the shared electrons "belong" to both. This typically happens between <strong>two nonmetals</strong>.</p>
+</div>
+
+<div class="rw-callout">
+  <span class="rw-label">⚗️ Covalent Bonds Are Everywhere</span>
+  <p><strong>Water (H₂O)</strong>: the molecule your body is 60% made of. <strong>Carbon dioxide (CO₂)</strong>: the greenhouse gas reshaping the planet's climate. <strong>Glucose (C₆H₁₂O₆)</strong>: the sugar your muscles burn for energy during a match. <strong>DNA</strong>: the covalently bonded molecule that carries your genetic code. Covalent bonds are the backbone of all living things and most of organic chemistry.</p>
+</div>
+
+<div class="card">
+  <h3>Single, Double, and Triple Bonds</h3>
+  <p>Atoms can share more than one pair of electrons. The more electrons shared, the stronger and shorter the bond.</p>
+  <div class="bond-visual">
+    <div class="bond-type">
+      <div class="bt-label">SINGLE BOND</div>
+      <div class="bt-formula" style="color:var(--accent)">H−H</div>
+      <div class="bt-name">1 shared pair (2e⁻)</div>
+      <div class="bt-name">Found in H₂</div>
+    </div>
+    <div class="bond-type">
+      <div class="bt-label">DOUBLE BOND</div>
+      <div class="bt-formula" style="color:var(--gold)">O═O</div>
+      <div class="bt-name">2 shared pairs (4e⁻)</div>
+      <div class="bt-name">Found in O₂</div>
+    </div>
+    <div class="bond-type">
+      <div class="bt-label">TRIPLE BOND</div>
+      <div class="bt-formula" style="color:var(--green)">N≡N</div>
+      <div class="bt-name">3 shared pairs (6e⁻)</div>
+      <div class="bt-name">Found in N₂</div>
+    </div>
+  </div>
+  <p style="font-size:14px; margin-top:16px; color:var(--muted)"><strong style="color:var(--text)">More bonds = stronger AND shorter.</strong> A triple bond is harder to break than a single bond. That's why N₂ (the air you breathe — 78% of it) is so stable and unreactive.</p>
+</div>
+
+<div class="rw-callout">
+  <span class="rw-label">⚽ Real World → ATP and Muscle Energy</span>
+  <p>Your muscles use <strong>ATP</strong> (adenosine triphosphate) for instant energy. The "tri" means three phosphate groups connected by high-energy covalent bonds. When those bonds break during intense bursts — a sprint, a shot — energy is released immediately. The bonds in some biological molecules literally store energy like a compressed spring.</p>
+</div>
+
+<!-- ══════════════════════════ 9. LEWIS DOT — MOLECULES ══════════════════════════ -->
+<div class="section-header" id="lewis-mol">
+  <div class="section-icon" style="background:rgba(79,195,247,.15)">🧬</div>
+  <h2>Lewis Dot Structures — Covalent Molecules</h2>
+</div>
+
+<div class="card">
+  <h3>The concept</h3>
+  <p>Just as we drew Lewis dots for single atoms, we can draw them for molecules. In a molecular Lewis structure, a <strong>line between two atoms = one shared pair (one covalent bond)</strong>. Dots still around the symbols = lone pairs (nonbonded electrons).</p>
+</div>
+
+<div class="scaffold">
+  <div class="scaffold-header">
+    <span>📋 HOW TO DRAW A LEWIS STRUCTURE — Covalent Molecules</span>
+  </div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h4>Count total valence electrons from all atoms</h4>
+      <p>Add up the valence electrons from every atom in the molecule. This is your electron budget — you must use all of them.</p>
+      <span class="example">H₂O: O has 6, each H has 1 → 6 + 1 + 1 = 8 total valence electrons</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h4>Identify and place the central atom</h4>
+      <p>The central atom is the least electronegative one (farthest from the top-right corner of the periodic table). Exception: hydrogen is never the central atom — it only bonds once.</p>
+      <span class="example">In H₂O → O is the central atom (H can't be central)</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h4>Connect atoms with single bonds first</h4>
+      <p>Draw single lines (one bond = 2e⁻) from the central atom to each outer atom. Each line uses 2 electrons from your budget.</p>
+      <span class="example">O−H and O−H uses 4 electrons. 8 − 4 = 4 electrons remaining.</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <h4>Distribute remaining electrons as lone pairs</h4>
+      <p>Fill outer atoms' octets first (H just needs 2), then place remaining electrons on the central atom.</p>
+      <span class="example">O has 4 remaining electrons → place as 2 lone pairs on oxygen</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-content">
+      <h4>Check octets — upgrade to double/triple bonds if needed</h4>
+      <p>If the central atom doesn't have a full octet, convert lone pairs from adjacent atoms into additional bonds. Every electron must be accounted for.</p>
+      <span class="example">H₂O check: O has 2 bonds + 2 lone pairs = 8 electrons ✓ &nbsp; Each H has 2 electrons ✓</span>
+    </div>
+  </div>
+</div>
+
+<div class="rw-callout">
+  <span class="rw-label">⚗️ Real World — Why Water is Weird (and Why We're Alive)</span>
+  <p>The Lewis structure of water (H₂O) shows O with 2 lone pairs and 2 bonds to H. Those lone pairs push the molecule into a <strong>bent shape</strong>, which creates polarity — one side slightly negative, one slightly positive. That polarity is why water has surface tension, why it dissolves salt and sugar, why it's a liquid at room temperature. The bent molecular shape, dictated by the Lewis structure, is basically the reason life on Earth exists.</p>
+</div>
+
+<!-- ══════════════════════════ 10. POLARITY ══════════════════════════ -->
+<div class="section-header" id="polarity">
+  <div class="section-icon" style="background:rgba(206,147,216,.15)">🧲</div>
+  <h2>Polarity</h2>
+</div>
+
+<div class="card">
+  <h3>What makes a molecule polar?</h3>
+  <p>When two atoms in a covalent bond have different electronegativities, they don't share electrons equally — the electrons spend more time near the more electronegative atom. This creates a <strong>partial negative charge (δ−)</strong> on one end and a <strong>partial positive charge (δ+)</strong> on the other.</p>
+</div>
+
+<div class="polarity-grid">
+  <div class="polarity-card nonpolar">
+    <h4>Nonpolar Covalent Bond</h4>
+    <p>Electrons shared equally. Same element bonded (like C−C, O₂, N₂), or very similar electronegativity (difference &lt; 0.5). No partial charges. Molecule is electrically symmetric.</p>
+    <span class="mono" style="color:var(--green)">C−C &nbsp;·&nbsp; H−H &nbsp;·&nbsp; O═O</span>
+  </div>
+  <div class="polarity-card polar">
+    <h4>Polar Covalent Bond</h4>
+    <p>Electrons shared unequally. Difference in electronegativity 0.5–1.7. The more electronegative atom gets δ−. Creates a dipole — a molecular magnet of sorts.</p>
+    <span class="mono" style="color:var(--purple)">H−O &nbsp;·&nbsp; H−N &nbsp;·&nbsp; H−F</span>
+  </div>
+</div>
+
+<div class="rw-callout">
+  <span class="rw-label">⚗️ Real World — Polarity and Dissolving</span>
+  <p>"Like dissolves like." Polar solvents (like water) dissolve polar and ionic solutes (salt, sugar, sports drink electrolytes). Nonpolar solvents (like oil) dissolve nonpolar substances. That's why oil and water don't mix. When you're mixing a protein shake, the protein powder dissolves in water because <strong>proteins are polar molecules</strong>.</p>
+</div>
+
+<!-- ══════════════════════════ 11. BOND COMPARISON ══════════════════════════ -->
+<div class="section-header" id="compare">
+  <div class="section-icon" style="background:rgba(105,240,174,.15)">⚖️</div>
+  <h2>Ionic vs. Covalent — The Comparison</h2>
+</div>
+
+<div class="bond-grid">
+  <div class="bond-card ionic">
+    <h3>⚡ Ionic Bonds</h3>
+    <ul>
+      <li>Electrons are <strong>transferred</strong></li>
+      <li>Metal + Nonmetal</li>
+      <li>Forms ions (+ and −)</li>
+      <li>High melting/boiling points</li>
+      <li>Brittle solid at room temp</li>
+      <li>Dissolves in water (conducts electricity when dissolved)</li>
+      <li>Examples: NaCl, CaCO₃, MgO</li>
+    </ul>
+  </div>
+  <div class="bond-card covalent">
+    <h3>🤝 Covalent Bonds</h3>
+    <ul>
+      <li>Electrons are <strong>shared</strong></li>
+      <li>Nonmetal + Nonmetal</li>
+      <li>Forms molecules (neutral)</li>
+      <li>Lower melting/boiling points</li>
+      <li>Can be gas, liquid, or soft solid</li>
+      <li>Dissolving varies (may or may not)</li>
+      <li>Examples: H₂O, CO₂, C₆H₁₂O₆</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Comparison Table</h3>
+  <table class="compare-table">
+    <tr>
+      <th>Property</th>
+      <th style="color:var(--ionic)">Ionic</th>
+      <th style="color:var(--covalent)">Covalent</th>
+    </tr>
+    <tr><td>Bonding</td><td class="ionic-cell">Transfer of electrons</td><td class="cov-cell">Sharing of electrons</td></tr>
+    <tr><td>Between</td><td class="ionic-cell">Metals + Nonmetals</td><td class="cov-cell">Nonmetals + Nonmetals</td></tr>
+    <tr><td>Dissolves in water?</td><td class="ionic-cell">Yes</td><td class="cov-cell">Varies</td></tr>
+    <tr><td>Physical state at room temp</td><td class="ionic-cell">Brittle solid</td><td class="cov-cell">Gas, liquid, or soft solid</td></tr>
+    <tr><td>Melting/Boiling points</td><td class="ionic-cell">High</td><td class="cov-cell">Lower</td></tr>
+  </table>
+</div>
+
+<!-- Concept connections -->
+<div class="connections">
+  <h3>🔗 How Everything Connects</h3>
+  <div class="conn-item">
+    <div class="conn-emoji">1️⃣</div>
+    <div class="conn-text"><strong>Electron configuration</strong> tells you how electrons are arranged → reveals the <strong>valence electrons</strong> in the outermost shell.</div>
+  </div>
+  <div class="conn-item">
+    <div class="conn-emoji">2️⃣</div>
+    <div class="conn-text"><strong>Valence electrons</strong> + the <strong>octet rule</strong> explain why atoms bond at all — they're trying to reach 8.</div>
+  </div>
+  <div class="conn-item">
+    <div class="conn-emoji">3️⃣</div>
+    <div class="conn-text"><strong>Lewis dot diagrams</strong> visualize valence electrons, which predicts bonding behavior and the type of bond.</div>
+  </div>
+  <div class="conn-item">
+    <div class="conn-emoji">4️⃣</div>
+    <div class="conn-text"><strong>Electronegativity difference</strong> determines bond type: large difference → ionic (transfer), moderate → polar covalent, small → nonpolar covalent.</div>
+  </div>
+  <div class="conn-item">
+    <div class="conn-emoji">5️⃣</div>
+    <div class="conn-text"><strong>Polarity</strong> of a molecule affects its physical properties — solubility, boiling point, biological behavior. The shape (from Lewis structures) determines polarity.</div>
+  </div>
+  <div class="conn-item">
+    <div class="conn-emoji">⚽</div>
+    <div class="conn-text"><strong>All of this chemistry operates inside your body right now:</strong> ionic bonds in your electrolytes, covalent bonds in your glucose and DNA, polar water carrying everything through your bloodstream, polyatomic bicarbonate buffering your blood pH during a 90-minute match.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ 12. QUICK CHECK ══════════════════════════ -->
+<div class="section-header" id="check">
+  <div class="section-icon" style="background:rgba(105,240,174,.15)">✅</div>
+  <h2>Quick Check — Click to Reveal</h2>
+</div>
+
+<div class="quiz-block">
+  <div class="qb-header">// TAP A QUESTION TO SEE THE ANSWER</div>
+
+  <div class="quiz-q" onclick="toggleQuiz(this)">
+    <div class="quiz-q-row">
+      <div class="q-toggle">+</div>
+      <div class="q-text">How many valence electrons does nitrogen (N, Group 15) have, and what does its Lewis dot diagram look like?</div>
+    </div>
+    <div class="q-answer">Nitrogen has <strong>5 valence electrons</strong>. The Lewis dot has: 1 lone pair (top), and 3 single dots (right, bottom, left). It needs 3 more electrons to reach 8 → it forms 3 bonds.</div>
+  </div>
+
+  <div class="quiz-q" onclick="toggleQuiz(this)">
+    <div class="quiz-q-row">
+      <div class="q-toggle">+</div>
+      <div class="q-text">When calcium (Ca²⁺) bonds with chlorine (Cl⁻), what is the ionic formula? Show your work.</div>
+    </div>
+    <div class="q-answer">Ca is 2+, Cl is 1−. Cross the charges: the 2 becomes Cl's subscript, the 1 (silent) becomes Ca's subscript → <strong>CaCl₂</strong>. Check: 2+ + (2 × 1−) = 0 ✓</div>
+  </div>
+
+  <div class="quiz-q" onclick="toggleQuiz(this)">
+    <div class="quiz-q-row">
+      <div class="q-toggle">+</div>
+      <div class="q-text">What type of bond does CO₂ have, and why? Is it polar or nonpolar?</div>
+    </div>
+    <div class="q-answer"><strong>Covalent bonds</strong> (nonmetal + nonmetal). Carbon forms 2 double bonds with oxygen (C═O). Each C═O bond IS polar (O is more electronegative), but the molecule is <strong>linear</strong>, so the dipoles cancel → CO₂ is a <strong>nonpolar molecule</strong> overall, even though it has polar bonds.</div>
+  </div>
+
+  <div class="quiz-q" onclick="toggleQuiz(this)">
+    <div class="quiz-q-row">
+      <div class="q-toggle">+</div>
+      <div class="q-text">What is the difference between a polar covalent bond and an ionic bond in terms of electron behavior?</div>
+    </div>
+    <div class="q-answer">In a <strong>polar covalent bond</strong>, electrons are shared unequally — the more electronegative atom pulls them closer (partial charges, δ+ and δ−). In an <strong>ionic bond</strong>, the difference is so large that one atom takes the electron(s) completely, forming full ions (Na⁺, Cl⁻). Ionic bond = complete transfer. Polar covalent = unequal sharing.</div>
+  </div>
+
+  <div class="quiz-q" onclick="toggleQuiz(this)">
+    <div class="quiz-q-row">
+      <div class="q-toggle">+</div>
+      <div class="q-text">What is a polyatomic ion? Give one real-world example and explain its role.</div>
+    </div>
+    <div class="q-answer">A group of covalently bonded atoms that together carry an overall charge. Example: <strong>HCO₃⁻ (bicarbonate)</strong> — present in your blood as a pH buffer. During intense exercise, your muscles produce lactic acid. Bicarbonate neutralizes the excess H⁺ ions, preventing dangerous acidification of your blood.</div>
+  </div>
+
+  <div class="quiz-q" onclick="toggleQuiz(this)">
+    <div class="quiz-q-row">
+      <div class="q-toggle">+</div>
+      <div class="q-text">⚽ BONUS: Name THREE compounds from the world of elite soccer and identify what type of bond holds them together.</div>
+    </div>
+    <div class="q-answer">1. <strong>NaCl / KCl</strong> (electrolytes in sweat/sports drinks) — ionic bonds. 2. <strong>C₆H₁₂O₆</strong> glucose (muscle energy) — covalent bonds. 3. <strong>O₂</strong> (oxygen you breathe during the match) — nonpolar covalent double bond. Bonus: <strong>Lactic acid</strong> (the burn after sprinting) — covalent bonds throughout.</div>
+  </div>
+
+</div>
+
+</div><!-- /wrapper -->
+
+<div class="footer">
+  <p>Molecules &amp; Chemical Bonding · Part 1 &nbsp;·&nbsp; <span>YSC Academy</span></p>
+</div>
+
+<script>
+// ── Quick Check ──
+function toggleQuiz(el) {
+  el.classList.toggle('open');
+}
+
+// ── Lewis Builder ──
+// Dot layout: sides = [top, right, bottom, left]
+// First 4 electrons: one single dot per side
+// Electrons 5-8: second dot (pair) on same side, offset
+const SIDE_SINGLE = {
+  top:    'position:absolute;width:9px;height:9px;background:COLOR;border-radius:50%;top:0;left:calc(50% - 4.5px);',
+  right:  'position:absolute;width:9px;height:9px;background:COLOR;border-radius:50%;right:0;top:calc(50% - 4.5px);',
+  bottom: 'position:absolute;width:9px;height:9px;background:COLOR;border-radius:50%;bottom:0;left:calc(50% - 4.5px);',
+  left:   'position:absolute;width:9px;height:9px;background:COLOR;border-radius:50%;left:0;top:calc(50% - 4.5px);',
+};
+const SIDE_PAIR = {
+  top:    'position:absolute;width:9px;height:9px;background:COLOR;border-radius:50%;top:0;left:calc(50% + 4px);',
+  right:  'position:absolute;width:9px;height:9px;background:COLOR;border-radius:50%;right:0;top:calc(50% + 4px);',
+  bottom: 'position:absolute;width:9px;height:9px;background:COLOR;border-radius:50%;bottom:0;left:calc(50% + 4px);',
+  left:   'position:absolute;width:9px;height:9px;background:COLOR;border-radius:50%;left:0;top:calc(50% + 4px);',
+};
+// When a pair forms, the existing single shifts to the -offset position
+const SIDE_SINGLE_SHIFTED = {
+  top:    'position:absolute;width:9px;height:9px;background:COLOR;border-radius:50%;top:0;left:calc(50% - 13px);',
+  right:  'position:absolute;width:9px;height:9px;background:COLOR;border-radius:50%;right:0;top:calc(50% - 13px);',
+  bottom: 'position:absolute;width:9px;height:9px;background:COLOR;border-radius:50%;bottom:0;left:calc(50% - 13px);',
+  left:   'position:absolute;width:9px;height:9px;background:COLOR;border-radius:50%;left:0;top:calc(50% - 13px);',
+};
+
+const VALENCE = { H:1,Li:1,Be:2,B:3,C:4,N:5,O:6,F:7,Ne:8,Na:1,Mg:2,Al:3,Si:4,P:5,S:6,Cl:7 };
+const COLORS  = { H:'#90a4ae',Li:'#ff7043',Be:'#ffa726',B:'#ffd54f',C:'#69f0ae',
+                  N:'#42a5f5',O:'#4fc3f7',F:'#ce93d8',Ne:'#b39ddb',
+                  Na:'#ff7043',Mg:'#ffa726',Al:'#ffd54f',Si:'#69f0ae',P:'#42a5f5',S:'#4fc3f7',Cl:'#ce93d8' };
+
+function buildLewis() {
+  const sel  = document.getElementById('lb-element').value;
+  const v    = VALENCE[sel];
+  const col  = COLORS[sel] || '#4fc3f7';
+  const sides = ['top','right','bottom','left'];
+
+  // Track which dots land where
+  // dots 1-4 go one per side; dots 5-8 pair with their side
+  let dotHtml = '';
+  for (let i = 0; i < v; i++) {
+    const side = sides[i % 4];
+    const isPair = i >= 4;
+    if (isPair) {
+      // Replace first dot on this side with shifted version, add second
+      dotHtml += `<div style="${SIDE_SINGLE_SHIFTED[side].replace('COLOR', col)}"></div>`;
+      dotHtml += `<div style="${SIDE_PAIR[side].replace('COLOR', col)}"></div>`;
+    } else {
+      dotHtml += `<div style="${SIDE_SINGLE[side].replace('COLOR', col)}"></div>`;
+    }
+  }
+
+  // Fix: when dots 5-8 are present, their single-dot counterparts from round 1
+  // also need to be shifted. We'll regenerate all dots cleanly:
+  dotHtml = '';
+  const sides_hasPair = [v >= 5, v >= 6, v >= 7, v >= 8];
+  for (let i = 0; i < 4; i++) {
+    if (i >= v) break; // this side has no dot at all
+    const side = sides[i];
+    if (sides_hasPair[i]) {
+      // This side has a pair: shift the single and add the pair dot
+      dotHtml += `<div style="${SIDE_SINGLE_SHIFTED[side].replace('COLOR', col)}"></div>`;
+      dotHtml += `<div style="${SIDE_PAIR[side].replace('COLOR', col)}"></div>`;
+    } else {
+      // Single dot on this side
+      dotHtml += `<div style="${SIDE_SINGLE[side].replace('COLOR', col)}"></div>`;
+    }
+  }
+
+  const bonds = v <= 4 ? v : (8 - v);
+  const bondLabel = sel === 'Ne' ? 'full octet — does not bond' :
+                    bonds === 0  ? 'does not typically bond' :
+                    `typically forms ${bonds} bond${bonds !== 1 ? 's' : ''}`;
+
+  document.getElementById('lb-result').innerHTML = `
+    <div>
+      <div class="lb-sym-wrap">
+        <span class="lb-sym-text">${sel}</span>
+        ${dotHtml}
+      </div>
+      <div class="lb-info">${v} valence electron${v !== 1 ? 's' : ''} &nbsp;·&nbsp; ${bondLabel}</div>
+    </div>
+  `;
+}
+
+// Auto-build on load
+buildLewis();
+
+// ── Ionic Bond Animation ──
+let ionicState = 'ready'; // 'ready' | 'playing' | 'done'
+
+function resetIonicAnim() {
+  const na = document.getElementById('na-atom');
+  const cl = document.getElementById('cl-atom');
+  const result = document.getElementById('nacl-result');
+  const resArrow = document.getElementById('result-arrow');
+  const btn = document.getElementById('ionic-anim-btn');
+
+  na.style.transform = 'translateX(0)';
+  na.style.background = 'rgba(255,112,67,.3)';
+  na.innerHTML = 'Na<span class="ion-label">1 valence e⁻</span>';
+
+  cl.style.background = 'rgba(66,165,245,.3)';
+  cl.innerHTML = 'Cl<span class="ion-label">7 valence e⁻</span>';
+
+  result.classList.remove('visible');
+  resArrow.classList.remove('visible');
+  btn.textContent = '▶ Animate the Electron Transfer';
+  ionicState = 'ready';
+}
+
+function playIonicAnim() {
+  if (ionicState === 'playing') return;
+  if (ionicState === 'done') { resetIonicAnim(); return; }
+
+  ionicState = 'playing';
+  document.getElementById('ionic-anim-btn').textContent = '...';
+
+  const na = document.getElementById('na-atom');
+  const cl = document.getElementById('cl-atom');
+
+  // Step 1: Na slides toward Cl
+  setTimeout(() => {
+    na.style.transform = 'translateX(28px)';
+  }, 200);
+
+  // Step 2: electron transferred — ions form
+  setTimeout(() => {
+    na.innerHTML = 'Na⁺<span class="ion-label">lost 1e⁻ → cation</span>';
+    na.style.background = 'rgba(255,112,67,.55)';
+    cl.innerHTML = 'Cl⁻<span class="ion-label">gained 1e⁻ → anion</span>';
+    cl.style.background = 'rgba(66,165,245,.55)';
+  }, 900);
+
+  // Step 3: Na slides back
+  setTimeout(() => {
+    na.style.transform = 'translateX(0)';
+  }, 1600);
+
+  // Step 4: show result arrow
+  setTimeout(() => {
+    document.getElementById('result-arrow').classList.add('visible');
+  }, 2200);
+
+  // Step 5: show NaCl result
+  setTimeout(() => {
+    document.getElementById('nacl-result').classList.add('visible');
+    document.getElementById('ionic-anim-btn').textContent = '↺ Reset';
+    ionicState = 'done';
+  }, 2600);
+}
+</script>
+</body>
+</html>
