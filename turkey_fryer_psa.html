@@ -126,11 +126,14 @@
   .slot{width:62px;height:62px;border-radius:10px;border:2px dashed var(--green-2);display:grid;place-items:center;font-family:"Fraunces",serif;font-weight:800;font-size:1.4rem}
   .plus{font-size:1.5rem;font-weight:700}
   .calc-out{text-align:center;margin:.8rem 0 .6rem;font-weight:600;min-height:3.2em}
-  .meter-bar{height:14px;border-radius:999px;position:relative;background:linear-gradient(90deg,var(--teal) 0 15%,var(--blue) 15% 52%,var(--flame) 52% 100%)}
+  .meter-bar{height:14px;border-radius:999px;position:relative;background:linear-gradient(90deg,var(--teal) 0 15.6%,var(--blue) 15.6% 53.1%,var(--flame) 53.1% 100%)}
   .meter-bar span{position:absolute;top:-5px;width:6px;height:24px;border-radius:3px;background:var(--ink);left:0;transition:left .5s;display:none}
-  .meter-lbl{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:.2rem}
-  .meter-lbl span:nth-child(2){margin-left:8%} .meter-lbl span:nth-child(3){margin-left:20%;margin-right:auto}
-  .meter-zones{display:flex;justify-content:space-between;font-size:.72rem;font-weight:600;margin-top:.2rem}
+  .meter-lbl,.meter-zones{position:relative;height:1.2em;font-size:.7rem;margin-top:.25rem}
+  .meter-lbl span,.meter-zones span{position:absolute;top:0;white-space:nowrap}
+  .meter-lbl{color:var(--muted)}
+  .meter-zones{font-weight:600;font-size:.72rem}
+  .meter-zones .cov{position:static}
+  @media (max-width:520px){.meter-zones .cov{display:none}}
   .quick{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-top:.9rem}
   .quick .btn.alt{font-size:.75rem}
   @media (prefers-color-scheme: light){.quick .btn.alt{background:var(--green-1)}}
@@ -247,8 +250,8 @@
           <div class="slots"><div class="slot" id="slotA">?</div><span class="plus">+</span><div class="slot" id="slotB">?</div></div>
           <div class="calc-out" id="calcOut">Pick two elements</div>
           <div class="meter"><div class="meter-bar"><span id="needle"></span></div>
-            <div class="meter-lbl mono"><span>0</span><span>0.5</span><span>1.7</span><span>3+</span></div>
-            <div class="meter-zones mono"><span style="color:var(--teal)">nonpolar</span><span style="color:var(--blue)">polar covalent</span><span style="color:var(--flame)">ionic</span></div></div>
+            <div class="meter-lbl mono"><span style="left:0">0</span><span style="left:15.6%;transform:translateX(-50%)">0.5</span><span style="left:53.1%;transform:translateX(-50%)">1.7</span><span style="right:0">3.2</span></div>
+            <div class="meter-zones mono"><span style="left:0;color:var(--teal)">nonpolar</span><span style="left:34.4%;transform:translateX(-50%);color:var(--blue)">polar<span class="cov"> covalent</span></span><span style="right:0;color:var(--flame)">ionic</span></div></div>
           <div class="quick">
             <button class="btn alt" data-pair="O,H">O + H (water)</button>
             <button class="btn alt" data-pair="C,H">C + H (oil)</button>
